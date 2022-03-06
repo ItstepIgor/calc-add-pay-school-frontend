@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .users {
+            display: flex;
+            width: 440px;
+            flex-wrap: wrap;
+        }
+
+        .user {
+            display: inline-block;
+            background: #cbc8c8;
+            padding-top: 20px;
+            text-align: center;
+            width: 120px;
+            height: 30px;
+            font-size: 11px;
+            margin: 5px 10px;
+        }
+
+        .divTable {
+            display: table;
+            width: 40%;
+        }
+
+        .divTableRow {
+            display: table-row;
+
+        }
+
+        .divTableCell {
+            border: 1px solid #0e0e0e;
+            display: table-cell;
+            width: 30%;
+            padding: 0px 20px;
+        }
+
+        .divTableCell2 {
+            border: 1px solid #0e0e0e;
+            display: table-cell;
+            width: 70%;
+        }
+
+        .divTableBody {
+            display: table-row-group;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="users"></div>
+
+<div class="divTable" style="border: 1px solid #000;">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell">Name:</div>
+            <div class="divTableCell2" id="name"></div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">UserName:</div>
+            <div class="divTableCell2" id="userName">&nbsp;</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Address:</div>
+            <div class="divTableCell2" id="address">&nbsp;</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Email:</div>
+            <div class="divTableCell2" id="email">&nbsp;</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Phone:</div>
+            <div class="divTableCell2" id="phone">&nbsp;</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">Website:</div>
+            <div class="divTableCell2" id="website">&nbsp;</div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script src="Task02.js"></script>
+</html>
