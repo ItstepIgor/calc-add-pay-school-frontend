@@ -3,26 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+
+        .container {
+            display: flex;
+        }
+
+        .divTable {
+            display: inline-table;
+            width: 70%;
+        }
+
+        .divTableRow, .divTableRowHead {
+            display: table-row;
+        }
+
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .divTableCell, .divTableHead {
+            border: 1px solid #999999;
+            display: table-cell;
+            padding: 3px 10px;
+        }
+
+        /*.divTableHeading {*/
+        /*    background-color: #EEE;*/
+        /*    display: table-header-group;*/
+        /*    font-weight: bold;*/
+        /*}*/
+
+        /*.divTableFoot {*/
+        /*    background-color: #EEE;*/
+        /*    display: table-footer-group;*/
+        /*    font-weight: bold;*/
+        /*}*/
+
+        .divTableBody {
+            display: table-row-group;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-<div class="divCreate">
-    <form name="createPerson" action="#" method="post">
-        <div>Сотрудники</div>
-        <input type="text" name="surName" required>
-        <div>Должности</div>
-        <input type="text" name="firstName" required>
-        <div>Зарплата</div>
-        <input type="text" name="patronymic" required>
-        <div>Адрес</div>
-        <input type="text" name="address" required>
-        <div>Номер телефона</div>
-        <input type="text" name="phoneNumber" required>
-        <div>Табельный номер</div>
-        <input type="text" name="personnelNumber">
-        <br>
-        <br>
-        <button type="submit">Сохранить</button>
-    </form>
+<div class="container">
+    <div class="divCreate">
+        <form name="createStaffList" action="#" method="post">
+            <div>ФИО</div>
+            <select class="people" id="selectPeopleId" required>
+            </select>
+            <div>Должность</div>
+            <select class="position" id="selectPositionId" required>
+            </select>
+            <div>Оклад</div>
+            <input type="text" name="salary" class="salary" required>
+            <div>Молодой специалист</div>
+            <input type="checkbox" name="youngSpecial" class="youngSpecial">
+            <div>Активен</div>
+            <input type="checkbox" name="disabled" class="disabled">
+            <br>
+            <br>
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+    <div class="divTable">
+        <div class="divTableHeading">
+            <div class="divTableRowHead">
+                <div class="divTableHead">ФИО</div>
+                <div class="divTableHead">Должность</div>
+                <div class="divTableHead">Оклад</div>
+                <div class="divTableHead">Мол. спец.</div>
+                <div class="divTableHead">Работал</div>
+                <div class="divTableHead">Изменить</div>
+                <div class="divTableHead">Удалить</div>
+            </div>
+        </div>
+        <div class="divTableBody">
+        </div>
+    </div>
 </div>
 </body>
+<script src="../js/staff_list.js"></script>
 </html>

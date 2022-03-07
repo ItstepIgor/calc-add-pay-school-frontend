@@ -1,12 +1,12 @@
 const apiUrl = "http://localhost:8080/api/people"
 let id
-const getUsers = async (url) => {
+const getPeople = async (url) => {
     let response = await fetch(url)
     return response.ok ? response.json() : undefined
 }
 
-const getPeople = async () => {
-    let users = await getUsers(`${apiUrl}/get`)
+const fillingTablePeople = async () => {
+    let users = await getPeople(`${apiUrl}/get`)
     console.log(users)
     users.forEach(user => {
         console.log(user)
@@ -40,7 +40,7 @@ const getPeople = async () => {
         }
         imgUpdate.id = user.id
         imgUpdate.onclick = async () => {
-            let person = await getUsers(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let person = await getPeople(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
             id = person.id
             document.querySelector('.surName').value = person.surName
             document.querySelector('.firstName').value = person.firstName
@@ -93,4 +93,4 @@ document.forms.createPerson.onsubmit = async (event) => {
 }
 
 
-getPeople().then()
+fillingTablePeople().then()
