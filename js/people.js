@@ -55,7 +55,7 @@ const getPeople = async () => {
         }
         imgDelete.id = user.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/delete?id=${imgUpdate.id}`)
+            let responseDelete = await fetch(`${apiUrl}/delete?id=${imgDelete.id}`)
             // location.reload()
             console.log(responseDelete)
         }
