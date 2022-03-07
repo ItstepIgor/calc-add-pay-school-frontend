@@ -52,22 +52,21 @@
     </style>
 </head>
 <body>
-<h2>привет</h2>
 <div class="container">
     <div class="divCreate">
         <form name="createPerson" action="#" method="post">
             <div>Фамилия</div>
-            <input type="text" name="surName" required>
+            <input type="text" name="surName" class="surName" required>
             <div>Имя</div>
-            <input type="text" name="firstName" required>
+            <input type="text" name="firstName" class="firstName" required>
             <div>Отчетсво</div>
-            <input type="text" name="patronymic" required>
+            <input type="text" name="patronymic" class="patronymic" required>
             <div>Адрес</div>
-            <input type="text" name="address" required>
+            <input type="text" name="address" class="address" required>
             <div>Номер телефона</div>
-            <input type="text" name="phoneNumber" required>
+            <input type="text" name="phoneNumber" class="phoneNumber" required>
             <div>Табельный номер</div>
-            <input type="text" name="personnelNumber">
+            <input type="text" name="personnelNumber" class="personnelNumber">
             <br>
             <br>
             <button type="submit">Сохранить</button>
@@ -80,15 +79,14 @@
                 <div class="divTableHead">Адрес</div>
                 <div class="divTableHead">Номер телефона</div>
                 <div class="divTableHead">Таб. номер</div>
+                <div class="divTableHead">Изменить</div>
+                <div class="divTableHead">Удалить</div>
             </div>
         </div>
         <div class="divTableBody">
         </div>
     </div>
 </div>
-
-
-
 </body>
 <script src="../js/people.js"></script>
 </html>
