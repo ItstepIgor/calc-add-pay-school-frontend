@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Настройки для расчета</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="divCreate">
+        <form name="createCalcSettings" action="#" method="post">
+            <div>Дата текущего расчета</div>
+            <input type="date" name="calcDate" class="calcDate" required>
+            <div>Рабочие дни в месяце</div>
+            <input type="number" name="workingDays" class="workingDays" required>
+            <br>
+            <br>
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+    <div class="divTable">
+        <div class="divTableHeading">
+            <div class="divTableRowHead">
+                <div class="divTableHead">Дата расчета</div>
+                <div class="divTableHead">Рабочие дни в месяце</div>
+                <div class="divTableHead">Изменить</div>
+                <div class="divTableHead">Удалить</div>
+            </div>
+        </div>
+        <div class="divTableBody">
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/calc_settings.js"></script>
+</html>
