@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="div-create">
+        <form name="createPercentSalary" action="#" method="post">
+            <div>Процент премии</div>
+            <input type="number" name="percentSalaryAll" class="percent-salary-all" required>
+            <div>Процент премии мол. спец.</div>
+            <input type="number" name="percentSalaryForYoungSpecial" class="percent-salary-for-young-special" required>
+            <div>Дата начала действия</div>
+            <input type="date" name="percentStartDate" class="percent-start-date" required>
+            <br>
+            <br>
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+    <div class="div-table">
+        <div class="div-table-heading">
+            <div class="div-table-row-head">
+                <div class="div-table-head">Процент премии</div>
+                <div class="div-table-head">Процент премии молодым специалистам</div>
+                <div class="div-table-head">Дата начала действия</div>
+                <div class="div-table-head">Изменить</div>
+                <div class="div-table-head">Удалить</div>
+            </div>
+        </div>
+        <div class="div-table-body">
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/percent_salary.js"></script>
+</html>

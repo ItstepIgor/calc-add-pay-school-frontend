@@ -84,7 +84,7 @@ document.forms.createAddPay.onsubmit = async (event) => {
         addPayCode: elements.addPayCode.value,
         addPayName: elements.addPayName.value,
         maxPercent: elements.maxPercent.value,
-        description: elements.description.value,
+        description: elements.description.value
     })
     console.log(addPay)
     const response = await fetch(`${apiUrl}/addpay/create`, {

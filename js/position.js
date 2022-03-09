@@ -56,7 +56,7 @@ document.forms.createPosition.onsubmit = async (event) => {
     let position = JSON.stringify({
         id: id,
         positionName: elements.positionName.value,
-        sorting: elements.sorting.value,
+        sorting: elements.sorting.value
     })
     // console.log(position)
     const response = await fetch(`${apiUrl}/create`, {

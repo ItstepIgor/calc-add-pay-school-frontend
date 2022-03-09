@@ -36,7 +36,7 @@ document.forms.createAddPayType.onsubmit = async (event) => {
     let elements = event.target.elements
     let addPayType = JSON.stringify({
         id: id,
-        addPayTypeName: elements.addPayTypeName.value,
+        addPayTypeName: elements.addPayTypeName.value
     })
     const response = await fetch(`${apiUrl}/create`, {
         method: "POST",

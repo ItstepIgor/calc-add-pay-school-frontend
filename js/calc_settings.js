@@ -5,10 +5,6 @@ const getCalcSettings = async (url) => {
     return response.ok ? response.json() : undefined
 }
 
-async function getMaxDate() {
-    return await getCalcSettings(`${apiUrl}/getmaxdate`).then()
-}
-
 const fillingTableCalcSettings = async () => {
     let calcSettings = await getCalcSettings(`${apiUrl}/get`)
     let maxDate = await getCalcSettings(`${apiUrl}/getmaxdate`)

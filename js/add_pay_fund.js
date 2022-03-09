@@ -79,7 +79,7 @@ document.forms.createAddPayFund.onsubmit = async (event) => {
         id: id,
         addPayTypeId: document.getElementById('selectAddPayTypeId').value,
         addPayFunds: elements.addPayFunds.value,
-        numberOrder: elements.numberOrder.value,
+        numberOrder: elements.numberOrder.value
     })
     console.log(addPayFund)
     const response = await fetch(`${apiUrl}/addpayfund/create`, {
