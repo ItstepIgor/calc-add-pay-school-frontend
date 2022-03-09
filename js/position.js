@@ -17,12 +17,12 @@ const fillingTablePosition = async () => {
         let imgUpdate = document.createElement('img')
         let divDelete = document.createElement('div')
         let imgDelete = document.createElement('img')
-        div.className = 'divTableRow'
-        divPositionName.className = 'divTableCell'
-        divSorting.className = 'divTableCell'
-        divUpdate.className = 'divTableCell'
+        div.className = 'div-table-row'
+        divPositionName.className = 'div-table-cell'
+        divSorting.className = 'div-table-cell'
+        divUpdate.className = 'div-table-cell'
         imgUpdate.src = '../images/update.png'
-        divDelete.className = 'divTableCell'
+        divDelete.className = 'div-table-cell'
         imgDelete.src = '../images/delete.png'
 
         divPositionName.innerHTML = position.positionName
@@ -31,7 +31,7 @@ const fillingTablePosition = async () => {
         imgUpdate.onclick = async () => {
             let pos = await getPosition(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
             id = pos.id
-            document.querySelector('.positionName').value = pos.positionName
+            document.querySelector('.position-name').value = pos.positionName
             document.querySelector('.sorting').value = pos.sorting
         }
         imgDelete.id = position.id
@@ -47,7 +47,7 @@ const fillingTablePosition = async () => {
         divUpdate.appendChild(imgUpdate)
         div.appendChild(divDelete)
         divDelete.appendChild(imgDelete)
-        document.querySelector('.divTableBody').appendChild(div)
+        document.querySelector('.div-table-body').appendChild(div)
     })
 }
 

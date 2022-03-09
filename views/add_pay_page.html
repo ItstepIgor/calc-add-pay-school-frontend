@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Дополнительные надбавки</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="div-create">
+        <form name="createAddPay" action="#" method="post">
+            <div>Тип надбавки</div>
+            <select class="add-pay-type" id="selectAddPayTypeId" required>
+            </select>
+            <div>Код доп. надбавки</div>
+            <input type="text" name="addPayCode" class="add-pay-code" required>
+            <div>Наименование надбавки</div>
+            <input type="text" name="addPayName" class="add-pay-name" required>
+            <div>Максимальный процент</div>
+            <input type="number" name="maxPercent" class="max-percent" required>
+            <div>Описание</div>
+            <input type="text" name="description" class="description">
+            <br>
+            <br>
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+    <div class="div-table">
+        <div class="div-table-heading">
+            <div class="div-table-row-head">
+                <div class="div-table-head">Тип надбавки</div>
+                <div class="div-table-head">Код доп. надбавки</div>
+                <div class="div-table-head">Наименование надбавки</div>
+                <div class="div-table-head">Максимальный процент</div>
+                <div class="div-table-head">Описание</div>
+                <div class="div-table-head">Изменить</div>
+                <div class="div-table-head">Удалить</div>
+            </div>
+        </div>
+        <div class="div-table-body">
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/add_pay.js"></script>
+</html>

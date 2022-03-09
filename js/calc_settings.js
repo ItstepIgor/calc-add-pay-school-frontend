@@ -12,10 +12,7 @@ async function getMaxDate() {
 const fillingTableCalcSettings = async () => {
     let calcSettings = await getCalcSettings(`${apiUrl}/get`)
     let maxDate = await getCalcSettings(`${apiUrl}/getmaxdate`)
-    console.log(maxDate)
-    // console.log(calcSettings)
     calcSettings.forEach(calcSetting => {
-        // console.log(calcSetting)
         let div = document.createElement('div')
         let divCalcDate = document.createElement('div')
         let divWorkingDays = document.createElement('div')
@@ -23,12 +20,12 @@ const fillingTableCalcSettings = async () => {
         let imgUpdate = document.createElement('img')
         let divDelete = document.createElement('div')
         let imgDelete = document.createElement('img')
-        div.className = 'divTableRow'
-        divCalcDate.className = 'divTableCell'
-        divWorkingDays.className = 'divTableCell'
-        divUpdate.className = 'divTableCell'
+        div.className = 'div-table-row'
+        divCalcDate.className = 'div-table-cell'
+        divWorkingDays.className = 'div-table-cell'
+        divUpdate.className = 'div-table-cell'
         imgUpdate.src = '../images/update.png'
-        divDelete.className = 'divTableCell'
+        divDelete.className = 'div-table-cell'
         imgDelete.src = '../images/delete.png'
 
         divCalcDate.innerHTML = calcSetting.calcDate
@@ -37,26 +34,26 @@ const fillingTableCalcSettings = async () => {
         imgUpdate.onclick = async () => {
             let calc = await getCalcSettings(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
             id = calc.id
-            document.querySelector('.calcDate').value = calc.calcDate
-            document.querySelector('.workingDays').value = calc.workingDays
+            document.querySelector('.calc-date').value = calc.calcDate
+            document.querySelector('.working-days').value = calc.workingDays
         }
         imgDelete.id = calcSetting.id
         imgDelete.onclick = async () => {
             let responseDelete = await fetch(`${apiUrl}/delete?id=${imgDelete.id}`)
-            // location.reload()
+            location.reload()
             console.log(responseDelete)
         }
         div.appendChild(divCalcDate)
         div.appendChild(divWorkingDays)
-        console.log(calcSetting.calcDate)
-        console.log(maxDate.calcDate)
+        // console.log(calcSetting.calcDate)
+        // console.log(maxDate.calcDate)
         if (maxDate.calcDate === calcSetting.calcDate) {
             divUpdate.appendChild(imgUpdate)
             divDelete.appendChild(imgDelete)
         }
         div.appendChild(divUpdate)
         div.appendChild(divDelete)
-        document.querySelector('.divTableBody').appendChild(div)
+        document.querySelector('.div-table-body').appendChild(div)
     })
 }
 
@@ -67,7 +64,6 @@ document.forms.createCalcSettings.onsubmit = async (event) => {
         calcDate: elements.calcDate.value,
         workingDays: elements.workingDays.value,
     })
-    // console.log(position)
     const response = await fetch(`${apiUrl}/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},

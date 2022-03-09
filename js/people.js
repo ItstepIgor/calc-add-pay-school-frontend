@@ -19,14 +19,14 @@ const fillingTablePeople = async () => {
         let imgUpdate = document.createElement('img')
         let divDelete = document.createElement('div')
         let imgDelete = document.createElement('img')
-        div.className = 'divTableRow'
-        divFio.className = 'divTableCell'
-        divAddress.className = 'divTableCell'
-        divPhone.className = 'divTableCell'
-        divPersonnelNumber.className = 'divTableCell'
-        divUpdate.className = 'divTableCell'
+        div.className = 'div-table-row'
+        divFio.className = 'div-table-cell'
+        divAddress.className = 'div-table-cell'
+        divPhone.className = 'div-table-cell'
+        divPersonnelNumber.className = 'div-table-cell'
+        divUpdate.className = 'div-table-cell'
         imgUpdate.src = '../images/update.png'
-        divDelete.className = 'divTableCell'
+        divDelete.className = 'div-table-cell'
         imgDelete.src = '../images/delete.png'
 
 
@@ -42,15 +42,15 @@ const fillingTablePeople = async () => {
         imgUpdate.onclick = async () => {
             let person = await getPeople(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
             id = person.id
-            document.querySelector('.surName').value = person.surName
-            document.querySelector('.firstName').value = person.firstName
+            document.querySelector('.sur-name').value = person.surName
+            document.querySelector('.first-name').value = person.firstName
             document.querySelector('.patronymic').value = person.patronymic
             document.querySelector('.address').value = person.address
-            document.querySelector('.phoneNumber').value = person.phoneNumber
+            document.querySelector('.phone-number').value = person.phoneNumber
             if (person.personnelNumber === undefined) {
-                document.querySelector('.personnelNumber').value = ''
+                document.querySelector('.personnel-number').value = ''
             } else {
-                document.querySelector('.personnelNumber').value = person.personnelNumber
+                document.querySelector('.personnel-number').value = person.personnelNumber
             }
         }
         imgDelete.id = user.id
@@ -68,7 +68,7 @@ const fillingTablePeople = async () => {
         divUpdate.appendChild(imgUpdate)
         div.appendChild(divDelete)
         divDelete.appendChild(imgDelete)
-        document.querySelector('.divTableBody').appendChild(div)
+        document.querySelector('.div-table-body').appendChild(div)
     })
 }
 

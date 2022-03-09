@@ -7,23 +7,23 @@ const getStaffList = async (url) => {
 
 const fillingSelectPosition = async () => {
     let positions = await getStaffList(`${apiUrl}/position/get`)
-    let select = document.getElementById('selectPositionId');
+    let select = document.getElementById('selectPositionId')
     positions.forEach(position => {
-        let option = document.createElement('option');
-        option.value = position.id;
-        option.innerHTML = position.positionName;
-        select.appendChild(option);
+        let option = document.createElement('option')
+        option.value = position.id
+        option.innerHTML = position.positionName
+        select.appendChild(option)
     })
 }
 
 const fillingSelectPeople = async () => {
     let people = await getStaffList(`${apiUrl}/people/get`)
-    let select = document.getElementById('selectPeopleId');
+    let select = document.getElementById('selectPeopleId')
     people.forEach(person => {
-        let option = document.createElement('option');
-        option.value = person.id;
-        option.innerHTML = person.surName + ' ' + person.firstName + ' ' + person.patronymic;
-        select.appendChild(option);
+        let option = document.createElement('option')
+        option.value = person.id
+        option.innerHTML = person.surName + ' ' + person.firstName + ' ' + person.patronymic
+        select.appendChild(option)
     })
 }
 
@@ -42,15 +42,15 @@ const fillingTableStaffList = async () => {
             let imgUpdate = document.createElement('img')
             let divDelete = document.createElement('div')
             let imgDelete = document.createElement('img')
-            div.className = 'divTableRow'
-            divFio.className = 'divTableCell'
-            divPosition.className = 'divTableCell'
-            divSalary.className = 'divTableCell'
-            divYoungSpecial.className = 'divTableCell'
-            divDisabled.className = 'divTableCell'
-            divUpdate.className = 'divTableCell'
+            div.className = 'div-table-row'
+            divFio.className = 'div-table-cell'
+            divPosition.className = 'div-table-cell'
+            divSalary.className = 'div-table-cell'
+            divYoungSpecial.className = 'div-table-cell'
+            divDisabled.className = 'div-table-cell'
+            divUpdate.className = 'div-table-cell'
             imgUpdate.src = '../images/update.png'
-            divDelete.className = 'divTableCell'
+            divDelete.className = 'div-table-cell'
             imgDelete.src = '../images/delete.png'
 
             divFio.innerHTML = staffList.peopleSurAndFirstName
@@ -65,7 +65,7 @@ const fillingTableStaffList = async () => {
                 document.getElementById('selectPeopleId').value = staff.peopleId
                 document.getElementById('selectPositionId').value = staff.positionId
                 document.querySelector('.salary').value = staff.salary
-                document.querySelector('.youngSpecial').checked = staff.youngSpecial
+                document.querySelector('.young-special').checked = staff.youngSpecial
                 document.querySelector('.disabled').checked = staff.disabled
             }
             imgDelete.id = staffList.id
@@ -82,7 +82,7 @@ const fillingTableStaffList = async () => {
             divUpdate.appendChild(imgUpdate)
             div.appendChild(divDelete)
             divDelete.appendChild(imgDelete)
-            document.querySelector('.divTableBody').appendChild(div)
+            document.querySelector('.div-table-body').appendChild(div)
         }
     )
 }

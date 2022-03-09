@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ежемесячные фонды</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="div-create">
+        <form name="createAddPayFund" action="#" method="post">
+            <div>Тип надбавки</div>
+            <select class="add-pay-type" id="selectAddPayTypeId" required>
+            </select>
+            <div>Номер и дата приказа</div>
+            <input type="text" name="numberOrder" class="number-order" required>
+            <div>Сумма фонда</div>
+            <input type="text" name="addPayFunds" class="add-pay-funds">
+            <br>
+            <br>
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+    <div class="div-table">
+        <div class="div-table-heading">
+            <div class="div-table-row-head">
+                <div class="div-table-head">Тип надбавки</div>
+                <div class="div-table-head">Номер и дата приказа</div>
+                <div class="div-table-head">Дата расчета</div>
+                <div class="div-table-head">Сумма фонда</div>
+                <div class="div-table-head">Изменить</div>
+                <div class="div-table-head">Удалить</div>
+            </div>
+        </div>
+        <div class="div-table-body">
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/add_pay_fund.js"></script>
+</html>
