@@ -3,138 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        #list {
-            /* По левому краю выравниваю! */
-            float: left;
-            /* Отступ. */
-            /*margin-bottom: 10px;*/
-            /* Задаю ширину. */
-            width: 100%;
-            /* Убираю маркеры*/
-            list-style: none;
-            /* Шрифт — жирным*/
-            font-weight: bold;
-        }
-
-        #list li {
-            /* Выравнивание! */
-            float: left;
-            /* Делаю элементы блочными. */
-            display: block;
-            /* Отступ. */
-            margin-right: 10px;
-            /* Позиционирование относительно исходного места! */
-            position: relative;
-        }
-
-        #list li a {
-            /* Цвет бэкграунда. */
-            background: #333;
-            /* Делаю элементы блочными. */
-            display: block;
-            /* Отступы. */
-            padding: 5px;
-            /* Цвет ссылки. */
-            color: #fff;
-            /* Форматирование текста*/
-            text-decoration: none;
-            /* Задаю скругленные углы на 2 пиксела*/
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            border-radius: 2px;
-            /* Тень для визуальной приподнятости текста*/
-            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.74);
-        }
-
-        #list li a:hover {
-            /* Подчеркну ссылку при наведении*/
-            text-decoration: underline;
-            /* Задам фон. */
-            background: #6b0c33;
-            /* Цвет ссылки остается прежним*/
-            color: #fff;
-            background: rgba(108, 13, 53, 0.74); /* Заставляю выглядеть полупрозрачным! */
-        }
-
-        /* НАСТРАИВАЕМ ВЫПАДАЮЩИЕ ЭЛЕМЕНТЫ!!! */
-        #list ul {
-            /* Убираю маркеры у выпадающего списка*/
-            list-style: none;
-            left: -9999px; /* Убираю ненужно за пределы экрана (говорят, это на 95% лучше чем «display:none;», т.к. дисплей нон некоторые программы игнорируют). */
-            opacity: 0; /* При помощи прозрачности, скрываем <ul>. */
-            /* Делаем так, чтобы Webkit плавно показывал нам всплывающие элементы выпадающего списка при наведении мышки. */
-            -webkit-transition: 0.24s linear opacity;
-            position: absolute;
-        }
-
-        #list ul li {
-            /* Здесь я задаю отступ между элементами &lt;li&gt;. Это необходимо для разделения пунктов меню, его не было в предыдущей части статьи (просто забыл)*/
-            padding-top: 1px;
-            float: none;
-        }
-
-        #list ul a {
-            /* Делаю элементы блочными. */
-            display: block;
-            /* Запрещаю перенос строк текста на новую строку, чтобы создавался многострочный выпадающий элемент списка. */
-            white-space: nowrap;
-        }
-
-        #list li:hover ul { /* Создаю выпадающий пункт, который появится при наведении. */
-            left: -40px; /* Возвращаю его обратно на экран пользователя, — когда нужно. */
-            opacity: 1; /* Убираю прозрачность*/
-        }
-
-        #list li:hover a { /* В этом стиле я устанавливаю свойства для элементов верхнего уровня, — в то время, когда показывается выпадающий список. */
-            /* Подчеркну*/
-            text-decoration: underline;
-            /* Сделаю полупрозрачным. */
-            background: rgba(109, 15, 53, 0.74);
-            background: #6b0c36;
-        }
-
-        #list li:hover ul a { /* Поменял некоторые стили первого уровня при появлении выпадающего элемента. */
-            /* Уберу форматирование*/
-            text-decoration: none;
-            -webkit-transition: -webkit-transform 0.077s linear;
-        }
-
-        #list li:hover ul li a:hover { /* Здесь я задаю стили для конкретных выпадающих пунктов, при наведении на них курсора — чтобы они отличались от тех элементов, куда курсор не попадает*/
-            -moz-transform: scale(1.07);
-            -webkit-transform: scale(1.07);
-            /* Задам цвет фона выпадающего элемента*/
-            background: #334;
-            background: rgba(50, 50, 50, 0.74); /* Сделаю полупрозрачным. */
-            text-decoration: underline;
-        }
-
-    </style>
+    <link rel="stylesheet" href="../styles/menu.css">
 </head>
 <body>
 <ul id="list">
-    <li><a href="#">Ежемесячные настройки</a>
+    <li><a href="#">Константы</a>
         <ul>
             <li><a href="views/add_pay_type_page.html">Типы доп. оплат</a></li>
+            <li><a href="#">Базовые нормы</a></li>
+            <li><a href="#">Процент премирования</a></li>
+        </ul>
+    </li>
+    <li><a href="#">Ежемесячные настройки</a>
+        <ul>
             <li><a href="views/add_pay_fund.html">Ежемесячные фонды</a></li>
             <li><a href="views/calc_settings_page.html">Дата расчета и рабочие дни</a></li>
+            <li><a href="#">Табель</a></li>
         </ul>
     </li>
     <li><a href="#">Справочники</a>
         <ul>
-            <li><a href="views/people_page.html">Физлица</a></li>
             <li><a href="views/position_page.html">Должности</a></li>
             <li><a href="views/add_pay_page.html">Вознаграждения</a></li>
         </ul>
     </li>
     <li><a href="#">Сотрудники</a>
         <ul>
+            <li><a href="views/people_page.html">Физлица</a></li>
             <li><a href="views/staff_list_page.html">Должности и оклады</a></li>
-            <li><a href="/sorting">Сортировка</a></li>
+            <li><a href="#">Пользователи</a></li>
         </ul>
     </li>
-    <li><a href="#">Отчеты</a>
+    <li><a href="#">Итоги</a>
         <ul>
+            <li><a href="#">Итоги расчета</a></li>
             <li><a href="#">Отчет №1</a></li>
             <li><a href="#">Отчет №2</a></li>
             <li><a href="#">Отчет №3</a></li>
@@ -142,5 +44,4 @@
     </li>
 </ul>
 </body>
-
 </html>
