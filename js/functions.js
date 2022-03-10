@@ -19,6 +19,6 @@ document.querySelector('.select-all').onclick = event => {
     fillingTableTimeSheet().then()
     document.querySelector('.select-all').setAttribute('disabled', true)
 }
-document.querySelector('.select-active-people').onclick = event => {
-    // task01_2()
-}
+// document.querySelector('.select-active-people').onclick = event => {
+//     editWorkDate()
+// }

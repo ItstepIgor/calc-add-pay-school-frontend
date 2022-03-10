@@ -38,7 +38,7 @@ const fillingTableTimeSheet = async () => {
             div.className = 'div-table-row'
             divFio.className = 'div-table-cell'
             divCalcDate.className = 'div-table-cell div-align-center'
-            divActualDaysWorked.className = 'div-table-cell div-align-center'
+            divActualDaysWorked.className = 'div-table-cell div-align-center div-edit-day'
 
             divFio.innerHTML = timeSheet.peopleSurAndFirstName
             divCalcDate.innerHTML = timeSheet.calcDate
@@ -65,9 +65,45 @@ const fillingTableTimeSheet = async () => {
             div.appendChild(divDelete)
             divDelete.appendChild(imgDelete)
             document.querySelector('.div-table-body').appendChild(div)
+
+            let editDay = document.querySelectorAll(".div-edit-day");
+
+            for (let i = 0; i < editDay.length; i++) {
+                editDay[i].addEventListener('click', function func() {
+                    let input = document.createElement('input')
+                    input.value = this.innerHTML
+                    this.innerHTML = ''
+                    this.appendChild(input)
+
+                    let edit = this
+                    input.addEventListener('blur', function () {
+                        edit.innerHTML = this.value
+                        edit.addEventListener('click', func)
+                    })
+                    this.removeEventListener('click', func)
+                })
+            }
+
+
+            // for (let i = 0; i < editDay.length; i++) { //разобрать фор
+            //     editDay[i].addEventListener('click', function func() {
+            //         this.setAttribute("contenteditable", true);
+            //     });
+            // }
         }
     )
 }
+
+
+// document.querySelectorAll('.div-edit-day').onclick = (event) = {}
+// for (let i = 0; i < 3; i++) {
+//     // editDay.addEventListener('click', function func() {
+//     let input = document.createElement('input')
+//     input.value = this.innerHTML
+//     this.innerHTML = ''
+//     this.appendChild(input)
+//     // })
+// }
 
 
 document.forms.createTimeSheet.onsubmit = async (event) => {
