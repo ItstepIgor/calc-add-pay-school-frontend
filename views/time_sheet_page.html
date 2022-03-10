@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Табель рабочего времени</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="div-create">
+        <form name="createTimeSheet" action="#" method="post">
+            <div>ФИО</div>
+            <select class="people" id="selectPeopleId" required>
+            </select>
+            <div>Отработано дней</div>
+            <input type="number" name="actualDaysWorked" class="actual-days-worked" required>
+            <br>
+            <br>
+            <input type="text" list="dataListPeopleId">
+            <datalist class="data-list-people" id="dataListPeopleId"></datalist>
+            <br>
+            <br>
+            <button type="submit">Сохранить</button>
+        </form>
+        <br>
+        <button class="select-all"> Показать всех</button>
+        <br>
+        <br>
+        <button class="select-active-people"> Показать работающих</button>
+        <br>
+        <br>
+    </div>
+    <div class="div-table">
+        <div class="div-table-heading">
+            <div class="div-table-row-head">
+                <div class="div-table-head">ФИО</div>
+                <div class="div-table-head">Дата расчета</div>
+                <div class="div-table-head">Отработано дней</div>
+                <div class="div-table-head">Изменить</div>
+                <div class="div-table-head">Удалить</div>
+            </div>
+        </div>
+        <div class="div-table-body">
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/functions.js"></script>
+<script src="../js/time_sheet.js"></script>
+</html>

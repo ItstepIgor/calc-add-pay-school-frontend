@@ -62,6 +62,7 @@ const fillingTableStaffList = async () => {
             imgDelete.id = staffList.id
             imgDelete.onclick = async () => {
                 let responseDelete = await fetch(`${apiUrl}/stafflist/delete?id=${imgDelete.id}`)
+                location.reload()
             }
             div.appendChild(divFio)
             div.appendChild(divPosition)
