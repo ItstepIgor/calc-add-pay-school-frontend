@@ -1,12 +1,8 @@
 const apiUrl = "http://localhost:8080/api"
 let id
-const getAddPayFund = async (url) => {
-    let response = await fetch(url)
-    return response.ok ? response.json() : undefined
-}
 
 const fillingSelectAddPayType = async () => {
-    let addPayTypes = await getAddPayFund(`${apiUrl}/addpaytype/get`)
+    let addPayTypes = await getJSON(`${apiUrl}/addpaytype/get`)
     let select = document.getElementById('selectAddPayTypeId')
     addPayTypes.forEach(addPayType => {
         let option = document.createElement('option')
@@ -17,27 +13,21 @@ const fillingSelectAddPayType = async () => {
 }
 
 const fillingTableAddPayFund = async () => {
-    let addpayfunds = await getAddPayFund(`${apiUrl}/addpayfund/get`)
-    let maxDate = await getAddPayFund(`${apiUrl}/calcsetting/getmaxdate`)
+    let addpayfunds = await getJSON(`${apiUrl}/addpayfund/get`)
+    let maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
     addpayfunds.forEach(addpayfund => {
             let div = document.createElement('div')
             let divAddPayTypeName = document.createElement('div')
             let divNumberOrder = document.createElement('div')
             let divCalcDate = document.createElement('div')
             let divAddPayFund = document.createElement('div')
-            let divUpdate = document.createElement('div')
-            let imgUpdate = document.createElement('img')
-            let divDelete = document.createElement('div')
-            let imgDelete = document.createElement('img')
+            let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
+
             div.className = 'div-table-row'
             divAddPayTypeName.className = 'div-table-cell'
             divNumberOrder.className = 'div-table-cell'
-            divCalcDate.className = 'div-table-cell'
-            divAddPayFund.className = 'div-table-cell'
-            divUpdate.className = 'div-table-cell'
-            imgUpdate.src = '../images/update.png'
-            divDelete.className = 'div-table-cell'
-            imgDelete.src = '../images/delete.png'
+            divCalcDate.className = 'div-table-cell div-align-center'
+            divAddPayFund.className = 'div-table-cell div-align-center'
 
             divAddPayTypeName.innerHTML = addpayfund.addPayTypeName
             divNumberOrder.innerHTML = addpayfund.numberOrder
@@ -45,7 +35,7 @@ const fillingTableAddPayFund = async () => {
             divAddPayFund.innerHTML = addpayfund.addPayFunds
             imgUpdate.id = addpayfund.id
             imgUpdate.onclick = async () => {
-                let addPF = await getAddPayFund(`${apiUrl}/addpayfund/getbyid?id=${imgUpdate.id}`).then()
+                let addPF = await getJSON(`${apiUrl}/addpayfund/getbyid?id=${imgUpdate.id}`).then()
                 console.log(addPF)
                 id = addPF.id
                 document.getElementById('selectAddPayTypeId').value = addPF.addPayTypeId

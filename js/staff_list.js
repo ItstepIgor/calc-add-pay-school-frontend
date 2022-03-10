@@ -1,12 +1,8 @@
 const apiUrl = "http://localhost:8080/api"
 let id
-const getStaffList = async (url) => {
-    let response = await fetch(url)
-    return response.ok ? response.json() : undefined
-}
 
 const fillingSelectPosition = async () => {
-    let positions = await getStaffList(`${apiUrl}/position/get`)
+    let positions = await getJSON(`${apiUrl}/position/get`)
     let select = document.getElementById('selectPositionId')
     positions.forEach(position => {
         let option = document.createElement('option')
@@ -17,7 +13,7 @@ const fillingSelectPosition = async () => {
 }
 
 const fillingSelectPeople = async () => {
-    let people = await getStaffList(`${apiUrl}/people/get`)
+    let people = await getJSON(`${apiUrl}/people/get`)
     let select = document.getElementById('selectPeopleId')
     people.forEach(person => {
         let option = document.createElement('option')
@@ -28,7 +24,7 @@ const fillingSelectPeople = async () => {
 }
 
 const fillingTableStaffList = async () => {
-    let staffLists = await getStaffList(`${apiUrl}/stafflist/get`)
+    let staffLists = await getJSON(`${apiUrl}/stafflist/get`)
     console.log(staffLists)
     staffLists.forEach(staffList => {
             console.log(staffList)
@@ -38,20 +34,15 @@ const fillingTableStaffList = async () => {
             let divSalary = document.createElement('div')
             let divYoungSpecial = document.createElement('div')
             let divDisabled = document.createElement('div')
-            let divUpdate = document.createElement('div')
-            let imgUpdate = document.createElement('img')
-            let divDelete = document.createElement('div')
-            let imgDelete = document.createElement('img')
+            let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
+
             div.className = 'div-table-row'
             divFio.className = 'div-table-cell'
             divPosition.className = 'div-table-cell'
-            divSalary.className = 'div-table-cell'
-            divYoungSpecial.className = 'div-table-cell'
-            divDisabled.className = 'div-table-cell'
-            divUpdate.className = 'div-table-cell'
-            imgUpdate.src = '../images/update.png'
-            divDelete.className = 'div-table-cell'
-            imgDelete.src = '../images/delete.png'
+            divSalary.className = 'div-table-cell div-align-center'
+            divYoungSpecial.className = 'div-table-cell div-align-center'
+            divDisabled.className = 'div-table-cell div-align-center'
+
 
             divFio.innerHTML = staffList.peopleSurAndFirstName
             divPosition.innerHTML = staffList.positionName
@@ -60,7 +51,7 @@ const fillingTableStaffList = async () => {
             divDisabled.innerHTML = staffList.disabled
             imgUpdate.id = staffList.id
             imgUpdate.onclick = async () => {
-                let staff = await getStaffList(`${apiUrl}/stafflist/getbyid?id=${imgUpdate.id}`).then()
+                let staff = await getJSON(`${apiUrl}/stafflist/getbyid?id=${imgUpdate.id}`).then()
                 id = staff.id
                 document.getElementById('selectPeopleId').value = staff.peopleId
                 document.getElementById('selectPositionId').value = staff.positionId

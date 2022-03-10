@@ -1,30 +1,20 @@
 const apiUrl = "http://localhost:8080/api/percentsalary"
 let id
-const getPercentSalary = async (url) => {
-    let response = await fetch(url)
-    return response.ok ? response.json() : undefined
-}
 
 const fillingTablePercentSalary = async () => {
-    let percents = await getPercentSalary(`${apiUrl}/get`)
-    let maxDate = await getPercentSalary(`${apiUrl}/getmaxdate`)
+    let percents = await getJSON(`${apiUrl}/get`)
+    let maxDate = await getJSON(`${apiUrl}/getmaxdate`)
     percents.forEach(percent => {
         let div = document.createElement('div')
         let divPercentSalaryAll = document.createElement('div')
         let divPercentSalaryForYoungSpecial = document.createElement('div')
         let divPercentStartDate = document.createElement('div')
-        let divUpdate = document.createElement('div')
-        let imgUpdate = document.createElement('img')
-        let divDelete = document.createElement('div')
-        let imgDelete = document.createElement('img')
+        let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
+
         div.className = 'div-table-row'
-        divPercentSalaryAll.className = 'div-table-cell'
-        divPercentSalaryForYoungSpecial.className = 'div-table-cell'
-        divPercentStartDate.className = 'div-table-cell'
-        divUpdate.className = 'div-table-cell'
-        imgUpdate.src = '../images/update.png'
-        divDelete.className = 'div-table-cell'
-        imgDelete.src = '../images/delete.png'
+        divPercentSalaryAll.className = 'div-table-cell div-align-center'
+        divPercentSalaryForYoungSpecial.className = 'div-table-cell div-align-center'
+        divPercentStartDate.className = 'div-table-cell div-align-center'
 
         divPercentSalaryAll.innerHTML = percent.percentSalaryAll
         divPercentSalaryForYoungSpecial.innerHTML = percent.percentSalaryForYoungSpecial
@@ -32,7 +22,7 @@ const fillingTablePercentSalary = async () => {
 
         imgUpdate.id = percent.id
         imgUpdate.onclick = async () => {
-            let basic = await getPercentSalary(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let basic = await getJSON(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
             id = basic.id
             document.querySelector('.percent-salary-all').value = basic.percentSalaryAll
             document.querySelector('.percent-salary-for-young-special').value = basic.percentSalaryForYoungSpecial

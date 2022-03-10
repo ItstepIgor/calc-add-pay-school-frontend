@@ -1,12 +1,8 @@
 const apiUrl = "http://localhost:8080/api/people"
 let id
-const getPeople = async (url) => {
-    let response = await fetch(url)
-    return response.ok ? response.json() : undefined
-}
 
 const fillingTablePeople = async () => {
-    let users = await getPeople(`${apiUrl}/get`)
+    let users = await getJSON(`${apiUrl}/get`)
     console.log(users)
     users.forEach(user => {
         console.log(user)
@@ -15,20 +11,13 @@ const fillingTablePeople = async () => {
         let divAddress = document.createElement('div')
         let divPhone = document.createElement('div')
         let divPersonnelNumber = document.createElement('div')
-        let divUpdate = document.createElement('div')
-        let imgUpdate = document.createElement('img')
-        let divDelete = document.createElement('div')
-        let imgDelete = document.createElement('img')
+        let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
+
         div.className = 'div-table-row'
         divFio.className = 'div-table-cell'
         divAddress.className = 'div-table-cell'
         divPhone.className = 'div-table-cell'
         divPersonnelNumber.className = 'div-table-cell'
-        divUpdate.className = 'div-table-cell'
-        imgUpdate.src = '../images/update.png'
-        divDelete.className = 'div-table-cell'
-        imgDelete.src = '../images/delete.png'
-
 
         divFio.innerHTML = user.surName + ' ' + user.firstName + ' ' + user.patronymic
         divAddress.innerHTML = user.address
@@ -40,7 +29,7 @@ const fillingTablePeople = async () => {
         }
         imgUpdate.id = user.id
         imgUpdate.onclick = async () => {
-            let person = await getPeople(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let person = await getJSON(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
             id = person.id
             document.querySelector('.sur-name').value = person.surName
             document.querySelector('.first-name').value = person.firstName

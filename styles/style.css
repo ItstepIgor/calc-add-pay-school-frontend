@@ -3,6 +3,10 @@
     align-items: flex-start;
 }
 
+.div-align-center {
+    text-align: center;
+}
+
 .div-create {
     padding-right: 30px;
     padding-left: 10px;
