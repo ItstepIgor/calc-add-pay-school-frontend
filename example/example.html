@@ -19,14 +19,33 @@
 <div class="div-edit-day">50</div>
 </body>
 <script>
-    let div = document.querySelectorAll(".div-edit-day");
+
+    let editDay = document.querySelectorAll(".div-edit-day");
+
+    for (let i = 0; i < editDay.length; i++) {
+        editDay[i].addEventListener('click', function func() {
+            let input = document.createElement('input')
+            input.value = this.innerHTML
+            this.innerHTML = ''
+            this.appendChild(input)
+
+            // let edit = this
+            // input.addEventListener('blur', function () {
+            //     edit.innerHTML = this.value
+            //     edit.addEventListener('click', func)
+            // })
+            this.removeEventListener('click', func)
+        })
+    }
+
+    // let div = document.querySelectorAll(".div-edit-day");
     // div.addEventListener("click", changeValue);
     // let td = document.querySelectorAll(".td");
-    for (let i = 0; i < div.length; i++) { //разобрать фор
-        div[i].addEventListener('click', function func() {
-            this.setAttribute("contenteditable", true);
-        });
-    }
+    // for (let i = 0; i < div.length; i++) { //разобрать фор
+    //     div[i].addEventListener('click', function func() {
+    //         this.setAttribute("contenteditable", true);
+    //     });
+    // }
         // div.addEventListener("blur", changeEnd);
     //
     // function changeValue(event) {

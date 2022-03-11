@@ -15,10 +15,10 @@ function createUpdateAndDeleteElement() {
     return {divUpdate, imgUpdate, divDelete, imgDelete};
 }
 
-document.querySelector('.select-all').onclick = event => {
-    fillingTableTimeSheet().then()
-    document.querySelector('.select-all').setAttribute('disabled', true)
-}
-// document.querySelector('.select-active-people').onclick = event => {
+// document.querySelector('.select-all').onclick = event => {
+//     fillingTableTimeSheet().then()
+//     document.querySelector('.select-all').setAttribute('disabled', true)
+// }
+// document.querySelector('.div-edit-day').onclick = event => {
 //     editWorkDate()
 // }

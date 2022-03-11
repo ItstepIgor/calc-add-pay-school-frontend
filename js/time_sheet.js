@@ -70,17 +70,22 @@ const fillingTableTimeSheet = async () => {
 
             for (let i = 0; i < editDay.length; i++) {
                 editDay[i].addEventListener('click', function func() {
-                    let input = document.createElement('input')
-                    input.value = this.innerHTML
-                    this.innerHTML = ''
-                    this.appendChild(input)
-
+                    this.setAttribute("contenteditable", true);
                     let edit = this
-                    input.addEventListener('blur', function () {
-                        edit.innerHTML = this.value
-                        edit.addEventListener('click', func)
-                    })
-                    this.removeEventListener('click', func)
+                    this.addEventListener("blur", function () {
+                        edit.removeAttribute("contenteditable");
+                    });
+                    // let input = document.createElement('input')
+                    // input.value = this.innerHTML
+                    // this.innerHTML = ''
+                    // this.appendChild(input)
+                    //
+                    // // let edit = this
+                    // // input.addEventListener('blur', function () {
+                    // //     edit.innerHTML = this.value
+                    // //     edit.addEventListener('click', func)
+                    // // })
+                    // this.removeEventListener('click', func)
                 })
             }
 
@@ -94,15 +99,16 @@ const fillingTableTimeSheet = async () => {
     )
 }
 
-
-// document.querySelectorAll('.div-edit-day').onclick = (event) = {}
-// for (let i = 0; i < 3; i++) {
-//     // editDay.addEventListener('click', function func() {
-//     let input = document.createElement('input')
-//     input.value = this.innerHTML
-//     this.innerHTML = ''
-//     this.appendChild(input)
-//     // })
+// const editWorkDate = () => {
+//     let editDay = document.querySelectorAll(".div-edit-day");
+//     for (let i = 0; i < 3; i++) {
+//         editDay[i].addEventListener('click', function func() {
+//         let input = document.createElement('input')
+//         input.value = this.innerHTML
+//         this.innerHTML = ''
+//         this.appendChild(input)
+//         })
+//     }
 // }
 
 
@@ -124,4 +130,4 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
 
 fillingSelectPeople().then()
 fillingDataListPeople().then()
-// fillingTableTimeSheet().then()
+fillingTableTimeSheet().then()
