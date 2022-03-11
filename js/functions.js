@@ -15,6 +15,14 @@ function createUpdateAndDeleteElement() {
     return {divUpdate, imgUpdate, divDelete, imgDelete};
 }
 
+window.onkeydown = e => {
+    if (e.keyCode === 38 && e.target.classList.contains('div-edit-day')) {
+        console.log(e.target.focusIndex)
+        document.querySelectorAll('.div-edit-day').forEach(ed => {
+            if (++ed.focusIndex == e.target.focusIndex) ed.focus()
+        })
+    }
+}
 // document.querySelector('.select-all').onclick = event => {
 //     fillingTableTimeSheet().then()
 //     document.querySelector('.select-all').setAttribute('disabled', true)

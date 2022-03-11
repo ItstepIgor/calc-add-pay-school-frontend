@@ -29,13 +29,19 @@
             this.innerHTML = ''
             this.appendChild(input)
 
-            // let edit = this
-            // input.addEventListener('blur', function () {
-            //     edit.innerHTML = this.value
-            //     edit.addEventListener('click', func)
-            // })
+            let edit = this
+            input.addEventListener('blur', function () {
+                edit.innerHTML = this.value
+                edit.addEventListener('click', func)
+            })
             this.removeEventListener('click', func)
         })
+    }
+
+    window.onkeydown = e => {
+        if (e.keyCode === 38 && e.target.classList.contains('div-edit-day')) {
+            document.querySelectorAll('.div-edit-day').focus
+        }
     }
 
     // let div = document.querySelectorAll(".div-edit-day");
@@ -46,7 +52,7 @@
     //         this.setAttribute("contenteditable", true);
     //     });
     // }
-        // div.addEventListener("blur", changeEnd);
+    // div.addEventListener("blur", changeEnd);
     //
     // function changeValue(event) {
     //     var target = event.target;
