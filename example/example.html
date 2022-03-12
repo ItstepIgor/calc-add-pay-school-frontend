@@ -12,55 +12,14 @@
     </style>
 </head>
 <body>
-<div class="div-edit-day">10</div>
-<div class="div-edit-day">20</div>
-<div class="div-edit-day">30</div>
-<div class="div-edit-day">40</div>
-<div class="div-edit-day">50</div>
+<input list="options" name="chooseOption">
+<datalist id="options">
+    <option id="1" value="Foo">
+    <option id="2" value="Bar">
+    <option id="3" value="Foo">
+</datalist>
 </body>
 <script>
 
-    let editDay = document.querySelectorAll(".div-edit-day");
-
-    for (let i = 0; i < editDay.length; i++) {
-        editDay[i].addEventListener('click', function func() {
-            let input = document.createElement('input')
-            input.value = this.innerHTML
-            this.innerHTML = ''
-            this.appendChild(input)
-
-            let edit = this
-            input.addEventListener('blur', function () {
-                edit.innerHTML = this.value
-                edit.addEventListener('click', func)
-            })
-            this.removeEventListener('click', func)
-        })
-    }
-
-    window.onkeydown = e => {
-        if (e.keyCode === 38 && e.target.classList.contains('div-edit-day')) {
-            document.querySelectorAll('.div-edit-day').focus
-        }
-    }
-
-    // let div = document.querySelectorAll(".div-edit-day");
-    // div.addEventListener("click", changeValue);
-    // let td = document.querySelectorAll(".td");
-    // for (let i = 0; i < div.length; i++) { //разобрать фор
-    //     div[i].addEventListener('click', function func() {
-    //         this.setAttribute("contenteditable", true);
-    //     });
-    // }
-    // div.addEventListener("blur", changeEnd);
-    //
-    // function changeValue(event) {
-    //     var target = event.target;
-    //     target.setAttribute("contenteditable", true);
-    // }
-    // function changeEnd() {
-    //     div.removeAttribute("contenteditable");
-    //     console.log(div.innerText)
-    // }
 </script>
 </html>

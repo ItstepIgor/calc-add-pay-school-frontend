@@ -1,3 +1,7 @@
+//Сделать выпадающий список с поиском и что бы можно было получить id  для сохранения содрудника в базу
+//Доделать отправку измененных значений из таблицы в цикле в базу возможно есть updateAll метод
+//как разделяют create(get) и update(put) методы для сохранения в базу. Я думаю через if если заполнен id
+// то один метод если нет то create
 const apiUrl = "http://localhost:8080/api"
 let id
 
@@ -17,8 +21,9 @@ const fillingDataListPeople = async () => {
     let select = document.getElementById('dataListPeopleId')
     people.forEach(person => {
         let option = document.createElement('option')
-        option.value = person.id
-        option.innerHTML = person.surName + ' ' + person.firstName + ' ' + person.patronymic
+        option.id = person.id
+        console.log(option.id)
+        option.value = person.surName + ' ' + person.firstName + ' ' + person.patronymic
         select.appendChild(option)
     })
 }
@@ -28,6 +33,7 @@ const fillingTableTimeSheet = async () => {
     let timeSheets = await getJSON(`${apiUrl}/timesheet/get`)
     console.log(timeSheets)
     let editDayFocusIndex = 0;
+    let editDayInputFocusIndex = 0;
     timeSheets.forEach(timeSheet => {
 
         console.log(timeSheet)
@@ -51,7 +57,8 @@ const fillingTableTimeSheet = async () => {
             let staff = await getJSON(`${apiUrl}/timesheet/getbyid?id=${imgUpdate.id}`).then()
             id = staff.id
             document.getElementById('selectPeopleId').value = staff.peopleId
-            document.getElementById('dataListPeopleId').value = staff.peopleId
+            // document.getElementById('dataListPeopleId').value = staff.peopleId
+            document.querySelector('.input-data-list').value = staff.peopleSurAndFirstName
             document.querySelector('.actual-days-worked').value = staff.actualDaysWorked
         }
         imgDelete.id = timeSheet.id
@@ -68,46 +75,18 @@ const fillingTableTimeSheet = async () => {
         div.appendChild(divDelete)
         divDelete.appendChild(imgDelete)
         document.querySelector('.div-table-body').appendChild(div)
-
-
-        /*            let editDay = document.querySelectorAll(".div-edit-day");
-
-                    for (let i = 0; i < editDay.length; i++) {
-                        editDay[i].addEventListener('click', function func() {
-                            this.setAttribute("contenteditable", true);
-                            let edit = this
-                            this.addEventListener("blur", function () {
-                                edit.removeAttribute("contenteditable");
-                            });
-                            // let input = document.createElement('input')
-                            // input.value = this.innerHTML
-                            // this.innerHTML = ''
-                            // this.appendChild(input)
-                            //
-                            // // let edit = this
-                            // // input.addEventListener('blur', function () {
-                            // //     edit.innerHTML = this.value
-                            // //     edit.addEventListener('click', func)
-                            // // })
-                            // this.removeEventListener('click', func)
-                        })
-                    }*/
-
-
-        // for (let i = 0; i < editDay.length; i++) { //разобрать фор
-        //     editDay[i].addEventListener('click', function func() {
-        //         this.setAttribute("contenteditable", true);
-        //     });
-        // }
     })
+
+    //обработка события для редактирования div
     let editDay = document.querySelectorAll(".div-edit-day");
     for (let i = 0; i < editDay.length; i++) {
         editDay[i].addEventListener('click', function func() {
             let input = document.createElement('input')
+            input.className = 'input-edit-day'
+            input.focusIndex = editDayInputFocusIndex++;
             input.value = this.innerHTML
             this.innerHTML = ''
             this.appendChild(input)
-
             let edit = this
             input.addEventListener('blur', function () {
                 edit.innerHTML = this.value
@@ -116,7 +95,11 @@ const fillingTableTimeSheet = async () => {
             this.removeEventListener('click', func)
         })
     }
-
+    //симмуляция клика мыши по div
+    let editDayClicks = document.querySelectorAll(".div-edit-day");
+    editDayClicks.forEach(editDayClick => {
+        editDayClick.click()
+    })
 }
 
 
@@ -125,15 +108,19 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
     let sheet = JSON.stringify({
         id: id,
         peopleId: document.getElementById('selectPeopleId').value,
+        // peopleId: document.getElementById('dataListPeopleId').getAttribute(id)
         actualDaysWorked: elements.actualDaysWorked.value,
     })
-    console.log(sheet)
+    console.log(elements)
+    let input = document.getElementById('input-data-list')
+    let dataList = document.getElementById(input.getAttribute('list'))
+    console.log(dataList.options.namedItem(input.value))
     const response = await fetch(`${apiUrl}/timesheet/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: sheet
     });
-    console.log(response)
+    // console.log(response)
 }
 
 
