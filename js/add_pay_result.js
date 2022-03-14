@@ -53,20 +53,19 @@ const fillingTableAddPayResult = async () => {
             divPercent.innerHTML = addPayResult.percent
             divSumma.innerHTML = addPayResult.sum
             imgUpdate.id = addPayResult.id
-            // imgUpdate.onclick = async () => {
-            //     let staff = await getJSON(`${apiUrl}/stafflist/getbyid?id=${imgUpdate.id}`).then()
-            //     id = staff.id
-            //     document.getElementById('selectPeopleId').value = staff.peopleId
-            //     document.getElementById('selectPositionId').value = staff.positionId
-            //     document.querySelector('.salary').value = staff.salary
-            //     document.querySelector('.young-special').checked = staff.youngSpecial
-            //     document.querySelector('.disabled').checked = staff.disabled
-            // }
+            imgUpdate.onclick = async () => {
+                let addPayR = await getJSON(`${apiUrl}/addpayresult/getbyid?id=${imgUpdate.id}`).then()
+
+                id = addPayR.id
+                document.getElementById('staffListId').value = addPayR.staffListId
+                document.getElementById('addPayId').value = addPayR.addPayId
+                document.querySelector('.percent').value = addPayR.percent
+            }
             imgDelete.id = addPayResult.id
-            // imgDelete.onclick = async () => {
-            //     let responseDelete = await fetch(`${apiUrl}/stafflist/delete?id=${imgDelete.id}`)
-            //     location.reload()
-            // }
+            imgDelete.onclick = async () => {
+                let responseDelete = await fetch(`${apiUrl}/addpayresult/delete?id=${imgDelete.id}`)
+                location.reload()
+            }
             div.appendChild(divFio)
             div.appendChild(divPosition)
             div.appendChild(divCalcDate)
