@@ -31,6 +31,7 @@ const fillingTableAddPayResult = async () => {
             let div = document.createElement('div')
             let divFio = document.createElement('div')
             let divPosition = document.createElement('div')
+            let divCalcDate = document.createElement('div')
             let divAddPayCode = document.createElement('div')
             let divPercent = document.createElement('div')
             let divSumma = document.createElement('div')
@@ -39,6 +40,7 @@ const fillingTableAddPayResult = async () => {
             div.className = 'div-table-row'
             divFio.className = 'div-table-cell'
             divPosition.className = 'div-table-cell'
+            divCalcDate.className = 'div-table-cell div-align-center'
             divAddPayCode.className = 'div-table-cell div-align-center'
             divPercent.className = 'div-table-cell div-align-center'
             divSumma.className = 'div-table-cell div-align-center'
@@ -46,6 +48,7 @@ const fillingTableAddPayResult = async () => {
 
             divFio.innerHTML = addPayResult.peopleSurAndFirstName
             divPosition.innerHTML = addPayResult.positionName
+            divCalcDate.innerHTML = addPayResult.calcDate
             divAddPayCode.innerHTML = addPayResult.addPayCode
             divPercent.innerHTML = addPayResult.percent
             divSumma.innerHTML = addPayResult.sum
@@ -66,6 +69,7 @@ const fillingTableAddPayResult = async () => {
             // }
             div.appendChild(divFio)
             div.appendChild(divPosition)
+            div.appendChild(divCalcDate)
             div.appendChild(divAddPayCode)
             div.appendChild(divPercent)
             div.appendChild(divSumma)
