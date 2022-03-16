@@ -23,12 +23,11 @@ document.querySelector('.calc-percent-salary').onclick = async event => {
 
 
 // window.onkeydown = e => {
-//     if (e.keyCode === 38 && e.target.classList.contains('input-edit-day')) {
+//     if (e.keyCode === 38 ) {
 //         console.log(e.target.focusIndex)
-//         document.querySelectorAll('.input-edit-day').forEach(ed => {
-//             if (++ed.focusIndex == e.target.focusIndex) ed.focus()
-//         })
+//
 //     }
+// }
 //
 //кнопки на листе time_sheet
 // document.querySelector('.select-all').onclick = event => {

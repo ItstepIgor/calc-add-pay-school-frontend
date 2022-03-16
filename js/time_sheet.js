@@ -84,8 +84,27 @@ const fillingTableTimeSheet = async () => {
         editDay[i].addEventListener('click', function func() {
             let input = document.createElement('input')
             input.className = 'input-edit-day'
-            input.focusIndex = editDayInputFocusIndex++;
+            input.focusIndex = editDayInputFocusIndex++
             input.value = this.innerHTML
+            input.focusIndex = i
+            input.onkeydown = e => {
+                let inputs = document.querySelectorAll('.input-edit-day');
+                if (e.key === 'ArrowUp') {
+                    inputs.forEach(el => {
+                            if (el.focusIndex + 1 === e.target.focusIndex) {
+                                el.focus()
+                            }
+                        }
+                    )
+                } else if (e.key === 'ArrowDown') {
+                    inputs.forEach(el => {
+                            if (el.focusIndex - 1 === e.target.focusIndex) {
+                                el.focus()
+                            }
+                        }
+                    )
+                }
+            }
             this.innerHTML = ''
             this.appendChild(input)
             let edit = this
