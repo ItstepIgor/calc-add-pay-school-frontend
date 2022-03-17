@@ -1,8 +1,7 @@
-const apiUrl = "http://localhost:8080/api/position"
 let id
 
 const fillingTablePosition = async () => {
-    let positions = await getJSON(`${apiUrl}/get`)
+    let positions = await getJSON(`${apiUrl}/position/get`)
     console.log(positions)
     positions.forEach(position => {
         console.log(position)
@@ -20,14 +19,14 @@ const fillingTablePosition = async () => {
         divSorting.innerHTML = position.sorting
         imgUpdate.id = position.id
         imgUpdate.onclick = async () => {
-            let pos = await getJSON(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let pos = await getJSON(`${apiUrl}/position/getbyid?id=${imgUpdate.id}`).then()
             id = pos.id
             document.querySelector('.position-name').value = pos.positionName
             document.querySelector('.sorting').value = pos.sorting
         }
         imgDelete.id = position.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/delete?id=${imgDelete.id}`)
+            let responseDelete = await fetch(`${apiUrl}/position/delete?id=${imgDelete.id}`)
             // location.reload()
             console.log(responseDelete)
         }
@@ -50,7 +49,7 @@ document.forms.createPosition.onsubmit = async (event) => {
         sorting: elements.sorting.value
     })
     // console.log(position)
-    const response = await fetch(`${apiUrl}/create`, {
+    const response = await fetch(`${apiUrl}/position/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: position

@@ -3,7 +3,6 @@
 //как разделяют create(get) и update(put) методы для сохранения в базу. Я думаю через if если заполнен id
 // то один метод если нет то create
 //как сделать по стрелке такое же действие как по tab
-const apiUrl = "http://localhost:8080/api"
 let id
 
 const fillingSelectPeople = async () => {
@@ -33,8 +32,8 @@ const fillingDataListPeople = async () => {
 const fillingTableTimeSheet = async () => {
     let timeSheets = await getJSON(`${apiUrl}/timesheet/get`)
     console.log(timeSheets)
-    let editDayFocusIndex = 0;
-    let editDayInputFocusIndex = 0;
+    // let editDayFocusIndex = 0;
+    // let editDayInputFocusIndex = 0;
     timeSheets.forEach(timeSheet => {
 
         console.log(timeSheet)
@@ -42,13 +41,14 @@ const fillingTableTimeSheet = async () => {
         let divFio = document.createElement('div')
         let divCalcDate = document.createElement('div')
         let divActualDaysWorked = document.createElement('div')
-        divActualDaysWorked.focusIndex = editDayFocusIndex++;
+        // divActualDaysWorked.focusIndex = editDayFocusIndex++;
         let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
 
         div.className = 'div-table-row'
         divFio.className = 'div-table-cell'
         divCalcDate.className = 'div-table-cell div-align-center'
         divActualDaysWorked.className = 'div-table-cell div-align-center div-edit-day'
+        imgUpdate.className = 'img-update'
 
         divFio.innerHTML = timeSheet.peopleSurAndFirstName
         divCalcDate.innerHTML = timeSheet.calcDate
@@ -84,7 +84,7 @@ const fillingTableTimeSheet = async () => {
         editDay[i].addEventListener('click', function func() {
             let input = document.createElement('input')
             input.className = 'input-edit-day'
-            input.focusIndex = editDayInputFocusIndex++
+            // input.focusIndex = editDayInputFocusIndex++
             input.value = this.innerHTML
             input.focusIndex = i
             input.onkeydown = e => {
@@ -122,6 +122,22 @@ const fillingTableTimeSheet = async () => {
     })
 }
 
+document.querySelector('.save-edit-day').onclick = async (event) => {
+    let size = document.querySelectorAll('.div-edit-day');
+    let img = document.querySelectorAll('.img-update');
+    for (let i = 0; i < size.length; i++) {
+        let jsonDay = JSON.stringify({
+            id: img[i].id,
+            actualDaysWorked: size[i].innerHTML
+        })
+        console.log(jsonDay)
+        const response = await fetch(`${apiUrl}/timesheet/updateday`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: jsonDay
+        });
+    }
+}
 
 document.forms.createTimeSheet.onsubmit = async (event) => {
     let elements = event.target.elements
@@ -142,7 +158,6 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
     });
     // console.log(response)
 }
-
 
 fillingSelectPeople().then()
 fillingDataListPeople().then()

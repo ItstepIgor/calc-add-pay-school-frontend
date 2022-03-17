@@ -1,6 +1,4 @@
-const apiUrl = "http://localhost:8080/api"
 let id
-
 const fillingSelectAddPayType = async () => {
     let addPayTypes = await getJSON(`${apiUrl}/addpaytype/get`)
     let select = document.getElementById('selectAddPayTypeId')

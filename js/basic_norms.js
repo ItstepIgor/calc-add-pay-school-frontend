@@ -1,9 +1,8 @@
-const apiUrl = "http://localhost:8080/api/basicnorms"
 let id
 
 const fillingTableBasicNorms = async () => {
-    let basicNorms = await getJSON(`${apiUrl}/get`)
-    let maxDate = await getJSON(`${apiUrl}/getmaxdate`)
+    let basicNorms = await getJSON(`${apiUrl}/basicnorms/get`)
+    let maxDate = await getJSON(`${apiUrl}/basicnorms/getmaxdate`)
     basicNorms.forEach(basicNorm => {
         let div = document.createElement('div')
         let divBasicNormName = document.createElement('div')
@@ -23,7 +22,7 @@ const fillingTableBasicNorms = async () => {
 
         imgUpdate.id = basicNorm.id
         imgUpdate.onclick = async () => {
-            let basic = await getJSON(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let basic = await getJSON(`${apiUrl}/basicnorms/getbyid?id=${imgUpdate.id}`).then()
             id = basic.id
             document.querySelector('.basic-norm-name').value = basic.basicNormName
             document.querySelector('.basic-norm-value').value = basic.basicNormValue
@@ -31,7 +30,7 @@ const fillingTableBasicNorms = async () => {
         }
         imgDelete.id = basicNorm.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/delete?id=${imgDelete.id}`)
+            let responseDelete = await fetch(`${apiUrl}/basicnorms/delete?id=${imgDelete.id}`)
             location.reload()
             console.log(responseDelete)
         }
@@ -59,7 +58,7 @@ document.forms.createBasicNorm.onsubmit = async (event) => {
         basicNormValue: elements.basicNormValue.value,
         basicNormDate: elements.basicNormDate.value
     })
-    const response = await fetch(`${apiUrl}/create`, {
+    const response = await fetch(`${apiUrl}/basicnorms/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: basic

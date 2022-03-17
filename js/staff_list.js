@@ -1,4 +1,3 @@
-const apiUrl = "http://localhost:8080/api"
 let id
 
 const fillingSelectPosition = async () => {
@@ -77,6 +76,12 @@ const fillingTableStaffList = async () => {
             document.querySelector('.div-table-body').appendChild(div)
         }
     )
+}
+
+
+document.querySelector('.calc-percent-salary').onclick = async event => {
+    await fetch(`${apiUrl}/stafflist/calcpercentsalary`)
+    document.querySelector('.calc-percent-salary').setAttribute('disabled', true)
 }
 
 

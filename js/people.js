@@ -1,8 +1,7 @@
-const apiUrl = "http://localhost:8080/api/people"
 let id
 
 const fillingTablePeople = async () => {
-    let users = await getJSON(`${apiUrl}/get`)
+    let users = await getJSON(`${apiUrl}/people/get`)
     console.log(users)
     users.forEach(user => {
         console.log(user)
@@ -29,7 +28,7 @@ const fillingTablePeople = async () => {
         }
         imgUpdate.id = user.id
         imgUpdate.onclick = async () => {
-            let person = await getJSON(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let person = await getJSON(`${apiUrl}/people/getbyid?id=${imgUpdate.id}`).then()
             id = person.id
             document.querySelector('.sur-name').value = person.surName
             document.querySelector('.first-name').value = person.firstName
@@ -44,7 +43,7 @@ const fillingTablePeople = async () => {
         }
         imgDelete.id = user.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/delete?id=${imgDelete.id}`)
+            let responseDelete = await fetch(`${apiUrl}/people/delete?id=${imgDelete.id}`)
             // location.reload()
             console.log(responseDelete)
         }
@@ -73,7 +72,7 @@ document.forms.createPerson.onsubmit = async (event) => {
         personnelNumber: elements.personnelNumber.value
     })
     console.log(person)
-    const response = await fetch(`${apiUrl}/create`, {
+    const response = await fetch(`${apiUrl}/people/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: person

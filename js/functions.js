@@ -1,3 +1,4 @@
+const apiUrl = "http://localhost:8080/api"
 const getJSON = async (url) => {
     let response = await fetch(url)
     return response.ok ? response.json() : undefined
@@ -16,19 +17,10 @@ function createUpdateAndDeleteElement() {
 }
 
 
-document.querySelector('.calc-percent-salary').onclick = async event => {
-    await fetch(`http://localhost:8080/api/stafflist/calcpercentsalary`)
-    document.querySelector('.calc-percent-salary').setAttribute('disabled', true)
-}
+/*document.querySelector('.save-edit-day').onclick = () => {
+    saveEditDay()
+}*/
 
-
-// window.onkeydown = e => {
-//     if (e.keyCode === 38 ) {
-//         console.log(e.target.focusIndex)
-//
-//     }
-// }
-//
 //кнопки на листе time_sheet
 // document.querySelector('.select-all').onclick = event => {
 //     fillingTableTimeSheet().then()
@@ -36,4 +28,8 @@ document.querySelector('.calc-percent-salary').onclick = async event => {
 // }
 // document.querySelector('.div-edit-day').onclick = event => {
 //     editWorkDate()
+// }
+
+// document.querySelector('.save-edit-day').onclick = () => {
+//     console.log('Проверка')
 // }

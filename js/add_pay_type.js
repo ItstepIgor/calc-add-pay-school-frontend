@@ -1,8 +1,7 @@
-const apiUrl = "http://localhost:8080/api/addpaytype"
 let id
 
 const fillingTableAddPayType = async () => {
-    let addPayTypes = await getJSON(`${apiUrl}/get`)
+    let addPayTypes = await getJSON(`${apiUrl}/addpaytype/get`)
     addPayTypes.forEach(addPayType => {
         let div = document.createElement('div')
         let divAddPayTypeName = document.createElement('div')
@@ -16,7 +15,7 @@ const fillingTableAddPayType = async () => {
         divAddPayTypeName.innerHTML = addPayType.addPayTypeName
         imgUpdate.id = addPayType.id
         imgUpdate.onclick = async () => {
-            let addPT = await getJSON(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let addPT = await getJSON(`${apiUrl}/addpaytype/getbyid?id=${imgUpdate.id}`).then()
             id = addPT.id
             document.querySelector('.add-pay-type-name').value = addPT.addPayTypeName
         }
@@ -34,7 +33,7 @@ document.forms.createAddPayType.onsubmit = async (event) => {
         id: id,
         addPayTypeName: elements.addPayTypeName.value
     })
-    const response = await fetch(`${apiUrl}/create`, {
+    const response = await fetch(`${apiUrl}/addpaytype/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: addPayType

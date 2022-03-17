@@ -1,9 +1,8 @@
-const apiUrl = "http://localhost:8080/api/percentsalary"
 let id
 
 const fillingTablePercentSalary = async () => {
-    let percents = await getJSON(`${apiUrl}/get`)
-    let maxDate = await getJSON(`${apiUrl}/getmaxdate`)
+    let percents = await getJSON(`${apiUrl}/percentsalary/get`)
+    let maxDate = await getJSON(`${apiUrl}/percentsalary/getmaxdate`)
     percents.forEach(percent => {
         let div = document.createElement('div')
         let divPercentSalaryAll = document.createElement('div')
@@ -22,7 +21,7 @@ const fillingTablePercentSalary = async () => {
 
         imgUpdate.id = percent.id
         imgUpdate.onclick = async () => {
-            let basic = await getJSON(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let basic = await getJSON(`${apiUrl}/percentsalary/getbyid?id=${imgUpdate.id}`).then()
             id = basic.id
             document.querySelector('.percent-salary-all').value = basic.percentSalaryAll
             document.querySelector('.percent-salary-for-young-special').value = basic.percentSalaryForYoungSpecial
@@ -30,7 +29,7 @@ const fillingTablePercentSalary = async () => {
         }
         imgDelete.id = percent.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/delete?id=${imgDelete.id}`)
+            let responseDelete = await fetch(`${apiUrl}/percentsalary/delete?id=${imgDelete.id}`)
             location.reload()
             console.log(responseDelete)
         }
@@ -58,7 +57,7 @@ document.forms.createPercentSalary.onsubmit = async (event) => {
         percentSalaryForYoungSpecial: elements.percentSalaryForYoungSpecial.value,
         percentStartDate: elements.percentStartDate.value
     })
-    const response = await fetch(`${apiUrl}/create`, {
+    const response = await fetch(`${apiUrl}/percentsalary/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: percent

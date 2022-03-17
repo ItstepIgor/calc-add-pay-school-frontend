@@ -1,9 +1,8 @@
-const apiUrl = "http://localhost:8080/api/calcsetting"
 let id
 
 const fillingTableCalcSettings = async () => {
-    let calcSettings = await getJSON(`${apiUrl}/get`)
-    let maxDate = await getJSON(`${apiUrl}/getmaxdate`)
+    let calcSettings = await getJSON(`${apiUrl}/calcsetting/get`)
+    let maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
     calcSettings.forEach(calcSetting => {
         let div = document.createElement('div')
         let divCalcDate = document.createElement('div')
@@ -19,14 +18,14 @@ const fillingTableCalcSettings = async () => {
         divWorkingDays.innerHTML = calcSetting.workingDays
         imgUpdate.id = calcSetting.id
         imgUpdate.onclick = async () => {
-            let calc = await getJSON(`${apiUrl}/getbyid?id=${imgUpdate.id}`).then()
+            let calc = await getJSON(`${apiUrl}/calcsetting/getbyid?id=${imgUpdate.id}`).then()
             id = calc.id
             document.querySelector('.calc-date').value = calc.calcDate
             document.querySelector('.working-days').value = calc.workingDays
         }
         imgDelete.id = calcSetting.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/delete?id=${imgDelete.id}`)
+            let responseDelete = await fetch(`${apiUrl}/calcsetting/delete?id=${imgDelete.id}`)
             location.reload()
             console.log(responseDelete)
         }
@@ -51,7 +50,7 @@ document.forms.createCalcSettings.onsubmit = async (event) => {
         calcDate: elements.calcDate.value,
         workingDays: elements.workingDays.value,
     })
-    const response = await fetch(`${apiUrl}/create`, {
+    const response = await fetch(`${apiUrl}/calcsetting/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: calc

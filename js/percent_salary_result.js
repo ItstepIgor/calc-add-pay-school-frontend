@@ -1,4 +1,3 @@
-const apiUrl = "http://localhost:8080/api/percentsalaryresult"
 let id
 
 // const fillingSelectAddPay = async () => {
@@ -24,7 +23,7 @@ let id
 // }
 
 const fillingTablePercentSalaryResult = async () => {
-    let PercentSalaryResults = await getJSON(`${apiUrl}/get`)
+    let PercentSalaryResults = await getJSON(`${apiUrl}/percentsalaryresult/get`)
     // console.log(addPayResults)
     PercentSalaryResults.forEach(PercentSalaryResult => {
             // console.log(addPayResult)
