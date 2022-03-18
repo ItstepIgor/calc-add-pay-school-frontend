@@ -22,12 +22,6 @@ const fillingSelectPeople = async () => {
     })
 }
 
-const fillingDivBalance = async () => {
-    let maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
-    let balance = await getJSON(`${apiUrl}/addpayfund/getcurrentfund?date=${maxDate.calcDate}`)
-
-
-}
 
 const fillingTableStaffList = async () => {
     let staffLists = await getJSON(`${apiUrl}/stafflist/get`)
@@ -111,7 +105,6 @@ document.forms.createStaffList.onsubmit = async (event) => {
     console.log(response)
 }
 
-fillingDivBalance().then()
 fillingSelectPeople().then()
 fillingSelectPosition().then()
 fillingTableStaffList().then()
