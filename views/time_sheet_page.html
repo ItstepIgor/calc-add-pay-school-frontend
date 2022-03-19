@@ -10,14 +10,17 @@
     <div class="div-create">
         <form name="createTimeSheet" action="#" method="post">
             <div>ФИО</div>
-            <select class="people" id="selectPeopleId" required>
-            </select>
-            <div>Отработано дней</div>
-            <input type="number" name="actualDaysWorked" class="actual-days-worked" required>
-            <br>
-            <br>
-            <input class="input-data-list" id="input-data-list" type="text" list="dataListPeopleId">
+            <!--            <select class="people" id="selectPeopleId" required>-->
+            <!--            </select>-->
+            <!--            <br>-->
+            <!--            <br>-->
+            <input class="input-data-list" id="input-data-list" type="text" list="dataListPeopleId" name="chooseOption"
+                   autocomplete="off" required>
             <datalist class="data-list-people" id="dataListPeopleId"></datalist>
+            <div>Отработано дней</div>
+            <input type="number" name="actualDaysWorked" class="actual-days-worked" autocomplete="off" required>
+            <br>
+
             <br>
             <br>
             <button type="submit">Сохранить</button>
@@ -48,6 +51,7 @@
     </div>
 </div>
 </body>
+<script src="../js/jquery.js"></script>
 <script src="../js/functions.js"></script>
 <script src="../js/time_sheet.js"></script>
 </html>

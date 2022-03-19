@@ -5,17 +5,18 @@
 //как сделать по стрелке такое же действие как по tab
 //узнать как вывести одинаковую информацию на разных страницах (например меню)
 let id
+let idDataList
 
-const fillingSelectPeople = async () => {
-    let people = await getJSON(`${apiUrl}/people/get`)
-    let select = document.getElementById('selectPeopleId')
-    people.forEach(person => {
-        let option = document.createElement('option')
-        option.value = person.id
-        option.innerHTML = person.surName + ' ' + person.firstName + ' ' + person.patronymic
-        select.appendChild(option)
-    })
-}
+// const fillingSelectPeople = async () => {
+//     let people = await getJSON(`${apiUrl}/people/get`)
+//     let select = document.getElementById('selectPeopleId')
+//     people.forEach(person => {
+//         let option = document.createElement('option')
+//         option.value = person.id
+//         option.innerHTML = person.surName + ' ' + person.firstName + ' ' + person.patronymic
+//         select.appendChild(option)
+//     })
+// }
 
 const fillingDataListPeople = async () => {
     let people = await getJSON(`${apiUrl}/people/get`)
@@ -32,12 +33,9 @@ const fillingDataListPeople = async () => {
 
 const fillingTableTimeSheet = async () => {
     let timeSheets = await getJSON(`${apiUrl}/timesheet/get`)
-    console.log(timeSheets)
-    // let editDayFocusIndex = 0;
-    // let editDayInputFocusIndex = 0;
     timeSheets.forEach(timeSheet => {
 
-        console.log(timeSheet)
+        // console.log(timeSheet)
         let div = document.createElement('div')
         let divFio = document.createElement('div')
         let divCalcDate = document.createElement('div')
@@ -58,8 +56,9 @@ const fillingTableTimeSheet = async () => {
         imgUpdate.onclick = async () => {
             let staff = await getJSON(`${apiUrl}/timesheet/getbyid?id=${imgUpdate.id}`).then()
             id = staff.id
-            document.getElementById('selectPeopleId').value = staff.peopleId
-            // document.getElementById('dataListPeopleId').value = staff.peopleId
+            // document.getElementById('selectPeopleId').value = staff.peopleId
+            document.getElementById('dataListPeopleId').value = staff.peopleId
+            idDataList = staff.peopleId
             document.querySelector('.input-data-list').value = staff.peopleSurAndFirstName
             document.querySelector('.actual-days-worked').value = staff.actualDaysWorked
         }
@@ -140,26 +139,30 @@ document.querySelector('.save-edit-day').onclick = async (event) => {
     }
 }
 
+$(function () {
+    $('input[name=chooseOption]').on('input', function () {
+        var selectedOption = $('option[value="' + $(this).val() + '"]');
+        idDataList = selectedOption.attr('id')
+        // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
+    });
+});
+
 document.forms.createTimeSheet.onsubmit = async (event) => {
     let elements = event.target.elements
     let sheet = JSON.stringify({
         id: id,
-        peopleId: document.getElementById('selectPeopleId').value,
-        // peopleId: document.getElementById('dataListPeopleId').getAttribute(id)
+        // peopleId: document.getElementById('selectPeopleId').value,
+        peopleId: idDataList,
         actualDaysWorked: elements.actualDaysWorked.value,
     })
-    console.log(elements)
-    let input = document.getElementById('input-data-list')
-    let dataList = document.getElementById(input.getAttribute('list'))
-    console.log(dataList.options.namedItem(input.value))
     const response = await fetch(`${apiUrl}/timesheet/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: sheet
     });
-    // console.log(response)
+    // console.log(sheet)
 }
 
-fillingSelectPeople().then()
+// fillingSelectPeople().then()
 fillingDataListPeople().then()
 fillingTableTimeSheet().then()

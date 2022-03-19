@@ -10,13 +10,23 @@
     <div class="div-create">
         <form name="createAddPayResult" action="#" method="post">
             <div>ФИО</div>
-            <select class="staff-list-people" id="staffListId" required>
-            </select>
+            <!--            <select class="staff-list-people" id="staffListId" required>-->
+            <!--            </select>-->
+            <!--            <br>-->
+            <!--            <br>-->
+            <input class="input-data-list" id="input-data-list" type="text" list="dataListStaffListId"
+                   name="chooseOption"
+                   autocomplete="off" required>
+            <datalist class="data-list-people" id="dataListStaffListId"></datalist>
             <div>Код оплаты</div>
-            <select class="add-pay" id="addPayId" required>
-            </select>
+            <!--            <select class="add-pay" id="addPayId" required>-->
+            <!--            </select>-->
+            <input class="input-data-list2" id="input-data-list2" type="text" list="dataListAddPayId"
+                   name="chooseOption2"
+                   autocomplete="off" required>
+            <datalist class="data-list-people" id="dataListAddPayId"></datalist>
             <div>Начисленный процент</div>
-            <input type="text" name="percent" class="percent" required>
+            <input type="text" name="percent" class="percent" autocomplete="off" required>
             <br>
             <br>
             <button type="submit">Сохранить</button>
@@ -47,6 +57,7 @@
     </div>
 </div>
 </body>
+<script src="../js/jquery.js"></script>
 <script src="../js/functions.js"></script>
 <script src="../js/add_pay_result.js"></script>
 </html>

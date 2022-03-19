@@ -1,23 +1,47 @@
 let id
+let idDataList
+let idDataList2
+// const fillingSelectAddPay = async () => {
+//     let addPays = await getJSON(`${apiUrl}/addpay/get`)
+//     let select = document.getElementById('addPayId')
+//     addPays.forEach(addPay => {
+//         let option = document.createElement('option')
+//         option.value = addPay.id
+//         option.innerHTML = addPay.addPayCode
+//         select.appendChild(option)
+//     })
+// }
 
-const fillingSelectAddPay = async () => {
+const fillingDataListAddPay = async () => {
     let addPays = await getJSON(`${apiUrl}/addpay/get`)
-    let select = document.getElementById('addPayId')
+    let select = document.getElementById('dataListAddPayId')
     addPays.forEach(addPay => {
         let option = document.createElement('option')
-        option.value = addPay.id
-        option.innerHTML = addPay.addPayCode
+        option.id = addPay.id
+        option.value = addPay.addPayCode
         select.appendChild(option)
     })
 }
 
-const fillingSelectStaffList = async () => {
+// const fillingSelectStaffList = async () => {
+//     let staffLists = await getJSON(`${apiUrl}/stafflist/get`)
+//     let select = document.getElementById('staffListId')
+//     staffLists.forEach(staffList => {
+//         let option = document.createElement('option')
+//         option.value = staffList.id
+//         option.innerHTML = staffList.peopleSurAndFirstName + ' || ' + staffList.positionName
+//         select.appendChild(option)
+//     })
+// }
+
+const fillingDataListStaffLis = async () => {
     let staffLists = await getJSON(`${apiUrl}/stafflist/get`)
-    let select = document.getElementById('staffListId')
+    let select = document.getElementById('dataListStaffListId')
     staffLists.forEach(staffList => {
         let option = document.createElement('option')
-        option.value = staffList.id
-        option.innerHTML = staffList.peopleSurAndFirstName + ' ' + staffList.positionName
+        option.id = staffList.id
+        // console.log(option.id)
+        option.value = staffList.peopleSurAndFirstName + ' || ' + staffList.positionName
         select.appendChild(option)
     })
 }
@@ -28,7 +52,7 @@ const fillingDivBalance = async () => {
     let resultBonusSum = await getJSON(`${apiUrl}/percentsalaryresult/getallsum`)
     let addBonusSum = await getJSON(`${apiUrl}/addpayresult/getallsum`)
     let balance = await getJSON(`${apiUrl}/addpayfund/getcurrentfund?date=${maxDate.calcDate}`)
-    console.log(balance)
+    // console.log(balance)
     balance.forEach(bal => {
         if (bal.addPayTypeId === 1) {
             let bonus = document.querySelector('.bonus')
@@ -45,9 +69,9 @@ const fillingDivBalance = async () => {
 
 const fillingTableAddPayResult = async () => {
     let addPayResults = await getJSON(`${apiUrl}/addpayresult/get`)
-    console.log(addPayResults)
+    // console.log(addPayResults)
     addPayResults.forEach(addPayResult => {
-            console.log(addPayResult)
+            // console.log(addPayResult)
             let div = document.createElement('div')
             let divFio = document.createElement('div')
             let divPosition = document.createElement('div')
@@ -77,8 +101,12 @@ const fillingTableAddPayResult = async () => {
                 let addPayR = await getJSON(`${apiUrl}/addpayresult/getbyid?id=${imgUpdate.id}`).then()
 
                 id = addPayR.id
-                document.getElementById('staffListId').value = addPayR.staffListId
-                document.getElementById('addPayId').value = addPayR.addPayId
+                // document.getElementById('staffListId').value = addPayR.staffListId
+                idDataList = addPayR.staffListId
+                document.querySelector('.input-data-list').value = addPayR.peopleSurAndFirstName + ' || ' + addPayR.positionName
+                // document.getElementById('addPayId').value = addPayR.addPayId
+                idDataList2 = addPayR.addPayId
+                document.querySelector('.input-data-list2').value = addPayR.addPayCode
                 document.querySelector('.percent').value = addPayR.percent
             }
             imgDelete.id = addPayResult.id
@@ -102,25 +130,46 @@ const fillingTableAddPayResult = async () => {
     )
 }
 
+$(function () {
+    $('input[name=chooseOption]').on('input', function () {
+        let selectedOption = $('option[value="' + $(this).val() + '"]');
+        idDataList = selectedOption.attr('id')
+        // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
+    });
+});
+
+$(function () {
+    $('input[name=chooseOption2]').on('input', function () {
+        let selectedOption = $('option[value="' + $(this).val() + '"]');
+        idDataList2 = selectedOption.attr('id')
+        // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
+    });
+});
+
 
 document.forms.createAddPayResult.onsubmit = async (event) => {
     let elements = event.target.elements
     let result = JSON.stringify({
         id: id,
-        staffListId: document.getElementById('staffListId').value,
-        addPayId: document.getElementById('addPayId').value,
+        // staffListId: document.getElementById('staffListId').value,
+        staffListId: idDataList,
+        // addPayId: document.getElementById('addPayId').value,
+        addPayId: idDataList2,
         percent: elements.percent.value
     })
-    console.log(result)
+    // console.log(result)
     const response = await fetch(`${apiUrl}/addpayresult/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: result
     });
-    console.log(response)
+    // console.log(response)
 }
 
+
 fillingDivBalance().then()
-fillingSelectStaffList().then()
-fillingSelectAddPay().then()
+fillingDataListStaffLis().then()
+// fillingSelectStaffList().then()
+fillingDataListAddPay().then()
+// fillingSelectAddPay().then()
 fillingTableAddPayResult().then()
