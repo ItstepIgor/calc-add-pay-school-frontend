@@ -1,3 +1,4 @@
+//querySelectorAll сохраняется очередность или нет
 //Сделать выпадающий список с поиском и что бы можно было получить id  для сохранения содрудника в базу
 //Доделать отправку измененных значений из таблицы в цикле в базу возможно есть updateAll метод
 //как разделяют create(get) и update(put) методы для сохранения в базу. Я думаю через if если заполнен id
@@ -125,18 +126,21 @@ const fillingTableTimeSheet = async () => {
 document.querySelector('.save-edit-day').onclick = async (event) => {
     let size = document.querySelectorAll('.div-edit-day');
     let img = document.querySelectorAll('.img-update');
+    let jsonDays = []
+    let jsonDay
     for (let i = 0; i < size.length; i++) {
-        let jsonDay = JSON.stringify({
+        jsonDay = {
             id: img[i].id,
             actualDaysWorked: size[i].innerHTML
-        })
-        console.log(jsonDay)
-        const response = await fetch(`${apiUrl}/timesheet/updateday`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: jsonDay
-        });
+        }
+        jsonDays.push(jsonDay)
     }
+    jsonDays = JSON.stringify(jsonDays)
+    const response = await fetch(`${apiUrl}/timesheet/updateday`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: jsonDays
+    });
 }
 
 $(function () {
