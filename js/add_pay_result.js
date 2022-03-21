@@ -52,17 +52,17 @@ const fillingDivBalance = async () => {
     let resultBonusSum = await getJSON(`${apiUrl}/percentsalaryresult/getallsum`)
     let addBonusSum = await getJSON(`${apiUrl}/addpayresult/getallsum`)
     let balance = await getJSON(`${apiUrl}/addpayfund/getcurrentfund?date=${maxDate.calcDate}`)
-    // console.log(balance)
+    console.log(balance)
     balance.forEach(bal => {
-        if (bal.addPayTypeId === 1) {
+        if (bal.addPayTypes.id === 1) {
             let bonus = document.querySelector('.bonus')
-            bonus.innerHTML = 'Остаток ' + bal.addPayTypeName + ': ' + (bal.addPayFunds - resultBonusSum - addBonusSum.bonusSum)
-        } else if (bal.addPayTypeId === 2) {
+            bonus.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' + (bal.addPayFunds - resultBonusSum - addBonusSum.bonusSum)
+        } else if (bal.addPayTypes.id === 2) {
             let complication = document.querySelector('.complication')
-            complication.innerHTML = 'Остаток ' + bal.addPayTypeName + ': ' + (bal.addPayFunds - addBonusSum.complicationSum)
-        } else if (bal.addPayTypeId === 3) {
+            complication.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' + (bal.addPayFunds - addBonusSum.complicationSum)
+        } else if (bal.addPayTypes.id === 3) {
             let motivation = document.querySelector('.motivation')
-            motivation.innerHTML = 'Остаток ' + bal.addPayTypeName + ': ' + (bal.addPayFunds - addBonusSum.motivationSum)
+            motivation.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' + (bal.addPayFunds - addBonusSum.motivationSum)
         }
     })
 }

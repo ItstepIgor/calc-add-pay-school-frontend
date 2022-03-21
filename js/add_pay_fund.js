@@ -28,16 +28,16 @@ const fillingTableAddPayFund = async () => {
             divCalcDate.className = 'div-table-cell div-align-center'
             divAddPayFund.className = 'div-table-cell div-align-center'
 
-            divAddPayTypeName.innerHTML = addpayfund.addPayTypeName
+            divAddPayTypeName.innerHTML = addpayfund.addPayTypes.addPayTypeName
             divNumberOrder.innerHTML = addpayfund.numberOrder
-            divCalcDate.innerHTML = addpayfund.calcDate
+            divCalcDate.innerHTML = addpayfund.calcSettings.calcDate
             divAddPayFund.innerHTML = addpayfund.addPayFunds
             imgUpdate.id = addpayfund.id
             imgUpdate.onclick = async () => {
                 let addPF = await getJSON(`${apiUrl}/addpayfund/getbyid?id=${imgUpdate.id}`).then()
                 console.log(addPF)
                 id = addPF.id
-                document.getElementById('selectAddPayTypeId').value = addPF.addPayTypeId
+                document.getElementById('selectAddPayTypeId').value = addPF.addPayTypes.id
                 document.querySelector('.number-order').value = addPF.numberOrder
                 document.querySelector('.add-pay-funds').value = addPF.addPayFunds
             }
@@ -51,7 +51,7 @@ const fillingTableAddPayFund = async () => {
             div.appendChild(divCalcDate)
             div.appendChild(divAddPayFund)
 
-            if (maxDate.calcDate === addpayfund.calcDate) {
+            if (maxDate.calcDate === addpayfund.calcSettings.calcDate) {
                 divUpdate.appendChild(imgUpdate)
                 divDelete.appendChild(imgDelete)
             }
@@ -66,17 +66,17 @@ document.forms.createAddPayFund.onsubmit = async (event) => {
     let elements = event.target.elements
     let addPayFund = JSON.stringify({
         id: id,
-        addPayTypeId: document.getElementById('selectAddPayTypeId').value,
+        addPayTypes: {id: document.getElementById('selectAddPayTypeId').value},
         addPayFunds: elements.addPayFunds.value,
         numberOrder: elements.numberOrder.value
     })
-    console.log(addPayFund)
+    // console.log(addPayFund)
     const response = await fetch(`${apiUrl}/addpayfund/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: addPayFund
     });
-    console.log(response)
+    // console.log(response)
 }
 
 fillingSelectAddPayType().then()
