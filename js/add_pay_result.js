@@ -130,22 +130,16 @@ const fillingTableAddPayResult = async () => {
     )
 }
 
-$(function () {
-    $('input[name=chooseOption]').on('input', function () {
-        let selectedOption = $('option[value="' + $(this).val() + '"]');
-        idDataList = selectedOption.attr('id')
-        // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
-    });
-});
+// let getIdByField = (fieldName, idValue) => {
+//     $(`input[name=${fieldName}]`).on('input', function () {
+//         let selectedOption = $('option[value="' + $(this).val() + '"]');
+//         idValue = selectedOption.attr('id')
+//         // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
+//     });
+// }
 
-$(function () {
-    $('input[name=chooseOption2]').on('input', function () {
-        let selectedOption = $('option[value="' + $(this).val() + '"]');
-        idDataList2 = selectedOption.attr('id')
-        // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
-    });
-});
-
+$(() => getIdByField('chooseOption', idDataList));
+$(() => getIdByField('chooseOption2', idDataList2));
 
 document.forms.createAddPayResult.onsubmit = async (event) => {
     let elements = event.target.elements
