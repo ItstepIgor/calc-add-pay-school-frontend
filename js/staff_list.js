@@ -1,5 +1,4 @@
 let id
-
 const fillingSelectPosition = async () => {
     let positions = await getJSON(`${apiUrl}/position/get`)
     let select = document.getElementById('selectPositionId')
@@ -23,8 +22,14 @@ const fillingSelectPeople = async () => {
 }
 
 
-const fillingTableStaffList = async () => {
-    let staffLists = await getJSON(`${apiUrl}/stafflist/get`)
+const fillingTableStaffList = async (disable) => {
+    let staffLists
+
+    if (disable === 0) {
+        staffLists = await getJSON(`${apiUrl}/stafflist/getwhoworked`)
+    } else if (disable === 1) {
+        staffLists = await getJSON(`${apiUrl}/stafflist/getwhodidnotwork`)
+    }
     console.log(staffLists)
     staffLists.forEach(staffList => {
             console.log(staffList)
@@ -47,8 +52,8 @@ const fillingTableStaffList = async () => {
             divFio.innerHTML = staffList.peopleSurAndFirstName
             divPosition.innerHTML = staffList.positionName
             divSalary.innerHTML = staffList.salary
-            divYoungSpecial.innerHTML = staffList.youngSpecial
-            divDisabled.innerHTML = staffList.disabled
+            divYoungSpecial.innerHTML = (staffList.youngSpecial === true ? 'Да' : 'Нет')
+            divDisabled.innerHTML = (staffList.disabled === true ? 'Да' : 'Нет')
             imgUpdate.id = staffList.id
             imgUpdate.onclick = async () => {
                 let staff = await getJSON(`${apiUrl}/stafflist/getbyid?id=${imgUpdate.id}`).then()
@@ -105,6 +110,11 @@ document.forms.createStaffList.onsubmit = async (event) => {
     console.log(response)
 }
 
+// document.querySelector('.show-disabled').onclick = async () => {
+//     fillingTableStaffList(1).then()
+// }
+
+
+fillingTableStaffList(0).then()
 fillingSelectPeople().then()
 fillingSelectPosition().then()
-fillingTableStaffList().then()
