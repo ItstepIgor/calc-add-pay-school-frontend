@@ -130,18 +130,22 @@ const fillingTableAddPayResult = async () => {
     )
 }
 
-// let getIdByField = (fieldName, idValue) => {
-//     $(`input[name=${fieldName}]`).on('input', function () {
-//         let selectedOption = $('option[value="' + $(this).val() + '"]');
-//         idValue = selectedOption.attr('id')
-//         // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
-//     });
-// }
+let getIdByField = (fieldName, idValue) => {
+    $(`input[name=${fieldName}]`).on('input', function (idValue) {
+        let selectedOption = $('option[value="' + $(this).val() + '"]');
+        idValue = selectedOption.attr('id')
+        // console.log(idValue)
+        // return idValue
+        // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
+    });
+    // return idValue
+}
 
 $(() => getIdByField('chooseOption', idDataList));
 $(() => getIdByField('chooseOption2', idDataList2));
 
 document.forms.createAddPayResult.onsubmit = async (event) => {
+
     let elements = event.target.elements
     let result = JSON.stringify({
         id: id,
@@ -151,7 +155,7 @@ document.forms.createAddPayResult.onsubmit = async (event) => {
         addPayId: idDataList2,
         percent: elements.percent.value
     })
-    // console.log(result)
+    console.log(result)
     const response = await fetch(`${apiUrl}/addpayresult/create`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},

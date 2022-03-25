@@ -25,7 +25,7 @@ const fillingDataListPeople = async () => {
     people.forEach(person => {
         let option = document.createElement('option')
         option.id = person.id
-        console.log(option.id)
+        // console.log(option.id)
         option.value = person.surName + ' ' + person.firstName + ' ' + person.patronymic
         select.appendChild(option)
     })
@@ -164,7 +164,9 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
         headers: {"Content-Type": "application/json"},
         body: sheet
     });
-    // console.log(sheet)
+    let responses = response.json()
+    console.log(responses)
+    alert(responses)
 }
 
 // fillingSelectPeople().then()

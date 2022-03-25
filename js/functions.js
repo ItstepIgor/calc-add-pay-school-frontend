@@ -16,13 +16,13 @@ function createUpdateAndDeleteElement() {
     return {divUpdate, imgUpdate, divDelete, imgDelete};
 }
 
-let getIdByField = (fieldName, idValue) => {
-    $(`input[name=${fieldName}]`).on('input', function () {
-        let selectedOption = $('option[value="' + $(this).val() + '"]');
-        idValue = selectedOption.attr('id')
-        console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
-    });
-}
+// let getIdByField = (fieldName, idValue) => {
+//     $(`input[name=${fieldName}]`).on('input', function () {
+//         let selectedOption = $('option[value="' + $(this).val() + '"]');
+//         idValue = selectedOption.attr('id')
+//         console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
+//     });
+// }
 
 /*document.querySelector('.save-edit-day').onclick = () => {
     saveEditDay()
