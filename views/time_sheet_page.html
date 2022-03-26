@@ -4,23 +4,19 @@
     <meta charset="UTF-8">
     <title>Табель рабочего времени</title>
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/select2.min.css">
 </head>
 <body>
 <div class="container">
     <div class="div-create">
         <form name="createTimeSheet" action="#" method="post">
             <div>ФИО</div>
-            <!--            <select class="people" id="selectPeopleId" required>-->
-            <!--            </select>-->
-            <!--            <br>-->
-            <!--            <br>-->
-            <input class="input-data-list" id="input-data-list" type="text" list="dataListPeopleId" name="chooseOption"
-                   autocomplete="off" required>
-            <datalist class="data-list-people" id="dataListPeopleId"></datalist>
+            <select class="js-example-basic-single" style="width: 250px" id="selectPeopleId" name="state" required>
+            </select>
+            <br>
             <div>Отработано дней</div>
             <input type="number" name="actualDaysWorked" class="actual-days-worked" autocomplete="off" required>
             <br>
-
             <br>
             <br>
             <button type="submit">Сохранить</button>
@@ -51,7 +47,8 @@
     </div>
 </div>
 </body>
-<script src="../js/jquery.js"></script>
+<script src="../js/jquerymin.js"></script>
+<script src="../js/select2.min.js"></script>
 <script src="../js/functions.js"></script>
 <script src="../js/time_sheet.js"></script>
 </html>

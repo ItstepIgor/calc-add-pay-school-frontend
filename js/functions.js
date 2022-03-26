@@ -16,6 +16,19 @@ function createUpdateAndDeleteElement() {
     return {divUpdate, imgUpdate, divDelete, imgDelete};
 }
 
+async function createOrUpdateEntity(query, jsonBody, method) {
+    await fetch(`${apiUrl}/${query}`, {
+        method: method,
+        headers: {"Content-Type": "application/json"},
+        body: jsonBody
+    }).then((response) => {
+        return response.json()
+    }).then(jsonResponse => {
+        alert(jsonResponse.message)
+    });
+}
+
+
 // let getIdByField = (fieldName, idValue) => {
 //     $(`input[name=${fieldName}]`).on('input', function () {
 //         let selectedOption = $('option[value="' + $(this).val() + '"]');

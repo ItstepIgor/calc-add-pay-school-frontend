@@ -6,31 +6,27 @@
 //как сделать по стрелке такое же действие как по tab
 //узнать как вывести одинаковую информацию на разных страницах (например меню)
 let id
-let idDataList
 
-// const fillingSelectPeople = async () => {
-//     let people = await getJSON(`${apiUrl}/people/get`)
-//     let select = document.getElementById('selectPeopleId')
-//     people.forEach(person => {
-//         let option = document.createElement('option')
-//         option.value = person.id
-//         option.innerHTML = person.surName + ' ' + person.firstName + ' ' + person.patronymic
-//         select.appendChild(option)
-//     })
-// }
+// $(document).ready(function () {
+//     $('.js-example-basic-single').select2();
+// });
 
-const fillingDataListPeople = async () => {
+
+const fillingSelectPeople = async () => {
     let people = await getJSON(`${apiUrl}/people/get`)
-    let select = document.getElementById('dataListPeopleId')
+    let jsonSelects = []
+    let jsonSelect
     people.forEach(person => {
-        let option = document.createElement('option')
-        option.id = person.id
-        // console.log(option.id)
-        option.value = person.surName + ' ' + person.firstName + ' ' + person.patronymic
-        select.appendChild(option)
+        jsonSelect = {
+            id: person.id,
+            text: person.surName + ' ' + person.firstName + ' ' + person.patronymic
+        }
+        jsonSelects.push(jsonSelect)
     })
+    $('.js-example-basic-single').select2({
+        data: jsonSelects
+    });
 }
-
 
 const fillingTableTimeSheet = async () => {
     let timeSheets = await getJSON(`${apiUrl}/timesheet/get`)
@@ -41,7 +37,6 @@ const fillingTableTimeSheet = async () => {
         let divFio = document.createElement('div')
         let divCalcDate = document.createElement('div')
         let divActualDaysWorked = document.createElement('div')
-        // divActualDaysWorked.focusIndex = editDayFocusIndex++;
         let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
 
         div.className = 'div-table-row'
@@ -57,10 +52,8 @@ const fillingTableTimeSheet = async () => {
         imgUpdate.onclick = async () => {
             let staff = await getJSON(`${apiUrl}/timesheet/getbyid?id=${imgUpdate.id}`).then()
             id = staff.id
-            // document.getElementById('selectPeopleId').value = staff.peopleId
-            document.getElementById('dataListPeopleId').value = staff.peopleId
-            idDataList = staff.peopleId
-            document.querySelector('.input-data-list').value = staff.peopleSurAndFirstName
+            $('#selectPeopleId').val(`${staff.peopleId}`)
+            $('#selectPeopleId').trigger('change');
             document.querySelector('.actual-days-worked').value = staff.actualDaysWorked
         }
         imgDelete.id = timeSheet.id
@@ -143,32 +136,20 @@ document.querySelector('.save-edit-day').onclick = async (event) => {
     });
 }
 
-$(function () {
-    $('input[name=chooseOption]').on('input', function () {
-        var selectedOption = $('option[value="' + $(this).val() + '"]');
-        idDataList = selectedOption.attr('id')
-        // console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
-    });
-});
-
 document.forms.createTimeSheet.onsubmit = async (event) => {
     let elements = event.target.elements
-    let sheet = JSON.stringify({
+    let jsonBody = JSON.stringify({
         id: id,
-        // peopleId: document.getElementById('selectPeopleId').value,
-        peopleId: idDataList,
+        peopleId: document.getElementById('selectPeopleId').value,
         actualDaysWorked: elements.actualDaysWorked.value,
     })
-    const response = await fetch(`${apiUrl}/timesheet/create`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: sheet
-    });
-    let responses = response.json()
-    console.log(responses)
-    alert(responses)
+    // console.log(jsonBody)
+    if (id > 0) {
+        await createOrUpdateEntity('timesheet/update', jsonBody, 'PUT');
+    } else {
+        await createOrUpdateEntity('timesheet/create', jsonBody, 'POST');
+    }
 }
 
-// fillingSelectPeople().then()
-fillingDataListPeople().then()
+fillingSelectPeople().then()
 fillingTableTimeSheet().then()
