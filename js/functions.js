@@ -28,14 +28,23 @@ async function createOrUpdateEntity(query, jsonBody, method) {
     });
 }
 
-
-// let getIdByField = (fieldName, idValue) => {
-//     $(`input[name=${fieldName}]`).on('input', function () {
-//         let selectedOption = $('option[value="' + $(this).val() + '"]');
-//         idValue = selectedOption.attr('id')
-//         console.log(selectedOption.length ? selectedOption.attr('id') : 'This opiton is not in the list!');
-//     });
-// }
+async function fillingSelect(query, id, text, classSelect) {
+    let entities = await getJSON(`${apiUrl}/${query}/get`)
+    let jsonsForSelect = []
+    let jsonForSelect
+    entities.forEach(entity => {
+        jsonForSelect = {
+            id: eval(id),
+            // id: new Function(id),
+            text: eval(text)
+            // text: new Function(text)
+        }
+        jsonsForSelect.push(jsonForSelect)
+    })
+    $(`.${classSelect}`).select2({
+        data: jsonsForSelect
+    });
+}
 
 /*document.querySelector('.save-edit-day').onclick = () => {
     saveEditDay()

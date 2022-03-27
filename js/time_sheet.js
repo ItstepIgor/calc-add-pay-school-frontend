@@ -1,31 +1,16 @@
 //querySelectorAll сохраняется очередность или нет
-//Сделать выпадающий список с поиском и что бы можно было получить id  для сохранения содрудника в базу
+
 //Доделать отправку измененных значений из таблицы в цикле в базу возможно есть updateAll метод
-//как разделяют create(get) и update(put) методы для сохранения в базу. Я думаю через if если заполнен id
-// то один метод если нет то create
 //как сделать по стрелке такое же действие как по tab
 //узнать как вывести одинаковую информацию на разных страницах (например меню)
+//eval чем можно заменить
 let id
 
-// $(document).ready(function () {
-//     $('.js-example-basic-single').select2();
-// });
-
-
 const fillingSelectPeople = async () => {
-    let people = await getJSON(`${apiUrl}/people/get`)
-    let jsonSelects = []
-    let jsonSelect
-    people.forEach(person => {
-        jsonSelect = {
-            id: person.id,
-            text: person.surName + ' ' + person.firstName + ' ' + person.patronymic
-        }
-        jsonSelects.push(jsonSelect)
-    })
-    $('.js-example-basic-single').select2({
-        data: jsonSelects
-    });
+    let id = 'entity.id'
+    let text = 'entity.surName + \' \' + entity.firstName + \' \' + entity.patronymic'
+    let classSelect = 'js-example-basic-single'
+    fillingSelect('people', id, text, classSelect)
 }
 
 const fillingTableTimeSheet = async () => {

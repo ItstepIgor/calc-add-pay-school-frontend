@@ -42,6 +42,16 @@ img {
     margin-left: 45%;
 }
 
+select {
+    width: 250px;
+}
+
+
+.select2-selection__rendered, .select2-results__options {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
 /*.divTableHeading {*/
 /*    background-color: #EEE;*/
 /*    display: table-header-group;*/

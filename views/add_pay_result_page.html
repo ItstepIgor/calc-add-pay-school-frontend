@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Дополнительные оплаты</title>
+    <link rel="stylesheet" href="../styles/select2.min.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
@@ -10,21 +11,12 @@
     <div class="div-create">
         <form name="createAddPayResult" action="#" method="post">
             <div>ФИО</div>
-            <!--            <select class="staff-list-people" id="staffListId" required>-->
-            <!--            </select>-->
-            <!--            <br>-->
-            <!--            <br>-->
-            <input class="input-data-list" id="input-data-list" type="text" list="dataListStaffListId"
-                   name="chooseOption"
-                   autocomplete="off" required>
-            <datalist class="data-list-people" id="dataListStaffListId"></datalist>
+            <select class="staff-list-people" id="staffListId" name="state2" required>
+            </select>
             <div>Код оплаты</div>
-            <!--            <select class="add-pay" id="addPayId" required>-->
-            <!--            </select>-->
-            <input class="input-data-list2" id="input-data-list2" type="text" list="dataListAddPayId"
-                   name="chooseOption2"
-                   autocomplete="off" required>
-            <datalist class="data-list-people" id="dataListAddPayId"></datalist>
+
+            <select class="add-pay" id="addPayId" name="state1" required>
+            </select>
             <div>Начисленный процент</div>
             <input type="text" name="percent" class="percent" autocomplete="off" required>
             <br>
@@ -57,7 +49,8 @@
     </div>
 </div>
 </body>
-<script src="../js/jquery.js"></script>
+<script src="../js/jquerymin.js"></script>
+<script src="../js/select2.min.js"></script>
 <script src="../js/functions.js"></script>
 <script src="../js/add_pay_result.js"></script>
 </html>
