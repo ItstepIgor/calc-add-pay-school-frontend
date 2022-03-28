@@ -64,19 +64,18 @@ const fillingTableAddPayFund = async () => {
 
 document.forms.createAddPayFund.onsubmit = async (event) => {
     let elements = event.target.elements
-    let addPayFund = JSON.stringify({
+    let jsonBody = JSON.stringify({
         id: id,
         addPayTypes: {id: document.getElementById('selectAddPayTypeId').value},
         addPayFunds: elements.addPayFunds.value,
         numberOrder: elements.numberOrder.value
     })
-    // console.log(addPayFund)
-    const response = await fetch(`${apiUrl}/addpayfund/create`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: addPayFund
-    });
-    // console.log(response)
+    // console.log(jsonBody)
+    if (id > 0) {
+        await createOrUpdateEntity('addpayfund/update', jsonBody, 'PUT');
+    } else {
+        await createOrUpdateEntity('addpayfund/create', jsonBody, 'POST');
+    }
 }
 
 fillingSelectAddPayType().then()

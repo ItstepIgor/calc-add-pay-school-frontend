@@ -52,18 +52,18 @@ const fillingTableBasicNorms = async () => {
 
 document.forms.createBasicNorm.onsubmit = async (event) => {
     let elements = event.target.elements
-    let basic = JSON.stringify({
+    let jsonBody = JSON.stringify({
         id: id,
         basicNormName: elements.basicNormName.value,
         basicNormValue: elements.basicNormValue.value,
         basicNormDate: elements.basicNormDate.value
     })
-    const response = await fetch(`${apiUrl}/basicnorms/create`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: basic
-    });
-    console.log(response)
+    // console.log(jsonBody)
+    if (id > 0) {
+        await createOrUpdateEntity('basicnorms/update', jsonBody, 'PUT');
+    } else {
+        await createOrUpdateEntity('basicnorms/create', jsonBody, 'POST');
+    }
 }
 
 fillingTableBasicNorms().then()

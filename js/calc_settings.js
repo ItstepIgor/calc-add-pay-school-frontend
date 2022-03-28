@@ -48,17 +48,17 @@ document.forms.createCalcSettings.onsubmit = async (event) => {
     if (maxDate.calcDate === elements.calcDate.value) {
         alert('Такая дата расчета уже сохранена')
     } else {
-        let calc = JSON.stringify({
+        let jsonBody = JSON.stringify({
             id: id,
             calcDate: elements.calcDate.value,
             workingDays: elements.workingDays.value,
         })
-        const response = await fetch(`${apiUrl}/calcsetting/create`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: calc
-        });
-        console.log(response)
+        // console.log(jsonBody)
+        if (id > 0) {
+            await createOrUpdateEntity('calcsetting/update', jsonBody, 'PUT');
+        } else {
+            await createOrUpdateEntity('calcsetting/create', jsonBody, 'POST');
+        }
     }
 }
 

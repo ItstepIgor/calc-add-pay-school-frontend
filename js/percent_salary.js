@@ -51,18 +51,18 @@ const fillingTablePercentSalary = async () => {
 
 document.forms.createPercentSalary.onsubmit = async (event) => {
     let elements = event.target.elements
-    let percent = JSON.stringify({
+    let jsonBody = JSON.stringify({
         id: id,
         percentSalaryAll: elements.percentSalaryAll.value,
         percentSalaryForYoungSpecial: elements.percentSalaryForYoungSpecial.value,
         percentStartDate: elements.percentStartDate.value
     })
-    const response = await fetch(`${apiUrl}/percentsalary/create`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: percent
-    });
-    console.log(response)
+    // console.log(jsonBody)
+    if (id > 0) {
+        await createOrUpdateEntity('percentsalary/update', jsonBody, 'PUT');
+    } else {
+        await createOrUpdateEntity('percentsalary/create', jsonBody, 'POST');
+    }
 }
 
 fillingTablePercentSalary().then()

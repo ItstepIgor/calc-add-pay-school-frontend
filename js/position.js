@@ -27,7 +27,7 @@ const fillingTablePosition = async () => {
         imgDelete.id = position.id
         imgDelete.onclick = async () => {
             let responseDelete = await fetch(`${apiUrl}/position/delete?id=${imgDelete.id}`)
-            // location.reload()
+            location.reload()
             console.log(responseDelete)
         }
         div.appendChild(divPositionName)
@@ -43,18 +43,17 @@ const fillingTablePosition = async () => {
 
 document.forms.createPosition.onsubmit = async (event) => {
     let elements = event.target.elements
-    let position = JSON.stringify({
+    let jsonBody = JSON.stringify({
         id: id,
         positionName: elements.positionName.value,
         sorting: elements.sorting.value
     })
-    // console.log(position)
-    const response = await fetch(`${apiUrl}/position/create`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: position
-    });
-    console.log(response)
+    // console.log(jsonBody)
+    if (id > 0) {
+        await createOrUpdateEntity('position/update', jsonBody, 'PUT');
+    } else {
+        await createOrUpdateEntity('position/create', jsonBody, 'POST');
+    }
 }
 
 

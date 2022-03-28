@@ -30,9 +30,9 @@ const fillingTableStaffList = async (disable) => {
     } else if (disable === 1) {
         staffLists = await getJSON(`${apiUrl}/stafflist/getwhodidnotwork`)
     }
-    console.log(staffLists)
+    // console.log(staffLists)
     staffLists.forEach(staffList => {
-            console.log(staffList)
+            // console.log(staffList)
             let div = document.createElement('div')
             let divFio = document.createElement('div')
             let divPosition = document.createElement('div')
@@ -93,7 +93,7 @@ document.querySelector('.calc-percent-salary').onclick = async event => {
 
 document.forms.createStaffList.onsubmit = async (event) => {
     let elements = event.target.elements
-    let staff = JSON.stringify({
+    let jsonBody = JSON.stringify({
         id: id,
         peopleId: document.getElementById('selectPeopleId').value,
         positionId: document.getElementById('selectPositionId').value,
@@ -101,13 +101,12 @@ document.forms.createStaffList.onsubmit = async (event) => {
         youngSpecial: elements.youngSpecial.checked,
         disabled: elements.disabled.checked
     })
-    console.log(staff)
-    const response = await fetch(`${apiUrl}/stafflist/create`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: staff
-    });
-    console.log(response)
+    // console.log(jsonBody)
+    if (id > 0) {
+        await createOrUpdateEntity('stafflist/update', jsonBody, 'PUT');
+    } else {
+        await createOrUpdateEntity('stafflist/create', jsonBody, 'POST');
+    }
 }
 
 // document.querySelector('.show-disabled').onclick = async () => {

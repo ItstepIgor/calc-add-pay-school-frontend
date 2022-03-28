@@ -66,7 +66,7 @@ const fillingTableAddPay = async () => {
 
 document.forms.createAddPay.onsubmit = async (event) => {
     let elements = event.target.elements
-    let addPay = JSON.stringify({
+    let jsonBody = JSON.stringify({
         id: id,
         addPayTypeId: document.getElementById('selectAddPayTypeId').value,
         addPayCode: elements.addPayCode.value,
@@ -74,13 +74,12 @@ document.forms.createAddPay.onsubmit = async (event) => {
         maxPercent: elements.maxPercent.value,
         description: elements.description.value
     })
-    console.log(addPay)
-    const response = await fetch(`${apiUrl}/addpay/create`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: addPay
-    });
-    console.log(response)
+    // console.log(jsonBody)
+    if (id > 0) {
+        await createOrUpdateEntity('addpay/update', jsonBody, 'PUT');
+    } else {
+        await createOrUpdateEntity('addpay/create', jsonBody, 'POST');
+    }
 }
 
 fillingSelectAddPayType().then()

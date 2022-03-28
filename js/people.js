@@ -44,7 +44,7 @@ const fillingTablePeople = async () => {
         imgDelete.id = user.id
         imgDelete.onclick = async () => {
             let responseDelete = await fetch(`${apiUrl}/people/delete?id=${imgDelete.id}`)
-            // location.reload()
+            location.reload()
             console.log(responseDelete)
         }
         div.appendChild(divFio)
@@ -62,7 +62,7 @@ const fillingTablePeople = async () => {
 
 document.forms.createPerson.onsubmit = async (event) => {
     let elements = event.target.elements
-    let person = JSON.stringify({
+    let jsonBody = JSON.stringify({
         id: id,
         surName: elements.surName.value,
         firstName: elements.firstName.value,
@@ -71,13 +71,12 @@ document.forms.createPerson.onsubmit = async (event) => {
         phoneNumber: elements.phoneNumber.value,
         personnelNumber: elements.personnelNumber.value
     })
-    console.log(person)
-    const response = await fetch(`${apiUrl}/people/create`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: person
-    });
-    console.log(response)
+    // console.log(jsonBody)
+    if (id > 0) {
+        await createOrUpdateEntity('people/update', jsonBody, 'PUT');
+    } else {
+        await createOrUpdateEntity('people/create', jsonBody, 'POST');
+    }
 }
 
 
