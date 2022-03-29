@@ -1,28 +1,26 @@
 let id
 const fillingSelectPosition = async () => {
-    let positions = await getJSON(`${apiUrl}/position/get`)
-    let select = document.getElementById('selectPositionId')
-    positions.forEach(position => {
-        let option = document.createElement('option')
-        option.value = position.id
-        option.innerHTML = position.positionName
-        select.appendChild(option)
-    })
+    let id = 'entity.id'
+    let text = 'entity.positionName'
+    let classSelect = 'position'
+    fillingSelect('position', id, text, classSelect)
 }
 
+
 const fillingSelectPeople = async () => {
-    let people = await getJSON(`${apiUrl}/people/get`)
-    let select = document.getElementById('selectPeopleId')
-    people.forEach(person => {
-        let option = document.createElement('option')
-        option.value = person.id
-        option.innerHTML = person.surName + ' ' + person.firstName + ' ' + person.patronymic
-        select.appendChild(option)
-    })
+    let id = 'entity.id'
+    let text = 'entity.surName + \' \' + entity.firstName + \' \' + entity.patronymic'
+    let classSelect = 'people'
+    fillingSelect('people', id, text, classSelect)
 }
 
 
 const fillingTableStaffList = async (disable) => {
+
+    let divClear = document.querySelector('.div-table-body')
+    while (divClear.firstChild) {
+        divClear.removeChild(divClear.firstChild);
+    }
     let staffLists
 
     if (disable === 0) {
@@ -58,8 +56,8 @@ const fillingTableStaffList = async (disable) => {
             imgUpdate.onclick = async () => {
                 let staff = await getJSON(`${apiUrl}/stafflist/getbyid?id=${imgUpdate.id}`).then()
                 id = staff.id
-                document.getElementById('selectPeopleId').value = staff.peopleId
-                document.getElementById('selectPositionId').value = staff.positionId
+                $('#selectPeopleId').val(`${staff.peopleId}`).trigger('change')
+                $('#selectPositionId').val(`${staff.positionId}`).trigger('change')
                 document.querySelector('.salary').value = staff.salary
                 document.querySelector('.young-special').checked = staff.youngSpecial
                 document.querySelector('.disabled').checked = staff.disabled
@@ -109,9 +107,9 @@ document.forms.createStaffList.onsubmit = async (event) => {
     }
 }
 
-// document.querySelector('.show-disabled').onclick = async () => {
-//     fillingTableStaffList(1).then()
-// }
+document.querySelector('.show-disabled').onclick = async () => {
+    fillingTableStaffList(1).then()
+}
 
 
 fillingTableStaffList(0).then()

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Штатное расписание</title>
+    <link rel="stylesheet" href="../styles/select2.min.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
@@ -10,10 +11,10 @@
     <div class="div-create">
         <form name="createStaffList" action="#" method="post">
             <div>ФИО</div>
-            <select class="people" id="selectPeopleId" required>
+            <select class="people" id="selectPeopleId" name="people" required>
             </select>
             <div>Должность</div>
-            <select class="position" id="selectPositionId" required>
+            <select class="position" id="selectPositionId" name="position" required>
             </select>
             <div>Оклад</div>
             <input type="text" name="salary" class="salary" autocomplete="off" required>
@@ -27,6 +28,8 @@
         </form>
         <br>
         <button class="calc-percent-salary">Расчитать премиальные</button>
+        <br>
+        <br>
         <button class="show-disabled">Показать отключенных</button>
         <br>
     </div>
@@ -47,6 +50,8 @@
     </div>
 </div>
 </body>
+<script src="../js/jquerymin.js"></script>
+<script src="../js/select2.min.js"></script>
 <script src="../js/functions.js"></script>
 <script src="../js/staff_list.js"></script>
 </html>

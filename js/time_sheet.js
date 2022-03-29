@@ -1,20 +1,31 @@
 //querySelectorAll сохраняется очередность или нет
 
-//Доделать отправку измененных значений из таблицы в цикле в базу возможно есть updateAll метод
 //как сделать по стрелке такое же действие как по tab
 //узнать как вывести одинаковую информацию на разных страницах (например меню)
 //eval чем можно заменить
 let id
-
+let maxDate
 const fillingSelectPeople = async () => {
     let id = 'entity.id'
     let text = 'entity.surName + \' \' + entity.firstName + \' \' + entity.patronymic'
-    let classSelect = 'js-example-basic-single'
+    let classSelect = 'time-sheet'
     fillingSelect('people', id, text, classSelect)
 }
 
-const fillingTableTimeSheet = async () => {
-    let timeSheets = await getJSON(`${apiUrl}/timesheet/get`)
+const fillingTableTimeSheet = async (disable) => {
+    let divClear = document.querySelector('.div-table-body')
+    while (divClear.firstChild) {
+        divClear.removeChild(divClear.firstChild);
+    }
+    let timeSheets
+
+    if (disable === 0) {
+        timeSheets = await getJSON(`${apiUrl}/timesheet/getcurrenttimesheets`)
+    } else if (disable === 1) {
+        timeSheets = await getJSON(`${apiUrl}/timesheet/get`)
+    }
+    // timeSheets = await getJSON(`${apiUrl}/timesheet/getcurrenttimesheets`)
+    maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
     timeSheets.forEach(timeSheet => {
 
         // console.log(timeSheet)
@@ -27,7 +38,12 @@ const fillingTableTimeSheet = async () => {
         div.className = 'div-table-row'
         divFio.className = 'div-table-cell'
         divCalcDate.className = 'div-table-cell div-align-center'
-        divActualDaysWorked.className = 'div-table-cell div-align-center div-edit-day'
+        if (maxDate.calcDate === timeSheet.calcDate) {
+            divActualDaysWorked.className = 'div-table-cell div-align-center div-edit-day'
+        } else {
+            divActualDaysWorked.className = 'div-table-cell div-align-center'
+        }
+
         imgUpdate.className = 'img-update'
 
         divFio.innerHTML = timeSheet.peopleSurAndFirstName
@@ -37,8 +53,7 @@ const fillingTableTimeSheet = async () => {
         imgUpdate.onclick = async () => {
             let staff = await getJSON(`${apiUrl}/timesheet/getbyid?id=${imgUpdate.id}`).then()
             id = staff.id
-            $('#selectPeopleId').val(`${staff.peopleId}`)
-            $('#selectPeopleId').trigger('change');
+            $('#selectPeopleId').val(`${staff.peopleId}`).trigger('change')
             document.querySelector('.actual-days-worked').value = staff.actualDaysWorked
         }
         imgDelete.id = timeSheet.id
@@ -49,11 +64,12 @@ const fillingTableTimeSheet = async () => {
         div.appendChild(divFio)
         div.appendChild(divCalcDate)
         div.appendChild(divActualDaysWorked)
-
+        if (maxDate.calcDate === timeSheet.calcDate) {
+            divUpdate.appendChild(imgUpdate)
+            divDelete.appendChild(imgDelete)
+        }
         div.appendChild(divUpdate)
-        divUpdate.appendChild(imgUpdate)
         div.appendChild(divDelete)
-        divDelete.appendChild(imgDelete)
         document.querySelector('.div-table-body').appendChild(div)
     })
 
@@ -95,15 +111,18 @@ const fillingTableTimeSheet = async () => {
         })
     }
     //симмуляция клика мыши по div
-    let editDayClicks = document.querySelectorAll(".div-edit-day");
-    editDayClicks.forEach(editDayClick => {
-        editDayClick.click()
-    })
+
+    document.querySelector('.select-edit-day').onclick = () => {
+        let editDayClicks = document.querySelectorAll(".div-edit-day");
+        editDayClicks.forEach(editDayClick => {
+            editDayClick.click()
+        })
+    }
 }
 
 document.querySelector('.save-edit-day').onclick = async (event) => {
-    let size = document.querySelectorAll('.div-edit-day');
     let img = document.querySelectorAll('.img-update');
+    let size = document.querySelectorAll('.div-edit-day');
     let jsonDays = []
     let jsonDay
     for (let i = 0; i < size.length; i++) {
@@ -136,5 +155,14 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
     }
 }
 
+document.querySelector('.add-new-time-sheets').onclick = async () => {
+    await fetch(`${apiUrl}/stafflist/calcpercentsalary`)
+    // document.querySelector('.calc-percent-salary').setAttribute('disabled', true)
+}
+
+document.querySelector('.select-all').onclick = async () => {
+    fillingTableTimeSheet(1).then()
+}
+
 fillingSelectPeople().then()
-fillingTableTimeSheet().then()
+fillingTableTimeSheet(0).then()

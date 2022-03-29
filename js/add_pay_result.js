@@ -67,10 +67,8 @@ const fillingTableAddPayResult = async () => {
             imgUpdate.onclick = async () => {
                 let addPayR = await getJSON(`${apiUrl}/addpayresult/getbyid?id=${imgUpdate.id}`).then()
                 id = addPayR.id
-                $('#staffListId').val(`${addPayR.staffListId}`)
-                $('#staffListId').trigger('change');
-                $('#addPayId').val(`${addPayR.addPayId}`)
-                $('#addPayId').trigger('change');
+                $('#staffListId').val(`${addPayR.staffListId}`).trigger('change')
+                $('#addPayId').val(`${addPayR.addPayId}`).trigger('change')
                 document.querySelector('.percent').value = addPayR.percent
             }
             imgDelete.id = addPayResult.id
