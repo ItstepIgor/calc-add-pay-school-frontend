@@ -1,5 +1,5 @@
 let id
-
+let maxDate
 const fillingSelectAddPay = async () => {
     let id = 'entity.id'
     let text = 'entity.addPayCode'
@@ -15,7 +15,7 @@ const fillingSelectStaffList = async () => {
 }
 
 const fillingDivBalance = async () => {
-    let maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
+    maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
     let resultBonusSum = await getJSON(`${apiUrl}/percentsalaryresult/getallsum`)
     let addBonusSum = await getJSON(`${apiUrl}/addpayresult/getallsum`)
     let balance = await getJSON(`${apiUrl}/addpayfund/getcurrentfund?date=${maxDate.calcDate}`)
@@ -34,9 +34,21 @@ const fillingDivBalance = async () => {
     })
 }
 
-const fillingTableAddPayResult = async () => {
-    let addPayResults = await getJSON(`${apiUrl}/addpayresult/get`)
-    // console.log(addPayResults)
+const fillingTableAddPayResult = async (disable) => {
+    let divClear = document.querySelector('.div-table-body')
+    while (divClear.firstChild) {
+        divClear.removeChild(divClear.firstChild);
+    }
+    let addPayResults
+
+    if (disable === 0) {
+        addPayResults = await getJSON(`${apiUrl}/addpayresult/getformonth`)
+    } else if (disable === 1) {
+        addPayResults = await getJSON(`${apiUrl}/addpayresult/get`)
+    }
+
+    // addPayResults = await getJSON(`${apiUrl}/addpayresult/get`)
+    // console.log(maxDate)
     addPayResults.forEach(addPayResult => {
             // console.log(addPayResult)
             let div = document.createElement('div')
@@ -82,11 +94,12 @@ const fillingTableAddPayResult = async () => {
             div.appendChild(divAddPayCode)
             div.appendChild(divPercent)
             div.appendChild(divSumma)
-
+            if (maxDate.calcDate === addPayResult.calcDate) {
+                divUpdate.appendChild(imgUpdate)
+                divDelete.appendChild(imgDelete)
+            }
             div.appendChild(divUpdate)
-            divUpdate.appendChild(imgUpdate)
             div.appendChild(divDelete)
-            divDelete.appendChild(imgDelete)
             document.querySelector('.div-table-body').appendChild(div)
         }
     )
@@ -121,8 +134,11 @@ document.forms.createAddPayResult.onsubmit = async (event) => {
     }
 }
 
+document.querySelector('.select-all-add-pay-result').onclick = async () => {
+    fillingTableAddPayResult(1).then()
+}
 
 fillingDivBalance().then()
 fillingSelectStaffList().then()
 fillingSelectAddPay().then()
-fillingTableAddPayResult().then()
+fillingTableAddPayResult(0).then()
