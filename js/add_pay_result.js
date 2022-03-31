@@ -23,13 +23,30 @@ const fillingDivBalance = async () => {
     balance.forEach(bal => {
         if (bal.addPayTypes.id === 1) {
             let bonus = document.querySelector('.bonus')
-            bonus.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' + (bal.addPayFunds - resultBonusSum - addBonusSum.bonusSum)
+            if (resultBonusSum === 0) {
+                bonus.innerHTML = 'Премиальные не посчитаны'
+                bonus.style.color = 'red'
+            } else {
+                if ((bal.addPayFunds - resultBonusSum - addBonusSum.bonusSum) < 0) {
+                    bonus.style.color = 'red'
+                }
+                bonus.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' +
+                    (bal.addPayFunds - resultBonusSum - addBonusSum.bonusSum).toFixed(2)
+            }
         } else if (bal.addPayTypes.id === 2) {
             let complication = document.querySelector('.complication')
-            complication.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' + (bal.addPayFunds - addBonusSum.complicationSum)
+            if ((bal.addPayFunds - addBonusSum.complicationSum) < 0) {
+                complication.style.color = 'red'
+            }
+            complication.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' +
+                (bal.addPayFunds - addBonusSum.complicationSum).toFixed(2)
         } else if (bal.addPayTypes.id === 3) {
             let motivation = document.querySelector('.motivation')
-            motivation.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' + (bal.addPayFunds - addBonusSum.motivationSum)
+            if ((bal.addPayFunds - addBonusSum.motivationSum) < 0) {
+                motivation.style.color = 'red'
+            }
+            motivation.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' +
+                (bal.addPayFunds - addBonusSum.motivationSum).toFixed(2)
         }
     })
 }
