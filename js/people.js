@@ -43,9 +43,7 @@ const fillingTablePeople = async () => {
         }
         imgDelete.id = user.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/people/delete?id=${imgDelete.id}`)
-            location.reload()
-            console.log(responseDelete)
+            await deleteEntity('people/delete?id=', imgDelete.id);
         }
         div.appendChild(divFio)
         div.appendChild(divAddress)

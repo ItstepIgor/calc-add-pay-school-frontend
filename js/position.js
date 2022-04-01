@@ -26,9 +26,8 @@ const fillingTablePosition = async () => {
         }
         imgDelete.id = position.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/position/delete?id=${imgDelete.id}`)
-            location.reload()
-            console.log(responseDelete)
+            await deleteEntity('position/delete?id=', imgDelete.id);
+            // location.reload()
         }
         div.appendChild(divPositionName)
         div.appendChild(divSorting)

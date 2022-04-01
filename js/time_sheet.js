@@ -58,8 +58,7 @@ const fillingTableTimeSheet = async (disable) => {
         }
         imgDelete.id = timeSheet.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/timesheet/delete?id=${imgDelete.id}`)
-            location.reload()
+            await deleteEntity('timesheet/delete?id=', imgDelete.id);
         }
         div.appendChild(divFio)
         div.appendChild(divCalcDate)

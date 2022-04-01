@@ -28,6 +28,18 @@ async function createOrUpdateEntity(query, jsonBody, method) {
     });
 }
 
+async function deleteEntity(query, id) {
+    await fetch(`${apiUrl}/${query}${id}`
+    ).then((response) => {
+        if (response.status === 200) {
+            location.reload()
+        }
+        return response.json()
+    }).then(jsonResponse => {
+        alert(jsonResponse.message)
+    });
+}
+
 async function fillingSelect(query, id, text, classSelect) {
     let entities = await getJSON(`${apiUrl}/${query}/get`)
     let jsonsForSelect = []

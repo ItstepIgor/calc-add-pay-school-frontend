@@ -43,8 +43,7 @@ const fillingTableAddPayFund = async () => {
             }
             imgDelete.id = addpayfund.id
             imgDelete.onclick = async () => {
-                let responseDelete = await fetch(`${apiUrl}/addpayfund/delete?id=${imgDelete.id}`)
-                location.reload()
+                await deleteEntity('addpayfund/delete?id=', imgDelete.id);
             }
             div.appendChild(divAddPayTypeName)
             div.appendChild(divNumberOrder)
@@ -53,7 +52,7 @@ const fillingTableAddPayFund = async () => {
 
             if (maxDate.calcDate === addpayfund.calcSettings.calcDate) {
                 divUpdate.appendChild(imgUpdate)
-                divDelete.appendChild(imgDelete)
+                // divDelete.appendChild(imgDelete)
             }
             div.appendChild(divUpdate)
             div.appendChild(divDelete)

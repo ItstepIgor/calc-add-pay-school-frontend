@@ -64,8 +64,7 @@ const fillingTableStaffList = async (disable) => {
             }
             imgDelete.id = staffList.id
             imgDelete.onclick = async () => {
-                let responseDelete = await fetch(`${apiUrl}/stafflist/delete?id=${imgDelete.id}`)
-                location.reload()
+                await deleteEntity('stafflist/delete?id=', imgDelete.id);
             }
             div.appendChild(divFio)
             div.appendChild(divPosition)
@@ -100,11 +99,11 @@ document.forms.createStaffList.onsubmit = async (event) => {
         id: id,
         peopleId: document.getElementById('selectPeopleId').value,
         positionId: document.getElementById('selectPositionId').value,
-        salary: elements.salary.value,
+        salary: elements.salary.value.replace(',', '.'),
         youngSpecial: elements.youngSpecial.checked,
         disabled: elements.disabled.checked
     })
-    // console.log(jsonBody)
+    console.log(jsonBody)
     if (id > 0) {
         await createOrUpdateEntity('stafflist/update', jsonBody, 'PUT');
     } else {

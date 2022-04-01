@@ -29,9 +29,7 @@ const fillingTablePercentSalary = async () => {
         }
         imgDelete.id = percent.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/percentsalary/delete?id=${imgDelete.id}`)
-            location.reload()
-            console.log(responseDelete)
+            await deleteEntity('percentsalary/delete?id=', imgDelete.id);
         }
 
         div.appendChild(divPercentSalaryAll)

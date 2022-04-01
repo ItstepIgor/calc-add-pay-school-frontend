@@ -102,8 +102,7 @@ const fillingTableAddPayResult = async (disable) => {
             }
             imgDelete.id = addPayResult.id
             imgDelete.onclick = async () => {
-                let responseDelete = await fetch(`${apiUrl}/addpayresult/delete?id=${imgDelete.id}`)
-                location.reload()
+                await deleteEntity('addpayresult/delete?id=', imgDelete.id);
             }
             div.appendChild(divFio)
             div.appendChild(divPosition)

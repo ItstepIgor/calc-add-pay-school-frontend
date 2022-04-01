@@ -30,9 +30,7 @@ const fillingTableBasicNorms = async () => {
         }
         imgDelete.id = basicNorm.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/basicnorms/delete?id=${imgDelete.id}`)
-            location.reload()
-            console.log(responseDelete)
+            await deleteEntity('basicnorms/delete?id=', imgDelete.id);
         }
 
         div.appendChild(divBasicNormName)

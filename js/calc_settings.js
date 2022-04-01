@@ -25,9 +25,7 @@ const fillingTableCalcSettings = async () => {
         }
         imgDelete.id = calcSetting.id
         imgDelete.onclick = async () => {
-            let responseDelete = await fetch(`${apiUrl}/calcsetting/delete?id=${imgDelete.id}`)
-            location.reload()
-            console.log(responseDelete)
+            await deleteEntity('calcsetting/delete?id=', imgDelete.id);
         }
         div.appendChild(divCalcDate)
         div.appendChild(divWorkingDays)

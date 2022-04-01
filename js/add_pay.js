@@ -46,8 +46,7 @@ const fillingTableAddPay = async () => {
             }
             imgDelete.id = addpay.id
             imgDelete.onclick = async () => {
-                let responseDelete = await fetch(`${apiUrl}/addpay/delete?id=${imgDelete.id}`)
-                location.reload()
+                await deleteEntity('addpay/delete?id=', imgDelete.id);
             }
             div.appendChild(divAddPayTypeName)
             div.appendChild(divAddPayCode)
@@ -69,7 +68,7 @@ document.forms.createAddPay.onsubmit = async (event) => {
     let jsonBody = JSON.stringify({
         id: id,
         addPayTypeId: document.getElementById('selectAddPayTypeId').value,
-        addPayCode: elements.addPayCode.value,
+        addPayCode: elements.addPayCode.value.replaceAll(',', '.'),
         addPayName: elements.addPayName.value,
         maxPercent: elements.maxPercent.value,
         description: elements.description.value
