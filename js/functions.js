@@ -29,7 +29,9 @@ async function createOrUpdateEntity(query, jsonBody, method) {
 }
 
 async function deleteEntity(query, id) {
-    await fetch(`${apiUrl}/${query}${id}`
+    await fetch(`${apiUrl}/${query}${id}`, {
+            method: 'DELETE',
+        }
     ).then((response) => {
         if (response.status === 200) {
             location.reload()
