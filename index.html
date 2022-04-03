@@ -7,10 +7,17 @@
 </head>
 <body>
 <h1>THIS IS LOGIN PAGE</h1>
-<form method="post" action="/authorize">
-    <input type="text" name="username"/>
-    <input type="password" name="password"/>
-    <input type="submit"/>
+<form name="loginForm" method="post">
+    <label for="username">Имя пользователя</label>
+    <input type="text" name="username" id="username" autocomplete="off" required/>
+    <br>
+    <br>
+    <label for="password">Пароль</label>
+    <input type="password" name="password" id="password" autocomplete="off" required/>
+    <br>
+    <br>
+    <button type=" submit">Отправить</button>
 </form>
 </body>
+<script src="/js/login.js"></script>
 </html>

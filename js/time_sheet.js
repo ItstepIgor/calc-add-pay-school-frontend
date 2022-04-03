@@ -135,25 +135,8 @@ document.querySelector('.save-edit-day').onclick = async () => {
             jsonDays.push(jsonDay)
         }
     })
-    //
-    // let img = document.querySelectorAll('.img-update');
-    // let size = document.querySelectorAll('.div-edit-day');
-    // let jsonDays = []
-    // let jsonDay
-    // for (let i = 0; i < size.length; i++) {
-    //     jsonDay = {
-    //         id: img[i].id,
-    //         actualDaysWorked: size[i].innerHTML
-    //     }
-    //     jsonDays.push(jsonDay)
-    // }
-    // console.log(jsonDays)
     jsonDays = JSON.stringify(jsonDays)
-    const response = await fetch(`${apiUrl}/timesheet/updateday`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: jsonDays
-    });
+    await createOrUpdateEntity('timesheet/updateday', jsonDays, 'POST');
 }
 
 document.forms.createTimeSheet.onsubmit = async (event) => {

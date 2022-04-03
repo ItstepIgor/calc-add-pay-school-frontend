@@ -1,0 +1,40 @@
+document.forms.loginForm.onsubmit = event => {
+    let elements = event.target.elements
+    let username = elements.username.value
+    let password = elements.password.value
+    let headers = new Headers()
+    headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
+
+    fetch(` http://localhost:8080/api/login`, {
+        method: 'GET',
+        headers: headers,
+    })
+        .then((response) => {
+            if (response.status === 200) {
+                // console.log(response.status)
+                // alert(response.status)
+                window.location = 'page/main_page.html'
+            }
+            // console.log(response.status)
+            return response.json()
+        }).then(jsonResponse => {
+        // alert(jsonResponse.message)
+    })
+
+    //
+    // .then(response => response.json())
+    // .then(json => console.log(json));
+    event.preventDefault()
+}
+
+// async function createOrUpdateEntity(query, jsonBody, method) {
+//     await fetch(`${apiUrl}/${query}`, {
+//         method: method,
+//         headers: {"Content-Type": "application/json"},
+//         body: jsonBody
+//     }).then((response) => {
+//         return response.json()
+//     }).then(jsonResponse => {
+//         alert(jsonResponse.message)
+//     });
+// }
