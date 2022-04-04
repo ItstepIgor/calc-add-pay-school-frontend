@@ -1,6 +1,9 @@
 const apiUrl = "http://localhost:8080/api"
 const getJSON = async (url) => {
-    let response = await fetch(url)
+    let response = await fetch(url, {
+        method: 'GET',
+        headers: {"Authorization": getAuthCookie()}
+    })
     return response.ok ? response.json() : undefined
 }
 
@@ -19,7 +22,7 @@ function createUpdateAndDeleteElement() {
 async function createOrUpdateEntity(query, jsonBody, method) {
     await fetch(`${apiUrl}/${query}`, {
         method: method,
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json", "Authorization": getAuthCookie()},
         body: jsonBody
     }).then((response) => {
         return response.json()
@@ -31,6 +34,7 @@ async function createOrUpdateEntity(query, jsonBody, method) {
 async function deleteEntity(query, id) {
     await fetch(`${apiUrl}/${query}${id}`, {
             method: 'DELETE',
+            headers: {"Authorization": getAuthCookie()}
         }
     ).then((response) => {
         if (response.status === 200) {
@@ -58,6 +62,19 @@ async function fillingSelect(query, id, text, classSelect) {
     $(`.${classSelect}`).select2({
         data: jsonsForSelect
     });
+}
+
+function getAuthCookie() {
+    var cn = "Authorization=";
+    var idx = document.cookie.indexOf(cn)
+
+    if (idx != -1) {
+        var end = document.cookie.indexOf(";", idx + 1);
+        if (end == -1) end = document.cookie.length;
+        return unescape(document.cookie.substring(idx + cn.length, end));
+    } else {
+        return "";
+    }
 }
 
 /*document.querySelector('.save-edit-day').onclick = () => {

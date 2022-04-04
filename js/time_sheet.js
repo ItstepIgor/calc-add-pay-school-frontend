@@ -155,8 +155,10 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
 }
 
 document.querySelector('.add-new-time-sheets').onclick = async () => {
-    await fetch(`${apiUrl}/stafflist/createalltimesheets`
-    ).then((response) => {
+    await fetch(`${apiUrl}/stafflist/createalltimesheets`, {
+        method: 'GET',
+        headers: {"Authorization": getAuthCookie()}
+    }).then((response) => {
         return response.json()
     }).then(jsonResponse => {
         alert(jsonResponse.message)

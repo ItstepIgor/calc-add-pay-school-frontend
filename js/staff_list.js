@@ -83,8 +83,10 @@ const fillingTableStaffList = async (disable) => {
 
 
 document.querySelector('.calc-percent-salary').onclick = async event => {
-    await fetch(`${apiUrl}/stafflist/calcpercentsalary`
-    ).then((response) => {
+    await fetch(`${apiUrl}/stafflist/calcpercentsalary`, {
+        method: 'GET',
+        headers: {"Authorization": getAuthCookie()}
+    }).then((response) => {
         return response.json()
     }).then(jsonResponse => {
         alert(jsonResponse.message)

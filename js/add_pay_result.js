@@ -121,18 +121,6 @@ const fillingTableAddPayResult = async (disable) => {
     )
 }
 
-async function createOrUpdateEntity1(query, jsonBody, method) {
-    await fetch(`${apiUrl}/${query}`, {
-        method: method,
-        headers: {"Content-Type": "application/json"},
-        body: jsonBody
-    }).then((response) => {
-        return response.json()
-    }).then(jsonResponse => {
-        alert(jsonResponse.message)
-    });
-}
-
 document.forms.createAddPayResult.onsubmit = async (event) => {
 
     let elements = event.target.elements
@@ -144,9 +132,9 @@ document.forms.createAddPayResult.onsubmit = async (event) => {
     })
     // console.log(jsonBody)
     if (id > 0) {
-        await createOrUpdateEntity1('addpayresult/update', jsonBody, 'PUT');
+        await createOrUpdateEntity('addpayresult/update', jsonBody, 'PUT');
     } else {
-        await createOrUpdateEntity1('addpayresult/create', jsonBody, 'POST');
+        await createOrUpdateEntity('addpayresult/create', jsonBody, 'POST');
     }
 }
 

@@ -1,24 +1,18 @@
 document.forms.loginForm.onsubmit = event => {
     let elements = event.target.elements
-    let username = elements.username.value
-    let password = elements.password.value
-    let headers = new Headers()
-    headers.set('Authorization', 'Basic ' + btoa(username + ":" + password));
+    document.cookie = "Authorization=" + 'Basic ' + btoa(elements.username.value + ":" + elements.password.value);
 
     fetch(` http://localhost:8080/api/login`, {
         method: 'GET',
-        headers: headers,
+        headers: {"Authorization": getAuthCookie()}
     })
         .then((response) => {
             if (response.status === 200) {
-                // console.log(response.status)
-                // alert(response.status)
                 window.location = 'page/main_page.html'
             }
-            // console.log(response.status)
             return response.json()
         }).then(jsonResponse => {
-        // alert(jsonResponse.message)
+        alert(jsonResponse.message)
     })
 
     //
