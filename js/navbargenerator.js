@@ -30,6 +30,7 @@ function includeHTML() {
     }
     document.querySelector('.exit').onclick = () => {
         deleteCookie("Authorization")
+        window.location = '../index.html'
     }
 }
 
