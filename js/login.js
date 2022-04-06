@@ -15,20 +15,7 @@ document.forms.loginForm.onsubmit = event => {
         alert(jsonResponse.message)
     })
 
-    //
     // .then(response => response.json())
     // .then(json => console.log(json));
     event.preventDefault()
 }
-
-// async function createOrUpdateEntity(query, jsonBody, method) {
-//     await fetch(`${apiUrl}/${query}`, {
-//         method: method,
-//         headers: {"Content-Type": "application/json"},
-//         body: jsonBody
-//     }).then((response) => {
-//         return response.json()
-//     }).then(jsonResponse => {
-//         alert(jsonResponse.message)
-//     });
-// }

@@ -1,10 +1,40 @@
 const apiUrl = "http://localhost:8080/api"
 const getJSON = async (url) => {
-    let response = await fetch(url, {
+    let jsonResponse
+    await fetch(url, {
         method: 'GET',
         headers: {"Authorization": getAuthCookie()}
-    })
-    return response.ok ? response.json() : undefined
+    }).then(CheckError)
+        .then((response) => {
+            jsonResponse = response
+        }).catch((error) => {
+            console.log(error);
+        })
+    return jsonResponse
+}
+
+async function createOrUpdateEntity(query, jsonBody, method) {
+    await fetch(`${apiUrl}/${query}`, {
+        method: method,
+        headers: {"Content-Type": "application/json", "Authorization": getAuthCookie()},
+        body: jsonBody
+    }).then(CheckError)
+        .then((jsonResponse) => {
+        }).catch((error) => {
+        });
+}
+
+async function deleteEntity(query, id) {
+    await fetch(`${apiUrl}/${query}${id}`, {
+            method: 'DELETE',
+            headers: {"Authorization": getAuthCookie()}
+        }
+    ).then(CheckError)
+        .then((jsonResponse) => {
+            location.reload()
+        }).catch((error) => {
+        });
+    location.reload()
 }
 
 function createUpdateAndDeleteElement() {
@@ -19,31 +49,18 @@ function createUpdateAndDeleteElement() {
     return {divUpdate, imgUpdate, divDelete, imgDelete};
 }
 
-async function createOrUpdateEntity(query, jsonBody, method) {
-    await fetch(`${apiUrl}/${query}`, {
-        method: method,
-        headers: {"Content-Type": "application/json", "Authorization": getAuthCookie()},
-        body: jsonBody
-    }).then((response) => {
-        return response.json()
-    }).then(jsonResponse => {
+async function CheckError(response) {
+    if (response.status >= 200 && response.status <= 299) {
+        return await response.json();
+    } else if (response.status === 400) {
+        let jsonResponse = await response.json()
         alert(jsonResponse.message)
-    });
-}
-
-async function deleteEntity(query, id) {
-    await fetch(`${apiUrl}/${query}${id}`, {
-            method: 'DELETE',
-            headers: {"Authorization": getAuthCookie()}
-        }
-    ).then((response) => {
-        if (response.status === 200) {
-            location.reload()
-        }
-        return response.json()
-    }).then(jsonResponse => {
-        alert(jsonResponse.message)
-    });
+    } else if (response.status === 401 || response.status === 403) {
+        alert("Необходимо ввести логин и пароль")
+        window.location = '../index.html'
+    } else {
+        throw Error(response.statusText);
+    }
 }
 
 async function fillingSelect(query, id, text, classSelect) {
@@ -53,9 +70,7 @@ async function fillingSelect(query, id, text, classSelect) {
     entities.forEach(entity => {
         jsonForSelect = {
             id: eval(id),
-            // id: new Function(id),
             text: eval(text)
-            // text: new Function(text)
         }
         jsonsForSelect.push(jsonForSelect)
     })
@@ -77,19 +92,8 @@ function getAuthCookie() {
     }
 }
 
-/*document.querySelector('.save-edit-day').onclick = () => {
-    saveEditDay()
-}*/
-
-//кнопки на листе time_sheet
-// document.querySelector('.select-all').onclick = event => {
-//     fillingTableTimeSheet().then()
-//     document.querySelector('.select-all').setAttribute('disabled', true)
-// }
-// document.querySelector('.div-edit-day').onclick = event => {
-//     editWorkDate()
-// }
-
-// document.querySelector('.save-edit-day').onclick = () => {
-//     console.log('Проверка')
-// }
+function deleteCookie(name) {
+        document.cookie = name + "=" +
+            (";path=/calc-add-pay-school-frontend")+
+            ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+}

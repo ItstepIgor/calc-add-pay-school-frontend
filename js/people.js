@@ -2,9 +2,7 @@ let id
 
 const fillingTablePeople = async () => {
     let users = await getJSON(`${apiUrl}/people/get`)
-    console.log(users)
     users.forEach(user => {
-        console.log(user)
         let div = document.createElement('div')
         let divFio = document.createElement('div')
         let divAddress = document.createElement('div')
@@ -69,7 +67,6 @@ document.forms.createPerson.onsubmit = async (event) => {
         phoneNumber: elements.phoneNumber.value,
         personnelNumber: elements.personnelNumber.value
     })
-    // console.log(jsonBody)
     if (id > 0) {
         await createOrUpdateEntity('people/update', jsonBody, 'PUT');
     } else {

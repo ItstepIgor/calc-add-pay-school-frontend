@@ -28,9 +28,7 @@ const fillingTableStaffList = async (disable) => {
     } else if (disable === 1) {
         staffLists = await getJSON(`${apiUrl}/stafflist/getwhodidnotwork`)
     }
-    // console.log(staffLists)
     staffLists.forEach(staffList => {
-            // console.log(staffList)
             let div = document.createElement('div')
             let divFio = document.createElement('div')
             let divPosition = document.createElement('div')
@@ -83,14 +81,7 @@ const fillingTableStaffList = async (disable) => {
 
 
 document.querySelector('.calc-percent-salary').onclick = async event => {
-    await fetch(`${apiUrl}/stafflist/calcpercentsalary`, {
-        method: 'GET',
-        headers: {"Authorization": getAuthCookie()}
-    }).then((response) => {
-        return response.json()
-    }).then(jsonResponse => {
-        alert(jsonResponse.message)
-    });
+    await getJSON(`${apiUrl}/stafflist/calcpercentsalary`)
     document.querySelector('.calc-percent-salary').setAttribute('disabled', true)
 }
 
@@ -105,7 +96,6 @@ document.forms.createStaffList.onsubmit = async (event) => {
         youngSpecial: elements.youngSpecial.checked,
         disabled: elements.disabled.checked
     })
-    console.log(jsonBody)
     if (id > 0) {
         await createOrUpdateEntity('stafflist/update', jsonBody, 'PUT');
     } else {

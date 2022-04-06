@@ -1,8 +1,4 @@
-//querySelectorAll сохраняется очередность или нет
-
 //как сделать по стрелке такое же действие как по tab
-//узнать как вывести одинаковую информацию на разных страницах (например меню)
-//eval чем можно заменить
 let id
 let maxDate
 const fillingSelectPeople = async () => {
@@ -24,11 +20,9 @@ const fillingTableTimeSheet = async (disable) => {
     } else if (disable === 1) {
         timeSheets = await getJSON(`${apiUrl}/timesheet/get`)
     }
-    // timeSheets = await getJSON(`${apiUrl}/timesheet/getcurrenttimesheets`)
     maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
     timeSheets.forEach(timeSheet => {
 
-        // console.log(timeSheet)
         let div = document.createElement('div')
         let divFio = document.createElement('div')
         let divCalcDate = document.createElement('div')
@@ -146,7 +140,6 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
         peopleId: document.getElementById('selectPeopleId').value,
         actualDaysWorked: elements.actualDaysWorked.value,
     })
-    // console.log(jsonBody)
     if (id > 0) {
         await createOrUpdateEntity('timesheet/update', jsonBody, 'PUT');
     } else {
@@ -155,15 +148,8 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
 }
 
 document.querySelector('.add-new-time-sheets').onclick = async () => {
-    await fetch(`${apiUrl}/stafflist/createalltimesheets`, {
-        method: 'GET',
-        headers: {"Authorization": getAuthCookie()}
-    }).then((response) => {
-        return response.json()
-    }).then(jsonResponse => {
-        alert(jsonResponse.message)
-    });
-
+    await getJSON(`${apiUrl}/stafflist/createalltimesheets`)
+    location.reload()
     // document.querySelector('.calc-percent-salary').setAttribute('disabled', true)
 }
 
