@@ -44,9 +44,9 @@ const fillingTableUsers = async () => {
                 document.querySelector('.password').value = userUpdate.password
             }
             imgDelete.id = user.id
-            // imgDelete.onclick = async () => {
-            //     await deleteEntity('stafflist/delete?id=', imgDelete.id);
-            // }
+            imgDelete.onclick = async () => {
+                await deleteEntity('users/delete?id=', imgDelete.id);
+            }
             div.appendChild(divFio)
             div.appendChild(divRole)
             div.appendChild(divLogin)
@@ -65,15 +65,15 @@ document.forms.createUserList.onsubmit = async (event) => {
     let jsonBody = JSON.stringify({
         id: id,
         peopleId: document.getElementById('selectPeopleId').value,
-        positionId: document.getElementById('selectPositionId').value,
-        salary: elements.salary.value.replace(',', '.'),
-        youngSpecial: elements.youngSpecial.checked,
-        disabled: elements.disabled.checked
+        role: document.getElementById('selectRoleId').value,
+        login: elements.login.value,
+        password: elements.password.value,
     })
+    console.log(jsonBody)
     if (id > 0) {
-        await createOrUpdateEntity('stafflist/update', jsonBody, 'PUT');
+        await createOrUpdateEntity('users/update', jsonBody, 'PUT');
     } else {
-        await createOrUpdateEntity('stafflist/create', jsonBody, 'POST');
+        await createOrUpdateEntity('users/create', jsonBody, 'POST');
     }
 }
 
