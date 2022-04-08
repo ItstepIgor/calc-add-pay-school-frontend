@@ -1,8 +1,7 @@
 let id
-let maxDate
 const fillingSelectAddPay = async () => {
     let id = 'entity.id'
-    let text = 'entity.addPayCode'
+    let text = 'entity.addPayCode + \' || \' + entity.addPayTypeName'
     let classSelect = 'add-pay'
     fillingSelect('addpay', id, text, classSelect)
 }
@@ -15,43 +14,33 @@ const fillingSelectStaffList = async () => {
 }
 
 const fillingDivBalance = async () => {
-    maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
     let resultBonusSum = await getJSON(`${apiUrl}/percentsalaryresult/getallsum`)
     let addBonusSum = await getJSON(`${apiUrl}/addpayresult/getallsum`)
-    let balance = await getJSON(`${apiUrl}/addpayfund/getcurrentfund?date=${maxDate.calcDate}`)
-    // console.log(balance)
-    balance.forEach(bal => {
-        if (bal.addPayTypes.id === 1) {
-            let bonus = document.querySelector('.bonus')
-            if (resultBonusSum === 0) {
-                bonus.innerHTML = 'Премиальные не посчитаны'
-                bonus.style.color = 'red'
-            } else {
-                if ((bal.addPayFunds - resultBonusSum - addBonusSum.bonusSum) < 0) {
-                    bonus.style.color = 'red'
-                }
-                bonus.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' +
-                    (bal.addPayFunds - resultBonusSum - addBonusSum.bonusSum).toFixed(2)
-            }
-        } else if (bal.addPayTypes.id === 2) {
-            let complication = document.querySelector('.complication')
-            if ((bal.addPayFunds - addBonusSum.complicationSum) < 0) {
-                complication.style.color = 'red'
-            }
-            complication.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' +
-                (bal.addPayFunds - addBonusSum.complicationSum).toFixed(2)
-        } else if (bal.addPayTypes.id === 3) {
-            let motivation = document.querySelector('.motivation')
-            if ((bal.addPayFunds - addBonusSum.motivationSum) < 0) {
-                motivation.style.color = 'red'
-            }
-            motivation.innerHTML = 'Остаток ' + bal.addPayTypes.addPayTypeName + ': ' +
-                (bal.addPayFunds - addBonusSum.motivationSum).toFixed(2)
+
+    let bonus = document.querySelector('.bonus')
+    if (resultBonusSum === 0) {
+        bonus.innerHTML = 'Премиальные не посчитаны'
+        bonus.style.color = 'red'
+    } else {
+        if ((addBonusSum.bonusSum) < 0) {
+            bonus.style.color = 'red'
         }
-    })
+        bonus.innerHTML = 'Остаток ' + addBonusSum.bonusName + ': ' + addBonusSum.bonusSum
+    }
+    let complication = document.querySelector('.complication')
+    if (addBonusSum.complicationSum < 0) {
+        complication.style.color = 'red'
+    }
+    complication.innerHTML = 'Остаток ' + addBonusSum.complicationName + ': ' + addBonusSum.complicationSum
+    let motivation = document.querySelector('.motivation')
+    if (addBonusSum.motivationSum < 0) {
+        motivation.style.color = 'red'
+    }
+    motivation.innerHTML = 'Остаток ' + addBonusSum.motivationName + ': ' + addBonusSum.motivationSum
 }
 
 const fillingTableAddPayResult = async (disable) => {
+    let maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
     let divClear = document.querySelector('.div-table-body')
     while (divClear.firstChild) {
         divClear.removeChild(divClear.firstChild);
@@ -124,17 +113,26 @@ const fillingTableAddPayResult = async (disable) => {
 document.forms.createAddPayResult.onsubmit = async (event) => {
 
     let elements = event.target.elements
+    let percent
+    let save
+    if (elements.balance.checked === true) {
+        percent = 0
+        save = 'addpayresult/savebalance'
+    } else {
+        percent = elements.percent.value
+        save = 'addpayresult/create'
+    }
     let jsonBody = JSON.stringify({
         id: id,
         staffListId: document.getElementById('staffListId').value,
         addPayId: document.getElementById('addPayId').value,
-        percent: elements.percent.value
+        percent: percent
     })
     // console.log(jsonBody)
     if (id > 0) {
         await createOrUpdateEntity('addpayresult/update', jsonBody, 'PUT');
     } else {
-        await createOrUpdateEntity('addpayresult/create', jsonBody, 'POST');
+        await createOrUpdateEntity(save, jsonBody, 'POST');
     }
 }
 
