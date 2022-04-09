@@ -13,6 +13,7 @@ const getJSON = async (url) => {
     return jsonResponse
 }
 
+
 async function createOrUpdateEntity(query, jsonBody, method) {
     await fetch(`${apiUrl}/${query}`, {
         method: method,
@@ -93,7 +94,26 @@ function getAuthCookie() {
 }
 
 function deleteCookie(name) {
-        document.cookie = name + "=" +
-            (";path=/calc-add-pay-school-frontend")+
-            ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    document.cookie = name + "=" +
+        (";path=/calc-add-pay-school-frontend") +
+        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+}
+
+function hiddenAll() {
+    let role = 'ADMIN'
+    // let role = 'SECRETARY'
+    if (role === 'HR' || role === 'SECRETARY') {
+        let addClass = document.querySelectorAll('.admin')
+        addClass.forEach(addClas => {
+                addClas.remove()
+            }
+        )
+    }
+    if (role === 'SECRETARY') {
+        let addClassHr = document.querySelectorAll('.hr')
+        addClassHr.forEach(addClasHr => {
+                addClasHr.remove()
+            }
+        )
+    }
 }

@@ -32,6 +32,8 @@ function includeHTML() {
         deleteCookie("Authorization")
         window.location = '../index.html'
     }
+
+    hiddenAll()
 }
 
 includeHTML()
