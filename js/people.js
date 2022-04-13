@@ -1,7 +1,7 @@
 let id
 
 const fillingTablePeople = async () => {
-    let users = await getJSON(`${apiUrl}/people/get`)
+    let users = await getJSON(`${apiUrl}/hr/people/get`)
     users.forEach(user => {
         let div = document.createElement('div')
         let divFio = document.createElement('div')
@@ -26,7 +26,7 @@ const fillingTablePeople = async () => {
         }
         imgUpdate.id = user.id
         imgUpdate.onclick = async () => {
-            let person = await getJSON(`${apiUrl}/people/getbyid?id=${imgUpdate.id}`).then()
+            let person = await getJSON(`${apiUrl}/hr/people/getbyid?id=${imgUpdate.id}`).then()
             id = person.id
             document.querySelector('.sur-name').value = person.surName
             document.querySelector('.first-name').value = person.firstName
@@ -41,7 +41,7 @@ const fillingTablePeople = async () => {
         }
         imgDelete.id = user.id
         imgDelete.onclick = async () => {
-            await deleteEntity('people/delete?id=', imgDelete.id);
+            await deleteEntity('hr/people/delete?id=', imgDelete.id);
         }
         div.appendChild(divFio)
         div.appendChild(divAddress)
@@ -68,9 +68,9 @@ document.forms.createPerson.onsubmit = async (event) => {
         personnelNumber: elements.personnelNumber.value
     })
     if (id > 0) {
-        await createOrUpdateEntity('people/update', jsonBody, 'PUT');
+        await createOrUpdateEntity('hr/people/update', jsonBody, 'PUT');
     } else {
-        await createOrUpdateEntity('people/create', jsonBody, 'POST');
+        await createOrUpdateEntity('hr/people/create', jsonBody, 'POST');
     }
 }
 

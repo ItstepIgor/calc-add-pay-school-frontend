@@ -3,7 +3,7 @@ const fillingSelectPosition = async () => {
     let id = 'entity.id'
     let text = 'entity.positionName'
     let classSelect = 'position'
-    fillingSelect('position', id, text, classSelect)
+    fillingSelect('hr/position', id, text, classSelect)
 }
 
 
@@ -11,7 +11,7 @@ const fillingSelectPeople = async () => {
     let id = 'entity.id'
     let text = 'entity.surName + \' \' + entity.firstName + \' \' + entity.patronymic'
     let classSelect = 'people'
-    fillingSelect('people', id, text, classSelect)
+    fillingSelect('hr/people', id, text, classSelect)
 }
 
 
@@ -24,9 +24,9 @@ const fillingTableStaffList = async (disable) => {
     let staffLists
 
     if (disable === 0) {
-        staffLists = await getJSON(`${apiUrl}/stafflist/getwhoworked`)
+        staffLists = await getJSON(`${apiUrl}/hr/stafflist/getwhoworked`)
     } else if (disable === 1) {
-        staffLists = await getJSON(`${apiUrl}/stafflist/getwhodidnotwork`)
+        staffLists = await getJSON(`${apiUrl}/hr/stafflist/getwhodidnotwork`)
     }
     staffLists.forEach(staffList => {
             let div = document.createElement('div')
@@ -52,7 +52,7 @@ const fillingTableStaffList = async (disable) => {
             divDisabled.innerHTML = (staffList.disabled === true ? 'Да' : 'Нет')
             imgUpdate.id = staffList.id
             imgUpdate.onclick = async () => {
-                let staff = await getJSON(`${apiUrl}/stafflist/getbyid?id=${imgUpdate.id}`).then()
+                let staff = await getJSON(`${apiUrl}/hr/stafflist/getbyid?id=${imgUpdate.id}`).then()
                 id = staff.id
                 $('#selectPeopleId').val(`${staff.peopleId}`).trigger('change')
                 $('#selectPositionId').val(`${staff.positionId}`).trigger('change')
@@ -62,7 +62,7 @@ const fillingTableStaffList = async (disable) => {
             }
             imgDelete.id = staffList.id
             imgDelete.onclick = async () => {
-                await deleteEntity('stafflist/delete?id=', imgDelete.id);
+                await deleteEntity('hr/stafflist/delete?id=', imgDelete.id);
             }
             div.appendChild(divFio)
             div.appendChild(divPosition)
@@ -81,7 +81,7 @@ const fillingTableStaffList = async (disable) => {
 
 
 document.querySelector('.calc-percent-salary').onclick = async event => {
-    await getJSON(`${apiUrl}/stafflist/calcpercentsalary`)
+    await getJSON(`${apiUrl}/hr/stafflist/calcpercentsalary`)
     document.querySelector('.calc-percent-salary').setAttribute('disabled', true)
 }
 
@@ -97,9 +97,9 @@ document.forms.createStaffList.onsubmit = async (event) => {
         disabled: elements.disabled.checked
     })
     if (id > 0) {
-        await createOrUpdateEntity('stafflist/update', jsonBody, 'PUT');
+        await createOrUpdateEntity('hr/stafflist/update', jsonBody, 'PUT');
     } else {
-        await createOrUpdateEntity('stafflist/create', jsonBody, 'POST');
+        await createOrUpdateEntity('hr/stafflist/create', jsonBody, 'POST');
     }
 }
 

@@ -99,16 +99,8 @@ function deleteCookie(name) {
         ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
 }
 
-function hiddenAll() {
-    let role = 'ADMIN'
-    // let role = 'SECRETARY'
-    if (role === 'HR' || role === 'SECRETARY') {
-        let addClass = document.querySelectorAll('.admin')
-        addClass.forEach(addClas => {
-                addClas.remove()
-            }
-        )
-    }
+async function hiddenAll() {
+    let role = await getJSON(`${apiUrl}/role/get`)
     if (role === 'SECRETARY') {
         let addClassHr = document.querySelectorAll('.hr')
         addClassHr.forEach(addClasHr => {
@@ -116,4 +108,12 @@ function hiddenAll() {
             }
         )
     }
+    if (role === 'HR' || role === 'SECRETARY') {
+        let addClass = document.querySelectorAll('.admin')
+        addClass.forEach(addClas => {
+                addClas.remove()
+            }
+        )
+    }
+
 }

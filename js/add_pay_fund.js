@@ -13,7 +13,7 @@ const fillingSelectAddPayType = async () => {
 
 const fillingTableAddPayFund = async () => {
     let addpayfunds = await getJSON(`${apiUrl}/addpayfund/get`)
-    let maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
+    let maxDate = await getJSON(`${apiUrl}/hr/calcsetting/getmaxdate`)
     addpayfunds.forEach(addpayfund => {
             let div = document.createElement('div')
             let divAddPayTypeName = document.createElement('div')

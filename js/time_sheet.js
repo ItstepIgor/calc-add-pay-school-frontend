@@ -5,7 +5,7 @@ const fillingSelectPeople = async () => {
     let id = 'entity.id'
     let text = 'entity.surName + \' \' + entity.firstName + \' \' + entity.patronymic'
     let classSelect = 'time-sheet'
-    fillingSelect('people', id, text, classSelect)
+    fillingSelect('hr/people', id, text, classSelect)
 }
 
 const fillingTableTimeSheet = async (disable) => {
@@ -16,11 +16,11 @@ const fillingTableTimeSheet = async (disable) => {
     let timeSheets
 
     if (disable === 0) {
-        timeSheets = await getJSON(`${apiUrl}/timesheet/getcurrenttimesheets`)
+        timeSheets = await getJSON(`${apiUrl}/hr/timesheet/getcurrenttimesheets`)
     } else if (disable === 1) {
-        timeSheets = await getJSON(`${apiUrl}/timesheet/get`)
+        timeSheets = await getJSON(`${apiUrl}/hr/timesheet/get`)
     }
-    maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
+    maxDate = await getJSON(`${apiUrl}/hr/calcsetting/getmaxdate`)
     timeSheets.forEach(timeSheet => {
 
         let div = document.createElement('div')
@@ -45,14 +45,14 @@ const fillingTableTimeSheet = async (disable) => {
         divActualDaysWorked.innerHTML = timeSheet.actualDaysWorked
         imgUpdate.id = timeSheet.id
         imgUpdate.onclick = async () => {
-            let staff = await getJSON(`${apiUrl}/timesheet/getbyid?id=${imgUpdate.id}`).then()
+            let staff = await getJSON(`${apiUrl}/hr/timesheet/getbyid?id=${imgUpdate.id}`).then()
             id = staff.id
             $('#selectPeopleId').val(`${staff.peopleId}`).trigger('change')
             document.querySelector('.actual-days-worked').value = staff.actualDaysWorked
         }
         imgDelete.id = timeSheet.id
         imgDelete.onclick = async () => {
-            await deleteEntity('timesheet/delete?id=', imgDelete.id);
+            await deleteEntity('hr/timesheet/delete?id=', imgDelete.id);
         }
         div.appendChild(divFio)
         div.appendChild(divCalcDate)
@@ -130,7 +130,7 @@ document.querySelector('.save-edit-day').onclick = async () => {
         }
     })
     jsonDays = JSON.stringify(jsonDays)
-    await createOrUpdateEntity('timesheet/updateday', jsonDays, 'POST');
+    await createOrUpdateEntity('hr/timesheet/updateday', jsonDays, 'POST');
 }
 
 document.forms.createTimeSheet.onsubmit = async (event) => {
@@ -141,14 +141,14 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
         actualDaysWorked: elements.actualDaysWorked.value,
     })
     if (id > 0) {
-        await createOrUpdateEntity('timesheet/update', jsonBody, 'PUT');
+        await createOrUpdateEntity('hr/timesheet/update', jsonBody, 'PUT');
     } else {
-        await createOrUpdateEntity('timesheet/create', jsonBody, 'POST');
+        await createOrUpdateEntity('hr/timesheet/create', jsonBody, 'POST');
     }
 }
 
 document.querySelector('.add-new-time-sheets').onclick = async () => {
-    await getJSON(`${apiUrl}/stafflist/createalltimesheets`)
+    await getJSON(`${apiUrl}/hr/stafflist/createalltimesheets`)
     location.reload()
     // document.querySelector('.calc-percent-salary').setAttribute('disabled', true)
 }

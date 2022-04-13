@@ -1,8 +1,8 @@
 let id
 let maxDate
 const fillingTableCalcSettings = async () => {
-    let calcSettings = await getJSON(`${apiUrl}/calcsetting/get`)
-    maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
+    let calcSettings = await getJSON(`${apiUrl}/hr/calcsetting/get`)
+    maxDate = await getJSON(`${apiUrl}/hr/calcsetting/getmaxdate`)
     calcSettings.forEach(calcSetting => {
         let div = document.createElement('div')
         let divCalcDate = document.createElement('div')
@@ -18,14 +18,14 @@ const fillingTableCalcSettings = async () => {
         divWorkingDays.innerHTML = calcSetting.workingDays
         imgUpdate.id = calcSetting.id
         imgUpdate.onclick = async () => {
-            let calc = await getJSON(`${apiUrl}/calcsetting/getbyid?id=${imgUpdate.id}`).then()
+            let calc = await getJSON(`${apiUrl}/hr/calcsetting/getbyid?id=${imgUpdate.id}`).then()
             id = calc.id
             document.querySelector('.calc-date').value = calc.calcDate
             document.querySelector('.working-days').value = calc.workingDays
         }
         imgDelete.id = calcSetting.id
         imgDelete.onclick = async () => {
-            await deleteEntity('calcsetting/delete?id=', imgDelete.id);
+            await deleteEntity('hr/calcsetting/delete?id=', imgDelete.id);
         }
         div.appendChild(divCalcDate)
         div.appendChild(divWorkingDays)
@@ -53,9 +53,9 @@ document.forms.createCalcSettings.onsubmit = async (event) => {
         })
         // console.log(jsonBody)
         if (id > 0) {
-            await createOrUpdateEntity('calcsetting/update', jsonBody, 'PUT');
+            await createOrUpdateEntity('hr/calcsetting/update', jsonBody, 'PUT');
         } else {
-            await createOrUpdateEntity('calcsetting/create', jsonBody, 'POST');
+            await createOrUpdateEntity('hr/calcsetting/create', jsonBody, 'POST');
         }
     }
 }

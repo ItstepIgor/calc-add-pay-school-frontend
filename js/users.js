@@ -13,7 +13,7 @@ const fillingSelectPeople = async () => {
     let id = 'entity.id'
     let text = 'entity.surName + \' \' + entity.firstName + \' \' + entity.patronymic'
     let classSelect = 'people'
-    fillingSelect('people', id, text, classSelect)
+    fillingSelect('hr/people', id, text, classSelect)
 }
 
 const fillingTableUsers = async () => {

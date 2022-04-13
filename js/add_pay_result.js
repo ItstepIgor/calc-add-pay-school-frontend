@@ -10,7 +10,7 @@ const fillingSelectStaffList = async () => {
     let id = 'entity.id'
     let text = 'entity.peopleSurAndFirstName + \' || \' + entity.positionName'
     let classSelect = 'staff-list-people'
-    fillingSelect('stafflist', id, text, classSelect)
+    fillingSelect('hr/stafflist', id, text, classSelect)
 }
 
 const fillingDivBalance = async () => {
@@ -40,7 +40,7 @@ const fillingDivBalance = async () => {
 }
 
 const fillingTableAddPayResult = async (disable) => {
-    let maxDate = await getJSON(`${apiUrl}/calcsetting/getmaxdate`)
+    let maxDate = await getJSON(`${apiUrl}/hr/calcsetting/getmaxdate`)
     let divClear = document.querySelector('.div-table-body')
     while (divClear.firstChild) {
         divClear.removeChild(divClear.firstChild);

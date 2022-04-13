@@ -1,27 +1,5 @@
 let id
 
-// const fillingSelectAddPay = async () => {
-//     let addPays = await getJSON(`${apiUrl}/addpay/get`)
-//     let select = document.getElementById('addPayId')
-//     addPays.forEach(addPay => {
-//         let option = document.createElement('option')
-//         option.value = addPay.id
-//         option.innerHTML = addPay.addPayCode
-//         select.appendChild(option)
-//     })
-// }
-//
-// const fillingSelectStaffList = async () => {
-//     let staffLists = await getJSON(`${apiUrl}/stafflist/get`)
-//     let select = document.getElementById('staffListId')
-//     staffLists.forEach(staffList => {
-//         let option = document.createElement('option')
-//         option.value = staffList.id
-//         option.innerHTML = staffList.peopleSurAndFirstName + ' ' + staffList.positionName
-//         select.appendChild(option)
-//     })
-// }
-
 const fillingTablePercentSalaryResult = async () => {
     let PercentSalaryResults = await getJSON(`${apiUrl}/percentsalaryresult/get`)
     // console.log(addPayResults)
@@ -79,25 +57,4 @@ const fillingTablePercentSalaryResult = async () => {
         }
     )
 }
-
-
-// document.forms.createAddPayResult.onsubmit = async (event) => {
-//     let elements = event.target.elements
-//     let result = JSON.stringify({
-//         id: id,
-//         staffListId: document.getElementById('staffListId').value,
-//         addPayId: document.getElementById('addPayId').value,
-//         percent: elements.percent.value
-//     })
-//     console.log(result)
-//     const response = await fetch(`${apiUrl}/addpayresult/create`, {
-//         method: "POST",
-//         headers: {"Content-Type": "application/json"},
-//         body: result
-//     });
-//     console.log(response)
-// }
-
-// fillingSelectStaffList().then()
-// fillingSelectAddPay().then()
 fillingTablePercentSalaryResult().then()

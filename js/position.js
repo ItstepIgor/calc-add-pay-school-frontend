@@ -1,7 +1,7 @@
 let id
 
 const fillingTablePosition = async () => {
-    let positions = await getJSON(`${apiUrl}/position/get`)
+    let positions = await getJSON(`${apiUrl}/hr/position/get`)
     console.log(positions)
     positions.forEach(position => {
         console.log(position)
@@ -19,14 +19,14 @@ const fillingTablePosition = async () => {
         divSorting.innerHTML = position.sorting
         imgUpdate.id = position.id
         imgUpdate.onclick = async () => {
-            let pos = await getJSON(`${apiUrl}/position/getbyid?id=${imgUpdate.id}`).then()
+            let pos = await getJSON(`${apiUrl}/hr/position/getbyid?id=${imgUpdate.id}`).then()
             id = pos.id
             document.querySelector('.position-name').value = pos.positionName
             document.querySelector('.sorting').value = pos.sorting
         }
         imgDelete.id = position.id
         imgDelete.onclick = async () => {
-            await deleteEntity('position/delete?id=', imgDelete.id);
+            await deleteEntity('hr/position/delete?id=', imgDelete.id);
             // location.reload()
         }
         div.appendChild(divPositionName)
@@ -49,9 +49,9 @@ document.forms.createPosition.onsubmit = async (event) => {
     })
     // console.log(jsonBody)
     if (id > 0) {
-        await createOrUpdateEntity('position/update', jsonBody, 'PUT');
+        await createOrUpdateEntity('hr/position/update', jsonBody, 'PUT');
     } else {
-        await createOrUpdateEntity('position/create', jsonBody, 'POST');
+        await createOrUpdateEntity('hr/position/create', jsonBody, 'POST');
     }
 }
 
