@@ -115,5 +115,4 @@ async function hiddenAll() {
             }
         )
     }
-
 }

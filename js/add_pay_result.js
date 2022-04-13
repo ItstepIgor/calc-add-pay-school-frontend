@@ -140,10 +140,6 @@ document.querySelector('.select-all-add-pay-result').onclick = async () => {
     fillingTableAddPayResult(1).then()
 }
 
-document.querySelector('.get-bonus-pdf').onclick = async () => {
-    await getJSON(`${apiUrl}/report/bonus`)
-}
-
 fillingDivBalance().then()
 fillingSelectStaffList().then()
 fillingSelectAddPay().then()

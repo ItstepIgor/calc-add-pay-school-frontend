@@ -33,6 +33,32 @@ function includeHTML() {
         window.location = '../index.html'
     }
 
+
+    const buttonItems = document.querySelectorAll('.bonus-pdf')
+
+    buttonItems.forEach((buttonItem) =>
+        buttonItem.addEventListener('click', (e) => {
+                console.log(e.target.elements)
+                // const link = document.createElement('a')
+                // link.href = `http://localhost:8080/api/s/report/bonus`
+                // link.download = 'bonus.pdf'
+                // document.body.appendChild(link)
+                // link.click()
+                // link.remove()
+            }
+            // e.preventDefault()
+        ))
+
+    // document.querySelectorAll('.bonus-pdf').forEach(bon => bon.click())
+    // {
+    //
+    //
+    //
+    //
+    //
+    //
+    // }
+
     hiddenAll()
 }
 
