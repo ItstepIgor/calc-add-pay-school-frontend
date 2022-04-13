@@ -38,16 +38,27 @@ function includeHTML() {
 
     buttonItems.forEach((buttonItem) =>
         buttonItem.addEventListener('click', (e) => {
-                console.log(e.target.elements)
-                // const link = document.createElement('a')
-                // link.href = `http://localhost:8080/api/s/report/bonus`
-                // link.download = 'bonus.pdf'
-                // document.body.appendChild(link)
-                // link.click()
-                // link.remove()
+                // console.log(e.target.elements)
+                const link = document.createElement('a')
+                link.href = `http://localhost:8080/api/s/report/bonus`
+                link.download = 'bonus.pdf'
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
             }
             // e.preventDefault()
         ))
+
+
+    // function downloadPDF(pdf) {
+    //     const linkSource = `data:application/pdf;base64,${pdf}`;
+    //     const downloadLink = document.createElement("a");
+    //     const fileName = "vct_illustration.pdf";
+    //
+    //     downloadLink.href = linkSource;
+    //     downloadLink.download = fileName;
+    //     downloadLink.click();
+    // }
 
     // document.querySelectorAll('.bonus-pdf').forEach(bon => bon.click())
     // {
