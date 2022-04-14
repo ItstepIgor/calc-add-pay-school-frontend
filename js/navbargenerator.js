@@ -39,24 +39,30 @@ function includeHTML() {
     buttonItems.forEach((buttonItem) =>
         buttonItem.addEventListener('click', (event) => {
                 // console.log(event.target.id)
-                let reportId = event.target.id
-                let downloadElement = document.createElement("a");
+                let addPayTypeId = event.target.id
+                let fileName
+                if (addPayTypeId == 1) {
+                    fileName = 'Премия.pdf'
+                } else if (addPayTypeId == 2) {
+                    fileName = 'Характер труда.pdf'
+                }
+                let downloadElement = document.createElement("a")
                 document.body.appendChild(downloadElement);
-                let file = `http://localhost:8080/api/s/report/bonus?id=${reportId}`;
+                let file = `http://localhost:8080/api/s/report/bonus?id=${addPayTypeId}`
 
                 let headers = new Headers();
-                headers.append('Authorization', getAuthCookie());
+                headers.append('Authorization', getAuthCookie())
 
                 fetch(file, {headers})
                     .then(response => response.blob())
-                    .then(file => {
-                        let objectUrl = window.URL.createObjectURL(file);
+                    .then(fileResponse => {
+                        let objectUrl = window.URL.createObjectURL(fileResponse)
 
-                        downloadElement.href = objectUrl;
-                        downloadElement.download = 'bonus.pdf';
+                        downloadElement.href = objectUrl
+                        downloadElement.download = fileName
                         downloadElement.click();
 
-                        window.URL.revokeObjectURL(objectUrl);
+                        window.URL.revokeObjectURL(objectUrl)
                     });
             }
         ))
