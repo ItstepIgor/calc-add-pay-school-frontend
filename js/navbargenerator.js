@@ -37,17 +37,37 @@ function includeHTML() {
     const buttonItems = document.querySelectorAll('.bonus-pdf')
 
     buttonItems.forEach((buttonItem) =>
-        buttonItem.addEventListener('click', (e) => {
-                // console.log(e.target.elements)
-                const link = document.createElement('a')
-                link.href = `http://localhost:8080/api/s/report/bonus`
-                link.download = 'bonus.pdf'
-                document.body.appendChild(link)
-                link.click()
-                link.remove()
+        buttonItem.addEventListener('click', (event) => {
+                // console.log(event.target.id)
+                let reportId = event.target.id
+                let downloadElement = document.createElement("a");
+                document.body.appendChild(downloadElement);
+                let file = `http://localhost:8080/api/s/report/bonus?id=${reportId}`;
+
+                let headers = new Headers();
+                headers.append('Authorization', getAuthCookie());
+
+                fetch(file, {headers})
+                    .then(response => response.blob())
+                    .then(file => {
+                        let objectUrl = window.URL.createObjectURL(file);
+
+                        downloadElement.href = objectUrl;
+                        downloadElement.download = 'bonus.pdf';
+                        downloadElement.click();
+
+                        window.URL.revokeObjectURL(objectUrl);
+                    });
             }
-            // e.preventDefault()
         ))
+
+
+    // const link = document.createElement('a')
+    // link.href = `http://localhost:8080/api/s/report/bonus`
+    // link.download = 'bonus.pdf'
+    // document.body.appendChild(link)
+    // link.click()
+    // link.remove()
 
 
     // function downloadPDF(pdf) {
