@@ -38,63 +38,37 @@ function includeHTML() {
 
     buttonItems.forEach((buttonItem) =>
         buttonItem.addEventListener('click', (event) => {
-                // console.log(event.target.id)
+
                 let addPayTypeId = event.target.id
                 let fileName
                 if (addPayTypeId == 1) {
                     fileName = 'Премия.pdf'
                 } else if (addPayTypeId == 2) {
                     fileName = 'Характер труда.pdf'
+                } else if (addPayTypeId == 3) {
+                    fileName = 'Стимулирующая надбавка.pdf'
                 }
                 let downloadElement = document.createElement("a")
                 document.body.appendChild(downloadElement);
-                let file = `http://localhost:8080/api/s/report/bonus?id=${addPayTypeId}`
+                let url = `${apiUrl}/s/report/bonus?id=${addPayTypeId}`
 
                 let headers = new Headers();
                 headers.append('Authorization', getAuthCookie())
 
-                fetch(file, {headers})
-                    .then(response => response.blob())
+                fetch(url, {headers})
+                    .then(response => {
+                        return response.blob()
+                    })
                     .then(fileResponse => {
                         let objectUrl = window.URL.createObjectURL(fileResponse)
-
                         downloadElement.href = objectUrl
                         downloadElement.download = fileName
-                        downloadElement.click();
-
+                        downloadElement.click()
                         window.URL.revokeObjectURL(objectUrl)
-                    });
+                    })
+
             }
         ))
-
-
-    // const link = document.createElement('a')
-    // link.href = `http://localhost:8080/api/s/report/bonus`
-    // link.download = 'bonus.pdf'
-    // document.body.appendChild(link)
-    // link.click()
-    // link.remove()
-
-
-    // function downloadPDF(pdf) {
-    //     const linkSource = `data:application/pdf;base64,${pdf}`;
-    //     const downloadLink = document.createElement("a");
-    //     const fileName = "vct_illustration.pdf";
-    //
-    //     downloadLink.href = linkSource;
-    //     downloadLink.download = fileName;
-    //     downloadLink.click();
-    // }
-
-    // document.querySelectorAll('.bonus-pdf').forEach(bon => bon.click())
-    // {
-    //
-    //
-    //
-    //
-    //
-    //
-    // }
 
     hiddenAll()
 }
