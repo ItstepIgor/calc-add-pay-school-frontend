@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="styles/style_menu.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Please sign in</title>
+    <link href="styles/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="styles/signin.css" rel="stylesheet" crossorigin="anonymous"/>
 </head>
 <body>
-<h1>THIS IS LOGIN PAGE</h1>
-<form name="loginForm" method="post">
-    <label for="username">Имя пользователя</label>
-    <input type="text" name="username" id="username" autocomplete="off" required/>
-    <br>
-    <br>
-    <label for="password">Пароль</label>
-    <input type="password" name="password" id="password" autocomplete="off" required/>
-    <br>
-    <br>
-    <button type="submit">Отправить</button>
-</form>
+<div class="container">
+    <form name="loginForm" class="form-signin" method="post" action="/login">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <p>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                   autocomplete="off" required autofocus>
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                   autocomplete="off" required>
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
+    </form>
+</div>
 </body>
 <script src="/js/login.js"></script>
 <script src="/js/functions.js"></script>

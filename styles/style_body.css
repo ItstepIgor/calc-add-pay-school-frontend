@@ -1,10 +1,12 @@
-body{
+body {
     display: flex;
     flex-direction: column;
 }
-.menu{
+
+.menu {
     display: block;
 }
+
 .container {
     display: flex;
     align-items: flex-start;
@@ -49,6 +51,15 @@ img {
     width: 15px;
     margin-left: 45%;
 }
+.emblem{
+    height: 300px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    /*position: absolute;*/
+    top:10px;
+    z-index:-1;
+}
 
 select {
     width: 250px;
@@ -75,4 +86,21 @@ select {
 .div-table-body {
     display: table-row-group;
     width: 100%;
+}
+
+.calc-date, .count-staff {
+    margin-left: 50px;
+}
+
+.calc-date, .count-staff {
+    font-size: 25px;
+}
+
+.header-menu {
+    text-align: center;
+}
+
+.menu {
+    margin-left: auto;
+    margin-right: auto;
 }
