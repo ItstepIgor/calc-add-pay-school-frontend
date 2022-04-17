@@ -51,14 +51,14 @@ img {
     width: 15px;
     margin-left: 45%;
 }
-.emblem{
+
+.emblem {
     height: 300px;
     width: 300px;
     margin-left: auto;
     margin-right: auto;
-    /*position: absolute;*/
-    top:10px;
-    z-index:-1;
+    margin-top: -40px;
+    z-index: -1;
 }
 
 select {
