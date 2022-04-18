@@ -94,6 +94,7 @@ select {
 
 .calc-date, .count-staff {
     font-size: 25px;
+    color: white;
 }
 
 .header-menu {
