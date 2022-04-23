@@ -20,7 +20,7 @@ const fillingTableCalcSettings = async () => {
         imgUpdate.onclick = async () => {
             let calc = await getJSON(`${apiUrl}/hr/calcsetting/getbyid?id=${imgUpdate.id}`).then()
             id = calc.id
-            document.querySelector('.calc-date').value = calc.calcDate
+            document.querySelector('.calc-date-page').value = calc.calcDate
             document.querySelector('.working-days').value = calc.workingDays
         }
         imgDelete.id = calcSetting.id

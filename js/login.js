@@ -3,7 +3,7 @@ document.forms.loginForm.onsubmit = event => {
     console.log(elements)
     document.cookie = "Authorization=" + 'Basic ' + btoa(elements.username.value + ":" + elements.password.value);
 
-    fetch(` http://localhost:8080/api/login`, {
+    fetch(`http://localhost:8080/api/login`, {
         method: 'GET',
         headers: {"Authorization": getAuthCookie()}
     })
