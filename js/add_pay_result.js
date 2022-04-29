@@ -119,7 +119,7 @@ document.forms.createAddPayResult.onsubmit = async (event) => {
         percent = 0
         save = 'addpayresult/savebalance'
     } else {
-        percent = elements.percent.value
+        percent = elements.percent.value.replace(',', '.')
         save = 'addpayresult/create'
     }
     let jsonBody = JSON.stringify({

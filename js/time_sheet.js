@@ -148,7 +148,7 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
 }
 
 document.querySelector('.add-new-time-sheets').onclick = async () => {
-    await getJSON(`${apiUrl}/hr/stafflist/createalltimesheets`)
+    await getJSON(`${apiUrl}/hr/timesheet/createalltimesheets`)
     location.reload()
     // document.querySelector('.calc-percent-salary').setAttribute('disabled', true)
 }
