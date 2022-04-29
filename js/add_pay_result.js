@@ -3,14 +3,14 @@ const fillingSelectAddPay = async () => {
     let id = 'entity.id'
     let text = 'entity.addPayCode + \' || \' + entity.addPayTypeName'
     let classSelect = 'add-pay'
-    fillingSelect('addpay', id, text, classSelect)
+    fillingSelect('addpay/get', id, text, classSelect)
 }
 
 const fillingSelectStaffList = async () => {
     let id = 'entity.id'
     let text = 'entity.peopleSurAndFirstName + \' || \' + entity.positionName'
     let classSelect = 'staff-list-people'
-    fillingSelect('hr/stafflist', id, text, classSelect)
+    fillingSelect('hr/stafflist/get', id, text, classSelect)
 }
 
 const fillingDivBalance = async () => {

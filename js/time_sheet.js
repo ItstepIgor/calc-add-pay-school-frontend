@@ -3,9 +3,9 @@ let id
 let maxDate
 const fillingSelectPeople = async () => {
     let id = 'entity.id'
-    let text = 'entity.surName + \' \' + entity.firstName + \' \' + entity.patronymic'
+    let text = 'entity.peopleSurAndFirstName + \' || \' + entity.positionName'
     let classSelect = 'time-sheet'
-    fillingSelect('hr/people', id, text, classSelect)
+    fillingSelect('hr/stafflist/getwhoworked', id, text, classSelect)
 }
 
 const fillingTableTimeSheet = async (disable) => {
@@ -47,7 +47,7 @@ const fillingTableTimeSheet = async (disable) => {
         imgUpdate.onclick = async () => {
             let staff = await getJSON(`${apiUrl}/hr/timesheet/getbyid?id=${imgUpdate.id}`).then()
             id = staff.id
-            $('#selectPeopleId').val(`${staff.peopleId}`).trigger('change')
+            $('#selectStaffListId').val(`${staff.peopleId}`).trigger('change')
             document.querySelector('.actual-days-worked').value = staff.actualDaysWorked
         }
         imgDelete.id = timeSheet.id
@@ -137,7 +137,7 @@ document.forms.createTimeSheet.onsubmit = async (event) => {
     let elements = event.target.elements
     let jsonBody = JSON.stringify({
         id: id,
-        peopleId: document.getElementById('selectPeopleId').value,
+        peopleId: document.getElementById('selectStaffListId').value,
         actualDaysWorked: elements.actualDaysWorked.value,
     })
     if (id > 0) {

@@ -65,7 +65,7 @@ async function CheckError(response) {
 }
 
 async function fillingSelect(query, id, text, classSelect) {
-    let entities = await getJSON(`${apiUrl}/${query}/get`)
+    let entities = await getJSON(`${apiUrl}/${query}`)
     let jsonsForSelect = []
     let jsonForSelect
     entities.forEach(entity => {

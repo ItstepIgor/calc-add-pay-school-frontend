@@ -3,7 +3,7 @@ const fillingSelectPosition = async () => {
     let id = 'entity.id'
     let text = 'entity.positionName'
     let classSelect = 'position'
-    fillingSelect('hr/position', id, text, classSelect)
+    fillingSelect('hr/position/get', id, text, classSelect)
 }
 
 
@@ -11,7 +11,7 @@ const fillingSelectPeople = async () => {
     let id = 'entity.id'
     let text = 'entity.surName + \' \' + entity.firstName + \' \' + entity.patronymic'
     let classSelect = 'people'
-    fillingSelect('hr/people', id, text, classSelect)
+    fillingSelect('hr/people/get', id, text, classSelect)
 }
 
 
