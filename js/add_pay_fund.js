@@ -18,6 +18,7 @@ const fillingTableAddPayFund = async () => {
             let div = document.createElement('div')
             let divAddPayTypeName = document.createElement('div')
             let divNumberOrder = document.createElement('div')
+            let divNumberOrderTradeUnion = document.createElement('div')
             let divCalcDate = document.createElement('div')
             let divAddPayFund = document.createElement('div')
             let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
@@ -25,11 +26,13 @@ const fillingTableAddPayFund = async () => {
             div.className = 'div-table-row'
             divAddPayTypeName.className = 'div-table-cell'
             divNumberOrder.className = 'div-table-cell'
+            divNumberOrderTradeUnion.className = 'div-table-cell'
             divCalcDate.className = 'div-table-cell div-align-center'
             divAddPayFund.className = 'div-table-cell div-align-center'
 
             divAddPayTypeName.innerHTML = addpayfund.addPayTypes.addPayTypeName
             divNumberOrder.innerHTML = addpayfund.numberOrder
+            divNumberOrderTradeUnion.innerHTML = addpayfund.numberOrderTradeUnion
             divCalcDate.innerHTML = addpayfund.calcSettings.calcDate
             divAddPayFund.innerHTML = addpayfund.addPayFunds
             imgUpdate.id = addpayfund.id
@@ -39,6 +42,7 @@ const fillingTableAddPayFund = async () => {
                 id = addPF.id
                 document.getElementById('selectAddPayTypeId').value = addPF.addPayTypes.id
                 document.querySelector('.number-order').value = addPF.numberOrder
+                document.querySelector('.number-order-trade-union').value = addPF.numberOrderTradeUnion
                 document.querySelector('.add-pay-funds').value = addPF.addPayFunds
             }
             imgDelete.id = addpayfund.id
@@ -47,6 +51,7 @@ const fillingTableAddPayFund = async () => {
             }
             div.appendChild(divAddPayTypeName)
             div.appendChild(divNumberOrder)
+            div.appendChild(divNumberOrderTradeUnion)
             div.appendChild(divCalcDate)
             div.appendChild(divAddPayFund)
 
@@ -67,7 +72,8 @@ document.forms.createAddPayFund.onsubmit = async (event) => {
         id: id,
         addPayTypes: {id: document.getElementById('selectAddPayTypeId').value},
         addPayFunds: elements.addPayFunds.value,
-        numberOrder: elements.numberOrder.value
+        numberOrder: elements.numberOrder.value,
+        numberOrderTradeUnion: elements.numberOrderTradeUnion.value
     })
     // console.log(jsonBody)
     if (id > 0) {

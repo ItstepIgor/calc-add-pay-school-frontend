@@ -7,16 +7,19 @@ const fillingTablePercentSalary = async () => {
         let div = document.createElement('div')
         let divPercentSalaryAll = document.createElement('div')
         let divPercentSalaryForYoungSpecial = document.createElement('div')
+        let divPercentYoungSpecialCode = document.createElement('div')
         let divPercentStartDate = document.createElement('div')
         let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
 
         div.className = 'div-table-row'
         divPercentSalaryAll.className = 'div-table-cell div-align-center'
         divPercentSalaryForYoungSpecial.className = 'div-table-cell div-align-center'
+        divPercentYoungSpecialCode.className = 'div-table-cell div-align-center'
         divPercentStartDate.className = 'div-table-cell div-align-center'
 
         divPercentSalaryAll.innerHTML = percent.percentSalaryAll
         divPercentSalaryForYoungSpecial.innerHTML = percent.percentSalaryForYoungSpecial
+        divPercentYoungSpecialCode.innerHTML = percent.percentYoungSpecialCode
         divPercentStartDate.innerHTML = percent.percentStartDate
 
         imgUpdate.id = percent.id
@@ -25,6 +28,7 @@ const fillingTablePercentSalary = async () => {
             id = basic.id
             document.querySelector('.percent-salary-all').value = basic.percentSalaryAll
             document.querySelector('.percent-salary-for-young-special').value = basic.percentSalaryForYoungSpecial
+            document.querySelector('.percent-young-special-code').value = basic.percentYoungSpecialCode
             document.querySelector('.percent-start-date').value = basic.percentStartDate
         }
         imgDelete.id = percent.id
@@ -34,6 +38,7 @@ const fillingTablePercentSalary = async () => {
 
         div.appendChild(divPercentSalaryAll)
         div.appendChild(divPercentSalaryForYoungSpecial)
+        div.appendChild(divPercentYoungSpecialCode)
         div.appendChild(divPercentStartDate)
         // console.log(calcSetting.calcDate)
         // console.log(maxDate.calcDate)
@@ -53,6 +58,7 @@ document.forms.createPercentSalary.onsubmit = async (event) => {
         id: id,
         percentSalaryAll: elements.percentSalaryAll.value,
         percentSalaryForYoungSpecial: elements.percentSalaryForYoungSpecial.value,
+        percentYoungSpecialCode: elements.percentYoungSpecialCode.value,
         percentStartDate: elements.percentStartDate.value
     })
     // console.log(jsonBody)
