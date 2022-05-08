@@ -25,12 +25,14 @@ const fillingTableTimeSheet = async (disable) => {
 
         let div = document.createElement('div')
         let divFio = document.createElement('div')
+        let divPosition = document.createElement('div')
         let divCalcDate = document.createElement('div')
         let divActualDaysWorked = document.createElement('div')
         let {divUpdate, imgUpdate, divDelete, imgDelete} = createUpdateAndDeleteElement();
 
         div.className = 'div-table-row'
         divFio.className = 'div-table-cell'
+        divPosition.className = 'div-table-cell'
         divCalcDate.className = 'div-table-cell div-align-center'
         if (maxDate.calcDate === timeSheet.calcDate) {
             divActualDaysWorked.className = 'div-table-cell div-align-center div-edit-day'
@@ -41,6 +43,7 @@ const fillingTableTimeSheet = async (disable) => {
         imgUpdate.className = 'img-update'
 
         divFio.innerHTML = timeSheet.peopleSurAndFirstName
+        divPosition.innerHTML = timeSheet.positionName
         divCalcDate.innerHTML = timeSheet.calcDate
         divActualDaysWorked.innerHTML = timeSheet.actualDaysWorked
         imgUpdate.id = timeSheet.id
@@ -55,6 +58,7 @@ const fillingTableTimeSheet = async (disable) => {
             await deleteEntity('hr/timesheet/delete?id=', imgDelete.id);
         }
         div.appendChild(divFio)
+        div.appendChild(divPosition)
         div.appendChild(divCalcDate)
         div.appendChild(divActualDaysWorked)
         if (maxDate.calcDate === timeSheet.calcDate) {
